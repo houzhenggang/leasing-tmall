@@ -9,7 +9,7 @@
 
     <context:component-scan base-package="com.hshc.relay"/>
 
-    <context:property-placeholder location="jdbc.properties"/>
+    <context:property-placeholder location="classpath:jdbc.properties"/>
 
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="url" value="${jdbc.url}"/>
@@ -20,7 +20,7 @@
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="configLocation" value="mybatis.xml"/>
+        <property name="configLocation" value="classpath:mybatis.xml"/>
         <property name="mapperLocations" value="classpath:mappers/**/*.xml"/>
     </bean>
 

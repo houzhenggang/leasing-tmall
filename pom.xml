@@ -57,6 +57,11 @@
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
         </dependency>
@@ -170,7 +175,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.4</version>
+            <version>1.2.31</version>
         </dependency>
         <!--util end-->
 
@@ -190,11 +195,7 @@
             <artifactId>commons-logging</artifactId>
             <version>1.1.3</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>3.2.8.RELEASE</version>
-        </dependency>
+
         <!--logger end-->
     </dependencies>
     <build>
