@@ -29,7 +29,7 @@
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.jiezh.zeus"/>
+        <property name="basePackage" value="com.hshc.relay.dao"/>
         <property name="annotationClass" value="org.springframework.stereotype.Repository"/>
     </bean>
 
