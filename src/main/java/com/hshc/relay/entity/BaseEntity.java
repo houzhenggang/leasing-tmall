@@ -1,0 +1,61 @@
+package com.hshc.relay.entity;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+/**
+ * @author 钟林俊
+ * @version V1.0 2017-05-01 15:36
+ */
+public class BaseEntity implements Serializable{
+
+    private Integer id;
+
+    private Timestamp createTime;
+
+    private Timestamp modifyTime;
+
+    private User creator;
+
+    private User modifier;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
+    }
+
+    public Timestamp getModifyTime() {
+        return modifyTime;
+    }
+
+    public void setModifyTime(Timestamp modifyTime) {
+        this.modifyTime = modifyTime;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public User getModifier() {
+        return modifier;
+    }
+
+    public void setModifier(User modifier) {
+        this.modifier = modifier;
+    }
+}

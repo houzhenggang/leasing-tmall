@@ -28,6 +28,7 @@ public abstract class BaseController
     public String errorResponse(Exception e, HttpServletResponse response) {
         logger.error("", e);
         response.setStatus(SC_FORBIDDEN);
+        response.setHeader("Content-Type", "application/json; charset=UTF-8");
         BaseResponseVo responseVo = new BaseResponseVo();
         responseVo.setCode("400");
         String message = "请求失败,请稍后重试";

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.hshc.relay.dao.UserDao">
+
+
+    <sql id="columns">
+        u.id, u.name, u.password, u.id_number, u.mobile, u.creator_id, u.create_time
+    </sql>
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.hshc.relay.entity.User">
+        insert into t_user(id, name, password, id_number, mobile, creator_id, create_time)
+        values(#{id}, #{name}, #{password}, #{idNumber}, #{mobile}, #{creator.id}, NOW())
+    </insert>
+
+    <select id="selectOne" parameterType="com.hshc.relay.entity.User" resultType="com.hshc.relay.entity.User">
+        select <include refid="columns"/>
+        from t_user u
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.hshc.relay.entity.User">
+        update t_user
+        set modify_time = now(),
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile},
+            </if>
+            <if test="idNumber != null">
+                id_number = #{idNumber},
+            </if>
+            modifier_id = #{modifier.id}
+        where id = #{id}
+    </update>
+
+    <update id="delete" parameterType="com.hshc.relay.entity.User">
+        update t_user
+        set is_del = 1
+        where id = #{id}
+    </update>
+
+</mapper>
