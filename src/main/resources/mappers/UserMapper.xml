@@ -5,7 +5,7 @@
 
 
     <sql id="columns">
-        u.id, u.name, u.password, u.id_number, u.mobile, u.creator_id, u.create_time
+        u.id, u.name, u.password, u.id_number, u.mobile, u.create_time, u.is_del
     </sql>
 
     <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.hshc.relay.entity.User">
@@ -14,7 +14,7 @@
     </insert>
 
     <select id="selectOne" parameterType="com.hshc.relay.entity.User" resultType="com.hshc.relay.entity.User">
-        select <include refid="columns"/>
+        select <include refid="columns"/>, u.creator_id "creator.id", u.modifier_id "modifier.id"
         from t_user u
         where id = #{id}
     </select>
