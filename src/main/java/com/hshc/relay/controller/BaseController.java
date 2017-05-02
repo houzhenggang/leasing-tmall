@@ -25,10 +25,8 @@ public abstract class BaseController
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public String errorResponse(Exception e, HttpServletResponse response) {
+    public ResponseEntity<String> errorResponse(Exception e) {
         logger.error("", e);
-        response.setStatus(SC_FORBIDDEN);
-        response.setHeader("Content-Type", "application/json; charset=UTF-8");
         BaseResponseVo responseVo = new BaseResponseVo();
         responseVo.setCode("400");
         String message = "请求失败,请稍后重试";
@@ -41,7 +39,10 @@ public abstract class BaseController
             }
         }
         responseVo.setMessage(message);
-        return JSON.toJSONStringWithDateFormat(responseVo, "yyyy-MM-dd HH:mm:ss", SerializerFeature.DisableCircularReferenceDetect);
+        String json = JSON.toJSONStringWithDateFormat(responseVo, "yyyy-MM-dd HH:mm:ss", SerializerFeature.DisableCircularReferenceDetect);
+        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+        headers.add("Content-Type", "application/json; charset=UTF-8");
+        return new ResponseEntity<>(json, headers, HttpStatus.BAD_REQUEST);
     }
 
     protected ResponseEntity<String> response(Object resp) {
