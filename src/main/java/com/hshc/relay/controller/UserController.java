@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.validation.Valid;
+
 /**
  * @author 钟林俊
  * @version V1.0 2017-05-01 15:34
@@ -22,7 +24,7 @@ public class UserController extends BaseController {
     private UserService userService;
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public ResponseEntity<String> addUser(User user){
+    public ResponseEntity<String> addUser(@Valid User user){
         userService.add(user);
         BaseResponseVo responseVo = new BaseResponseVo();
         responseVo.setCode("200");

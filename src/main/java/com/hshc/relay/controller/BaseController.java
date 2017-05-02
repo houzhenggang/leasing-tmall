@@ -11,8 +11,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,9 +32,22 @@ public abstract class BaseController
     public ResponseEntity<String> errorResponse(Exception e) {
         logger.error("", e);
         BaseResponseVo responseVo = new BaseResponseVo();
-        responseVo.setCode("400");
+        String code = "400";
         String message = "请求失败,请稍后重试";
-        if (e instanceof BaseException) {
+        if(e instanceof MethodArgumentTypeMismatchException){
+            code = "409";
+            message = "非法参数：" + e.getMessage();
+        }else if(e instanceof BindException){
+            BindException bindException = (BindException) e;
+            BindingResult bindingResult = bindException.getBindingResult();
+            if(bindingResult.hasErrors()){
+                message = "验证失败：";
+                for(FieldError fieldError : bindingResult.getFieldErrors()){
+                    message += fieldError.getDefaultMessage() + " ";
+                }
+            }
+            code = "412";
+        } else if (e instanceof BaseException) {
             BaseException baseException = (BaseException) e;
             responseVo.setCode(baseException.getCode());
             message = e.getMessage();
@@ -38,6 +55,7 @@ public abstract class BaseController
                 responseVo.setAttrs(baseException.getAttrs());
             }
         }
+        responseVo.setCode(code);
         responseVo.setMessage(message);
         String json = JSON.toJSONStringWithDateFormat(responseVo, "yyyy-MM-dd HH:mm:ss", SerializerFeature.DisableCircularReferenceDetect);
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
