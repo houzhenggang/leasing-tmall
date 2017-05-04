@@ -17,6 +17,13 @@
 	</bean>
 
 	<mvc:default-servlet-handler/>
-	<mvc:annotation-driven validator="validator"/>
-	
+	<mvc:annotation-driven validator="validator">
+		<mvc:message-converters>
+			<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4">
+				<property name="supportedMediaTypes" value="application/json;charset=utf-8"/>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+
 </beans>
