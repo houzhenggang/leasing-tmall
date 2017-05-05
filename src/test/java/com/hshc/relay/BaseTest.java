@@ -15,6 +15,6 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         TransactionDbUnitTestExecutionListener.class })
-public class BaseTest {
+public abstract class BaseTest {
 
 }
