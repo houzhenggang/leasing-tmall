@@ -13,6 +13,10 @@
 
     <bean id="log4jFiler" class="com.alibaba.druid.filter.logging.Log4jFilter">
         <property name="statementExecutableSqlLogEnable" value="true"/>
+        <property name="statementParameterClearLogEnable" value="false"/>
+        <property name="statementParameterSetLogEnabled" value="false"/>
+        <property name="statementPrepareCallAfterLogEnabled" value="false"/>
+        <property name="statementCloseAfterLogEnabled" value="false"/>
         <property name="statementPrepareAfterLogEnabled" value="false"/>
         <property name="statementExecuteAfterLogEnabled" value="false"/>
         <property name="statementCreateAfterLogEnabled" value="false"/>
