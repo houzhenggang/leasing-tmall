@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.hshc.relay.dao.AuthorizedSessionDao">
+
+    <sql id="columns">
+        tas.id, tas.access_token, tas.token_type, tas.expires_in, tas.refresh_token,
+        tas.re_expires_in, tas.r1_expires_in, tas.r2_expires_in, tas.w1_expires_in, tas.w2_expires_in,
+        tas.taobao_user_nick, tas.taobao_user_id, tas.sub_taobao_user_id, tas.sub_taobao_user_nick,
+        tas.create_time, tas.expire_time, tas.w2_valid, tas.w1_valid, tas.r2_valid, tas.r1_valid, tas.refresh_token_valid_time
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.hshc.relay.entity.AuthorizedSession">
+        insert into tmall_authorized_session(id, access_token, token_type, expires_in, refresh_token, re_expires_in,
+            r1_expires_in, r2_expires_in, w1_expires_in, w2_expires_in, taobao_user_nick, taobao_user_id,
+            sub_taobao_user_id, sub_taobao_user_nick, expire_time, w2_valid, w1_valid, r2_valid,
+            r1_valid, refresh_token_valid_time)
+        values (#{id}, #{accessToken}, #{tokenType}, #{expiresIn}, #{refreshToken}, #{reExpiresIn}, #{r1ExpiresIn},
+            #{r2ExpiresIn}, #{w1ExpiresIn}, #{w2ExpiresIn}, #{taobaoUserNick}, #{taobaoUserId}, #{subTaobaoUserId},
+            #{subTaobaoUserNick}, #{expireTime}, #{w2Valid}, #{w1Valid}, #{r2Valid}, #{r1Valid}, #{refreshTokenValidTime})
+    </insert>
+
+    <select id="selectOne" parameterType="com.hshc.relay.entity.AuthorizedSession" resultType="com.hshc.relay.entity.AuthorizedSession">
+        select <include refid="columns"/>
+        from tmall_authorized_session tas
+        where taobao_user_nick = #{taobaoUserNick}
+    </select>
+
+</mapper>

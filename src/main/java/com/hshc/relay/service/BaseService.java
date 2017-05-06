@@ -11,7 +11,7 @@ import java.util.List;
 public abstract class BaseService<T>{
 
     @Autowired
-    private BaseDao<T> baseDao;
+    protected BaseDao<T> baseDao;
 
     @Transactional(readOnly = true)
     public T getOne(T t){

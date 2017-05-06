@@ -9,8 +9,6 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public abstract class BaseController
 {
-    private static final Logger logger = LoggerFactory.getLogger(BaseController.class);
+    protected static final Logger logger = LoggerFactory.getLogger(BaseController.class);
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
@@ -49,13 +47,6 @@ public abstract class BaseController
         responseVo.setCode(code);
         responseVo.setMessage(message);
         return responseVo;
-    }
-
-    @RequestMapping("/session-auth")
-    @ResponseBody
-    public BaseResponseVo retrieveCode(@RequestParam(name = "code", required = true) String code){
-        logger.info("code: " + code);
-        return new BaseResponseVo();
     }
 
 }
