@@ -9,21 +9,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * 发布后端商品
- * @author 王华英
- * @version V1.0 2017年5月6日16:54:25
+ * 创建IC商品与后端商品的映射关系
+ * @author  王华英
+ * @version  V1.0 2017年5月6日17:14:48
  */
 @Controller
-public class ReleaseGoodsController {
-    private static Logger LOGGER = LoggerFactory.getLogger(ReleaseGoodsController.class);
+public class AssociatedController {
+    private static Logger LOGGER= LoggerFactory.getLogger(AssociatedController.class);
 
-    @RequestMapping("/lease-releaseGoods")
+    @RequestMapping("lease-associat")
     @ResponseBody
-    public BaseQimenResponseVo addReleaseGoods(@RequestParam("item_name")String itemName ,@RequestParam("outer_code")String outerCode ){
-        LOGGER.info("itemName:"+itemName);
-        LOGGER.info("outerCode:"+outerCode);
+    public BaseQimenResponseVo addAssociated(@RequestParam("item_id")Integer itemId ){
+        LOGGER.info("itemId:"+itemId);
         return new BaseQimenResponseVo("查询成功");
     }
-
 
 }
