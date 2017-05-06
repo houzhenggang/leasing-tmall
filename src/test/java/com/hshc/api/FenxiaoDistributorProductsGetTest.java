@@ -1,4 +1,4 @@
-package com.hshc.api.tmall;
+package com.hshc.api;
 
 import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
@@ -6,13 +6,15 @@ import com.taobao.api.TaobaoClient;
 import com.taobao.api.internal.util.StringUtils;
 import com.taobao.api.request.FenxiaoDistributorProductsGetRequest;
 import com.taobao.api.response.FenxiaoDistributorProductsGetResponse;
+import org.junit.Test;
 
 /**
- * Created by wanghuaying on 2017/5/5.
+ * Created by wanghuaying on 2017/5/6.
  */
-public class FenxiaoDistributorProductsGet {
+public class FenxiaoDistributorProductsGetTest extends BaseTest{
 
-    public static void test() {
+    @Test
+    public void testGetData(){
         String url = "http://gw.api.tbsandbox.com/router/rest";
         String appkey = "23795481";
         String secret = "2757dd39ca8bda28fdf14f3bafac622d";
