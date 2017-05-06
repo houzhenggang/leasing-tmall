@@ -1,4 +1,4 @@
-package com.hshc.api.tmall;
+package com.hshc.relay.controller.tmall;
 
 import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
