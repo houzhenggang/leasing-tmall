@@ -1,4 +1,4 @@
-package com.hshc.api.vo;
+package com.hshc.relay.vo;
 
 /**
  * @author 钟林俊

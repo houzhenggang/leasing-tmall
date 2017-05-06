@@ -1,4 +1,4 @@
-package com.hshc.api.erp;
+package com.hshc.relay.controller.tmall;
 
 /**
  * Created by wanghuaying on 2017/5/5.

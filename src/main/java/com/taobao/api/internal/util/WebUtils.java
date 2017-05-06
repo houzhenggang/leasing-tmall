@@ -144,7 +144,7 @@ public abstract class WebUtils {
 	 * 执行带文件上传的HTTP POST请求。
 	 * 
 	 * @param url 请求地址
-	 * @param textParams 文本请求参数
+	 * @param params 文本请求参数
 	 * @param fileParams 文件请求参数
 	 * @return 响应字符串
 	 */
@@ -164,7 +164,7 @@ public abstract class WebUtils {
 	 * 执行带文件上传的HTTP POST请求。
 	 * 
 	 * @param url 请求地址
-	 * @param textParams 文本请求参数
+	 * @param params 文本请求参数
 	 * @param fileParams 文件请求参数
 	 * @param charset 字符集，如UTF-8, GBK, GB2312
 	 * @param headerMap 需要传递的header头，可以为空
@@ -427,7 +427,7 @@ public abstract class WebUtils {
 			StringBuilder response = new StringBuilder();
 
 			final char[] buff = new char[1024];
-			int read = 0;
+			int read;
 			while ((read = reader.read(buff)) > 0) {
 				response.append(buff, 0, read);
 			}
@@ -527,13 +527,13 @@ public abstract class WebUtils {
 	 * @return 参数映射
 	 */
 	public static Map<String, String> splitUrlQuery(String query) {
-		Map<String, String> result = new HashMap<String, String>();
+		Map<String, String> result = new HashMap<>();
 
 		String[] pairs = query.split("&");
-		if (pairs != null && pairs.length > 0) {
+		if (pairs.length > 0) {
 			for (String pair : pairs) {
 				String[] param = pair.split("=", 2);
-				if (param != null && param.length == 2) {
+				if (param.length == 2) {
 					result.put(param[0], param[1]);
 				}
 			}
