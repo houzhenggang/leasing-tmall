@@ -15,6 +15,8 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author 钟林俊
@@ -49,7 +51,10 @@ public class QimenSignInterceptor extends HandlerInterceptorAdapter {
             qimenCloudResponse.setFlag("failure");
             qimenCloudResponse.setSubCode("sign-check-failure");
             qimenCloudResponse.setSubMessage("Illegal request");
-            response.getWriter().write(JSON.toJSONString(qimenCloudResponse));
+
+            Map<String, Object> ret = new HashMap<>();
+            ret.put("response", qimenCloudResponse);
+            response.getWriter().write(JSON.toJSONString(ret));
 
             return false;
         }
