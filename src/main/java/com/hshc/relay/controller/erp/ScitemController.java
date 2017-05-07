@@ -1,5 +1,6 @@
 package com.hshc.relay.controller.erp;
 
+import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.vo.BaseQimenResponseVo;
 import org.slf4j.Logger;
@@ -20,9 +21,12 @@ public class ScitemController extends BaseController{
 
     @RequestMapping("/lease-scitem")
     @ResponseBody
+    @QimenSignAuthentication
     public BaseQimenResponseVo addScitem(@RequestParam("item_name")String itemName ,@RequestParam("outer_code")String outerCode ){
         LOGGER.info("itemName:"+itemName);
         LOGGER.info("outerCode:"+outerCode);
+        //业务逻辑
+        //处理
         return new BaseQimenResponseVo("发布后端商品,查询成功");
     }
 
