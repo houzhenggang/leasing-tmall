@@ -54,6 +54,7 @@ public class QimenSignInterceptor extends HandlerInterceptorAdapter {
 
             Map<String, Object> ret = new HashMap<>();
             ret.put("response", qimenCloudResponse);
+            response.setContentType("application/json;charset=utf-8");
             response.getWriter().write(JSON.toJSONString(ret));
 
             return false;
