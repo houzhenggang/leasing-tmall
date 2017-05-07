@@ -1,5 +1,6 @@
 package com.qimencloud.api;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.taobao.api.internal.mapping.ApiField;
 
 import java.io.Serializable;
@@ -21,9 +22,11 @@ public class QimenCloudResponse implements Serializable {
 	private String message;
 	
 	@ApiField("sub_code")
+	@JSONField(name = "sub_code")
 	private String subCode;
 
 	@ApiField("sub_message")
+	@JSONField(name = "sub_message")
 	private String subMessage;
 
 	/**
