@@ -23,6 +23,8 @@ public class BaseEntity implements Serializable{
 
     private User modifier;
 
+    private Integer version;
+
     public Integer getId() {
         return id;
     }
@@ -61,5 +63,13 @@ public class BaseEntity implements Serializable{
 
     public void setModifier(User modifier) {
         this.modifier = modifier;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }
