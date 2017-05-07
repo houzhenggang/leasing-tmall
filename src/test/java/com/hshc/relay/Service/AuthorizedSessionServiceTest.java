@@ -18,8 +18,8 @@ public class AuthorizedSessionServiceTest extends BaseTest {
 
     @Test
     public void testGetAuthorizedSession(){
-//        String userName = "sandbox_taobao1234";
-        String userName = "xx";
+        String userName = "sandbox_taobao1234";
+//        String userName = "xx";
 
         AuthorizedSession authorizedSession = authorizedSessionService.getAuthorizedSession(userName);
 
