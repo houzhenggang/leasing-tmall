@@ -26,4 +26,68 @@
         where taobao_user_nick = #{taobaoUserNick}
     </select>
 
+    <update id="update" parameterType="com.hshc.relay.entity.AuthorizedSession">
+        update tmall_authorized_session
+        <set>
+            <if test="accessToken != null">
+                access_token = #{accessToken},
+            </if>
+            <if test="tokenType != null">
+                token_type = #{tokenType},
+            </if>
+            <if test="expiresIn != null">
+                expires_in = #{expiresIn},
+            </if>
+            <if test="refreshToken != null">
+                refresh_token = #{refreshToken},
+            </if>
+            <if test="reExpiresIn != null">
+                re_expires_in = #{reExpiresIn},
+            </if>
+            <if test="r1ExpiresIn != null">
+                r1_expires_in = #{r1ExpiresIn},
+            </if>
+            <if test="r2ExpiresIn != null">
+                r2_expires_in = #{r2ExpiresIn},
+            </if>
+            <if test="w1ExpiresIn != null">
+                w1_expires_in = #{w1ExpiresIn},
+            </if>
+            <if test="w2ExpiresIn != null">
+                w2_expires_in = #{w2ExpiresIn},
+            </if>
+            <if test="taobaoUserNick != null">
+                taobao_user_nick = #{taobaoUserNick},
+            </if>
+            <if test="taobaoUserId != null">
+                taobao_user_id = #{taobaoUserId},
+            </if>
+            <if test="subTaobaoUserId != null">
+                sub_taobao_user_id = #{subTaobaoUserId},
+            </if>
+            <if test="subTaobaoUserNick != null">
+                sub_taobao_user_nick = #{subTaobaoUserNick},
+            </if>
+            <if test="expireTime != null">
+                expire_time = #{expireTime},
+            </if>
+            <if test="w2Valid != null">
+                w2_valid = #{w2Valid},
+            </if>
+            <if test="w1Valid != null">
+                w1_valid = #{w1Valid},
+            </if>
+            <if test="r2Valid != null">
+                r2_valid = #{r2Valid},
+            </if>
+            <if test="r1Valid != null">
+                r1_valid = #{r1Valid},
+            </if>
+            <if test="refreshTokenValidTime != null">
+                refresh_token_valid_time = #{refreshTokenValidTime},
+            </if>
+        </set>
+        where taobao_user_nick = #{taobaoUserNick}
+    </update>
+
 </mapper>

@@ -222,7 +222,7 @@
             </activation>
             <build>
                 <filters>
-                    <filter>src/main/resources/jdbc-dev.properties</filter>
+                    <filter>src/main/resources/lt-dev.properties</filter>
                 </filters>
             </build>
         </profile>
@@ -234,7 +234,7 @@
             </properties>
             <build>
                 <filters>
-                    <filter>src/main/resources/jdbc-pro.properties</filter>
+                    <filter>src/main/resources/lt-pro.properties</filter>
                 </filters>
             </build>
         </profile>
@@ -246,7 +246,7 @@
             </properties>
             <build>
                 <filters>
-                    <filter>src/main/resources/jdbc-sandbox.properties</filter>
+                    <filter>src/main/resources/lt-sandbox.properties</filter>
                 </filters>
             </build>
         </profile>
