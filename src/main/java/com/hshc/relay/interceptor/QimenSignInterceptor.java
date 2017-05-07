@@ -52,10 +52,10 @@ public class QimenSignInterceptor extends HandlerInterceptorAdapter {
             qimenCloudResponse.setSubCode("sign-check-failure");
             qimenCloudResponse.setSubMessage("Illegal request");
 
-            Map<String, Object> ret = new HashMap<>();
-            ret.put("response", qimenCloudResponse);
+//            Map<String, Object> ret = new HashMap<>();
+//            ret.put("response", qimenCloudResponse);
             response.setContentType("application/json;charset=utf-8");
-            response.getWriter().write(JSON.toJSONString(ret));
+            response.getWriter().write(JSON.toJSONString(qimenCloudResponse));
 
             return false;
         }
