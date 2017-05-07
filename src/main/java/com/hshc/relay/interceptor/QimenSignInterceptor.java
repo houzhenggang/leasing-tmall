@@ -3,6 +3,7 @@ package com.hshc.relay.interceptor;
 import com.alibaba.fastjson.JSON;
 import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.entity.AuthorizedSession;
+import com.hshc.relay.exception.InvalidQimenSignException;
 import com.hshc.relay.service.AuthorizedSessionService;
 import com.qimencloud.api.QimenCloudResponse;
 import com.taobao.api.internal.spi.SpiUtils;
@@ -37,17 +38,19 @@ public class QimenSignInterceptor extends HandlerInterceptorAdapter {
                 if (annotation != null) {
                     String clientSecret = authorizedSessionService.getClientSecret();
                     if(!SpiUtils.checkSign(request, clientSecret).isSuccess()){
-                        QimenCloudResponse qimenCloudResponse = new QimenCloudResponse();
-                        qimenCloudResponse.setFlag("failure");
-                        qimenCloudResponse.setSubCode("sign-check-failure");
-                        qimenCloudResponse.setSubMessage("Illegal request");
-                        response.getWriter().write(JSON.toJSONString(qimenCloudResponse));
-                        return false;
+                        throw new InvalidQimenSignException();
                     }
                 }
             }
         }catch (Exception e){
             LOGGER.error("", e);
+
+            QimenCloudResponse qimenCloudResponse = new QimenCloudResponse();
+            qimenCloudResponse.setFlag("failure");
+            qimenCloudResponse.setSubCode("sign-check-failure");
+            qimenCloudResponse.setSubMessage("Illegal request");
+            response.getWriter().write(JSON.toJSONString(qimenCloudResponse));
+
             return false;
         }
 
