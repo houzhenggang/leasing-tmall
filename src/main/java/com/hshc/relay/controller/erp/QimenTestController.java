@@ -1,5 +1,6 @@
 package com.hshc.relay.controller.erp;
 
+import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.vo.BaseQimenResponseVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ public class QimenTestController {
 
     @RequestMapping("/lease-plans")
     @ResponseBody
+    @QimenSignAuthentication
     public BaseQimenResponseVo syncLeasePlans(@RequestParam("item_id") Integer itemId, @RequestParam("plans") String plans){
         LOGGER.info("itemId:" + itemId);
         LOGGER.info("plans:" + plans);
