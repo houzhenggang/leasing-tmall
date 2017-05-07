@@ -1,6 +1,7 @@
 package com.hshc.relay.controller.erp;
 
 
+import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.vo.BaseQimenResponseVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @version  v1.0 2017年5月6日14:50:49
  */
 @Controller
-public class InventoryController {
+public class InventoryController extends BaseController {
 
     private static final Logger LOGGER= LoggerFactory.getLogger(InventoryController.class);
     /**
@@ -25,7 +26,7 @@ public class InventoryController {
     @ResponseBody
     public BaseQimenResponseVo queryInventory(@RequestParam("sc_item_ids")String scItemIds){
         LOGGER.info("scItemIds:"+scItemIds);
-        return new BaseQimenResponseVo("查询成功");
+        return new BaseQimenResponseVo("商家查询商品总体库存信息,查询成功");
     }
 
 }
