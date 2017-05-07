@@ -22,6 +22,8 @@ public class QimenTestController {
     public BaseQimenResponseVo syncLeasePlans(@RequestParam("item_id") Integer itemId, @RequestParam("plans") String plans){
         LOGGER.info("itemId:" + itemId);
         LOGGER.info("plans:" + plans);
+        //业务逻辑
+        //处理
         return new BaseQimenResponseVo("同步成功!");
     }
 
