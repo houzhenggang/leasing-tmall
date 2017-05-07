@@ -1,7 +1,6 @@
 package com.hshc.relay.service;
 
 import com.hshc.relay.entity.AuthorizedSession;
-import com.hshc.relay.exception.NoAuthorizedSessionAcquiredException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -24,18 +23,10 @@ public class AuthorizedSessionService extends BaseService<AuthorizedSession> {
     @Value("${auth.authUrl}")
     private String authUrl;
 
-    @Value("${auth.tokenUrl}")
-    private String tokenUrl;
-
     public AuthorizedSession getAuthorizedSession(String taobaoUserNick){
-        AuthorizedSession queryAuthorizedSession = new AuthorizedSession();
-        queryAuthorizedSession.setTaobaoUserNick(taobaoUserNick);
-        AuthorizedSession authorizedSession = baseDao.selectOne(queryAuthorizedSession);
-        if(authorizedSession == null){
-            throw new NoAuthorizedSessionAcquiredException(authUrl + "?response_type=code&client_id=" + clientId
-                    + "&redirect_uri=" + redirectUri + "/session-auth" + "&view=web");
-        }
-        return authorizedSession;
+        AuthorizedSession authorizedSession = new AuthorizedSession();
+        authorizedSession.setTaobaoUserNick(taobaoUserNick);
+        return baseDao.selectOne(authorizedSession);
     }
 
     public String getClientId() {
