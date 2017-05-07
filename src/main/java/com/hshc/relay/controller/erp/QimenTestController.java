@@ -1,6 +1,7 @@
 package com.hshc.relay.controller.erp;
 
 import com.hshc.relay.annotation.QimenSignAuthentication;
+import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.vo.BaseQimenResponseVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @version V1.0 2017-05-06 11:01
  */
 @Controller
-public class QimenTestController {
+public class QimenTestController extends BaseController{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(QimenTestController.class);
 
