@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @version V1.0 2017年5月6日16:54:25
  */
 @Controller
-public class ReleaseGoodsController {
-    private static Logger LOGGER = LoggerFactory.getLogger(ReleaseGoodsController.class);
+public class ScitemController {
+    private static Logger LOGGER = LoggerFactory.getLogger(ScitemController.class);
 
-    @RequestMapping("/lease-releaseGoods")
+    @RequestMapping("/lease-scitem")
     @ResponseBody
-    public BaseQimenResponseVo addReleaseGoods(@RequestParam("item_name")String itemName ,@RequestParam("outer_code")String outerCode ){
+    public BaseQimenResponseVo addScitem(@RequestParam("item_name")String itemName ,@RequestParam("outer_code")String outerCode ){
         LOGGER.info("itemName:"+itemName);
         LOGGER.info("outerCode:"+outerCode);
         return new BaseQimenResponseVo("查询成功");
