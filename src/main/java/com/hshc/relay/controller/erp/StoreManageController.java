@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hshc.relay.service.RequestTaobaoClient;
+import com.hshc.relay.service.RequestTaobaoService;
 import com.hshc.relay.vo.BaseQimenResponseVo;
 import com.taobao.api.ApiException;
 import com.taobao.api.request.InventoryStoreManageRequest;
@@ -55,7 +55,7 @@ public class StoreManageController {
 		//调用
 		InventoryStoreManageResponse res;
 		try {
-			res = (InventoryStoreManageResponse) RequestTaobaoClient.requset(req);
+			res = (InventoryStoreManageResponse) RequestTaobaoService.requset(req);
 			//res.getBody()返回值 json
 			//结果存储对应表
 			System.out.println(res.getBody());

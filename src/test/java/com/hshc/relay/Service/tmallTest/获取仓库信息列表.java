@@ -1,17 +1,9 @@
 package com.hshc.relay.Service.tmallTest;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.hshc.relay.service.RequestTaobaoClient;
+import com.hshc.relay.service.RequestTaobaoService;
 import com.taobao.api.ApiException;
-import com.taobao.api.DefaultTaobaoClient;
-import com.taobao.api.TaobaoClient;
 import com.taobao.api.request.InventoryStoreQueryRequest;
-import com.taobao.api.request.TmallInventoryQueryForstoreRequest;
-import com.taobao.api.request.TmallInventoryQueryForstoreRequest.InventoryQueryForStoreRequest;
 import com.taobao.api.response.InventoryStoreQueryResponse;
-import com.taobao.api.response.TmallInventoryQueryForstoreResponse;
 
 public class 获取仓库信息列表 {
 
@@ -45,7 +37,7 @@ public class 获取仓库信息列表 {
 		//req.setStoreCode(ck);
 		InventoryStoreQueryResponse rsp;
 		try {
-			rsp = (InventoryStoreQueryResponse) RequestTaobaoClient.requset(req);
+			rsp = (InventoryStoreQueryResponse) RequestTaobaoService.requset(req);
 			System.out.println(rsp.getBody());
 		} catch (ApiException e) {
 			// TODO Auto-generated catch block
