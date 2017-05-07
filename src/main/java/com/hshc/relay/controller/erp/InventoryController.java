@@ -1,6 +1,7 @@
 package com.hshc.relay.controller.erp;
 
 
+import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.vo.BaseQimenResponseVo;
 import org.slf4j.Logger;
@@ -24,8 +25,11 @@ public class InventoryController extends BaseController {
      */
     @RequestMapping("/lease-inventory")
     @ResponseBody
+    @QimenSignAuthentication
     public BaseQimenResponseVo queryInventory(@RequestParam("sc_item_ids")String scItemIds){
         LOGGER.info("scItemIds:"+scItemIds);
+        //业务逻辑
+        //处理
         return new BaseQimenResponseVo("商家查询商品总体库存信息,查询成功");
     }
 
