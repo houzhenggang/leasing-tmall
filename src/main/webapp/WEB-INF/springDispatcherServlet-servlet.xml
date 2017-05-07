@@ -25,5 +25,13 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 
+	<bean id="qimenSignAuthenticationInterceptor" class="com.hshc.relay.interceptor.QimenSignInterceptor"/>
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<ref bean="qimenSignAuthenticationInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 </beans>
