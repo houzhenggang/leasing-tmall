@@ -1,5 +1,6 @@
 package com.hshc.relay.controller.erp;
 
+import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.vo.BaseQimenResponseVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,14 +15,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @version  V1.0 2017年5月6日17:14:48
  */
 @Controller
-public class AssociatedController {
+public class AssociatedController extends BaseController{
     private static Logger LOGGER= LoggerFactory.getLogger(AssociatedController.class);
 
-    @RequestMapping("lease-associat")
+    @RequestMapping("/lease-associat")
     @ResponseBody
     public BaseQimenResponseVo addAssociated(@RequestParam("item_id")Integer itemId ){
         LOGGER.info("itemId:"+itemId);
-        return new BaseQimenResponseVo("查询成功");
+        return new BaseQimenResponseVo("创建IC商品与后端商品的映射关系,查询成功");
     }
 
 }
