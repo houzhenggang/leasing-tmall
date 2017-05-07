@@ -208,17 +208,62 @@
         </dependency>
         <!--logger end-->
     </dependencies>
+
+    <profiles>
+        <profile>
+            <!-- 开发环境 -->
+            <id>dev</id>
+            <properties>
+                <profiles.active>dev</profiles.active>
+            </properties>
+            <activation>
+                <!-- 设置默认激活这个配置 -->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <filters>
+                    <filter>src/main/resources/jdbc-dev.properties</filter>
+                </filters>
+            </build>
+        </profile>
+        <profile>
+            <!-- 生产环境 -->
+            <id>pro</id>
+            <properties>
+                <profiles.active>pro</profiles.active>
+            </properties>
+            <build>
+                <filters>
+                    <filter>src/main/resources/jdbc-pro.properties</filter>
+                </filters>
+            </build>
+        </profile>
+        <profile>
+            <!-- 沙箱环境 -->
+            <id>sandbox</id>
+            <properties>
+                <profiles.active>sandbox</profiles.active>
+            </properties>
+            <build>
+                <filters>
+                    <filter>src/main/resources/jdbc-sandbox.properties</filter>
+                </filters>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
         <finalName>leasing-tmall</finalName>
         <directory>target</directory>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<outputDirectory>target/classes</outputDirectory>
 		<defaultGoal>jetty:run</defaultGoal>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-			</resource>
-		</resources>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -248,7 +293,7 @@
 						<scanTargetPattern>
 							<directory>src/main/resources</directory>
 							<excludes>
-								<exclude>**/*.vm</exclude>
+								<exclude>**/*.html</exclude>
 							</excludes>
 						</scanTargetPattern>
 					</scanTargetPatterns>

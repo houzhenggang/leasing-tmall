@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public abstract class BaseController
 {
-    private static final Logger logger = LoggerFactory.getLogger(BaseController.class);
+    protected static final Logger logger = LoggerFactory.getLogger(BaseController.class);
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
