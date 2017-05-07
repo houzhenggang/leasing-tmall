@@ -21,9 +21,18 @@ public class StoreManageController {
 
 	@RequestMapping("/lease-store")
 	@ResponseBody
-	public BaseQimenResponseVo storeManager(@RequestParam("operate_type") String operateType,@RequestParam("store_code") String storeCode){
+	public BaseQimenResponseVo storeManager(@RequestParam("operate_type") String operateType,
+			                                @RequestParam("store_code") String storeCode,
+			                                @RequestParam("store_name") String storeName,
+			                                @RequestParam("store_type") String storeType,
+			                                @RequestParam("address") String address,
+			                                @RequestParam("address_area_name") String addressAreaName){
 		LOGGER.info("operateType:"+operateType);
 		LOGGER.info("storeCode:"+storeCode);
+		LOGGER.info("storeName:"+storeName);
+		LOGGER.info("storeType:"+storeType);
+		LOGGER.info("address:"+address);
+		LOGGER.info("addressAreaName:"+addressAreaName);
 		return new BaseQimenResponseVo("创建/更新成功");
 	}
 
