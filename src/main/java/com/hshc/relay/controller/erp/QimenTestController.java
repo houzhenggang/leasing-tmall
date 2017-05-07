@@ -17,14 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class QimenTestController extends BaseController{
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(QimenTestController.class);
-
     @RequestMapping("/lease-plans")
     @ResponseBody
     @QimenSignAuthentication
     public BaseQimenResponseVo syncLeasePlans(@RequestParam("item_id") Integer itemId, @RequestParam("plans") String plans){
-        LOGGER.info("itemId:" + itemId);
-        LOGGER.info("plans:" + plans);
+        logger.info("itemId:" + itemId);
+        logger.info("plans:" + plans);
         //业务逻辑
         //处理
         return new BaseQimenResponseVo("同步成功!");
