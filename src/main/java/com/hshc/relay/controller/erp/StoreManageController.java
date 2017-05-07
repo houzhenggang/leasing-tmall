@@ -39,7 +39,8 @@ public class StoreManageController {
 		LOGGER.info("addressAreaName:"+addressAreaName);
 		
 		
-		//调用天猫API
+		//封装
+		
 		InventoryStoreManageRequest req = new InventoryStoreManageRequest();
 		req.setOperateType("ADD");
 		req.setStoreCode("HS000002");
@@ -51,10 +52,12 @@ public class StoreManageController {
 		req.setContact("张三四");
 		req.setPhone("13333333333");
 		req.setPostcode(100000L);
+		//调用
 		InventoryStoreManageResponse res;
 		try {
 			res = (InventoryStoreManageResponse) RequestTaobaoClient.requset(req);
 			//res.getBody()返回值 json
+			//结果存储对应表
 			System.out.println(res.getBody());
 		} catch (ApiException e) {
 			// TODO Auto-generated catch block
