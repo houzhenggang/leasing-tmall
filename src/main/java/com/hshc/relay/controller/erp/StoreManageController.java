@@ -7,7 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hshc.relay.service.RequestTaobaoClient;
 import com.hshc.relay.vo.BaseQimenResponseVo;
+import com.taobao.api.ApiException;
+import com.taobao.api.request.InventoryStoreManageRequest;
+import com.taobao.api.response.InventoryStoreManageResponse;
 
 /**
  * 
@@ -33,6 +37,31 @@ public class StoreManageController {
 		LOGGER.info("storeType:"+storeType);
 		LOGGER.info("address:"+address);
 		LOGGER.info("addressAreaName:"+addressAreaName);
+		
+		
+		//调用天猫API
+		InventoryStoreManageRequest req = new InventoryStoreManageRequest();
+		req.setOperateType("ADD");
+		req.setStoreCode("HS000002");
+		req.setStoreName("北京仓");
+		req.setStoreType("TYPE_OWN");
+		req.setAliasName("京");
+		req.setAddress("东大街000号");
+		req.setAddressAreaName("北京~北京市~崇文区");
+		req.setContact("张三四");
+		req.setPhone("13333333333");
+		req.setPostcode(100000L);
+		InventoryStoreManageResponse res;
+		try {
+			res = (InventoryStoreManageResponse) RequestTaobaoClient.requset(req);
+			//res.getBody()返回值 json
+			System.out.println(res.getBody());
+		} catch (ApiException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		return new BaseQimenResponseVo("创建/更新成功");
 	}
 
