@@ -34,10 +34,11 @@ public class ScitemController extends BaseController{
     @RequestMapping("/lease-scitem")
     @ResponseBody
     @QimenSignAuthentication
-    public BaseQimenResponseVo addScitem(@RequestBody ScitemAddRequest req){
+    public BaseQimenResponseVo addScitem(@RequestBody ScitemAddRequest scitemAddRequest){
         try{
-            ScItem sc=new ScItem();
-            scitemService.addScitem(sc);
+            ScItem scItem=new ScItem();
+            ScitemAddResponse scitemAddResponse=new ScitemAddResponse();
+            scitemService.addScitem(scItem,scitemAddRequest,scitemAddResponse);
         }catch(Exception e){
             System.out.print("发布后端商品："+e);
         }
