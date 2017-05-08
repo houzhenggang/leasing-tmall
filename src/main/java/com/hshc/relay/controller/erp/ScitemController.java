@@ -34,11 +34,32 @@ public class ScitemController extends BaseController{
     @RequestMapping("/lease-scitem")
     @ResponseBody
     @QimenSignAuthentication
-    public BaseQimenResponseVo addScitem(@RequestBody ScitemAddRequest scitemAddRequest){
+    public BaseQimenResponseVo addScitem(@RequestBody ScitemAddRequest req){
         try{
-            ScItem scItem=new ScItem();
-            ScitemAddResponse scitemAddResponse=new ScitemAddResponse();
-            scitemService.addScitem(scItem,scitemAddRequest,scitemAddResponse);
+            req.setItemName("宝贝");
+            req.setOuterCode("商家编码");
+            req.setItemType(0L);
+            req.setProperties("111:222;333:444");
+            req.setBarCode("条形码");
+            req.setWmsCode("仓储商编码");
+            req.setIsFriable(0L);
+            req.setIsDangerous(0L);
+            req.setIsCostly(0L);
+            req.setIsWarranty(0L);
+            req.setWeight(1L);
+            req.setLength(1L);
+            req.setWidth(1L);
+            req.setHeight(1L);
+            req.setVolume(1L);
+            req.setPrice(1L);
+            req.setRemark("remark");
+            req.setMatterStatus(0L);
+            req.setBrandId(1L);
+            req.setBrandName("brand_Name");
+            req.setSpuId(1234L);
+            req.setIsAreaSale(1L);
+            ScitemAddResponse rep=new ScitemAddResponse();
+            scitemService.addScitem(req);
         }catch(Exception e){
             System.out.print("发布后端商品："+e);
         }
