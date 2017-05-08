@@ -1,6 +1,7 @@
 package com.hshc.relay.service;
 
 import com.hshc.relay.entity.AuthorizedSession;
+import com.hshc.relay.exception.NoAuthorizedSessionAcquiredException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -11,30 +12,51 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthorizedSessionService extends BaseService<AuthorizedSession> {
 
-    @Value("${auth.clientId}")
-    private String clientId;
+    @Value("${top.appKey}")
+    private String appKey;
 
-    @Value("${auth.clientSecret}")
-    private String clientSecret;
+    @Value("${top.appSecret}")
+    private String appSecret;
 
-    @Value("${auth.redirectUri}")
+    @Value("${top.sandboxAppKey}")
+    private String sandboxAppKey;
+
+    @Value("${top.sandboxAppKey}")
+    private String sandboxAppSecret;
+
+    @Value("${qimen.redirectUri}")
     private String redirectUri;
 
-    @Value("${auth.authUrl}")
+    @Value("${qimen.authUrl}")
     private String authUrl;
 
+    @Value("${qimen.tokenUrl}")
+    private String tokenUrl;
+
     public AuthorizedSession getAuthorizedSession(String taobaoUserNick){
-        AuthorizedSession authorizedSession = new AuthorizedSession();
-        authorizedSession.setTaobaoUserNick(taobaoUserNick);
-        return baseDao.selectOne(authorizedSession);
+        AuthorizedSession queryAuthorizedSession = new AuthorizedSession();
+        queryAuthorizedSession.setTaobaoUserNick(taobaoUserNick);
+        AuthorizedSession authorizedSession = baseDao.selectOne(queryAuthorizedSession);
+        if(authorizedSession == null){
+            throw new NoAuthorizedSessionAcquiredException(authUrl + "?response_type=code&client_id=" + appKey
+                    + "&redirect_uri=" + redirectUri + "/session-auth" + "&view=web");
+        }
+        return authorizedSession;
+    }
+    public String getAppKey() {
+        return appKey;
     }
 
-    public String getClientId() {
-        return clientId;
+    public String getAppSecret() {
+        return appSecret;
     }
 
-    public String getClientSecret() {
-        return clientSecret;
+    public String getSandboxAppKey() {
+        return sandboxAppKey;
+    }
+
+    public String getSandboxAppSecret() {
+        return sandboxAppSecret;
     }
 
     public String getRedirectUri() {
