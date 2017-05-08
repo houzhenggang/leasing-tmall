@@ -37,7 +37,7 @@ public class AuthorizedSessionController extends BaseController {
         params.put("redirect_uri", authorizedSessionService.getRedirectUri());
         params.put("code", code);
 
-        String s = WebUtils.doPost(authorizedSessionService.getAuthUrl(), params, 15000, 15000);
+        String s = WebUtils.doPost(authorizedSessionService.getTokenUrl(), params, 15000, 15000);
         logger.info("authorized session: " + s);
 
         if(s.contains("error")){

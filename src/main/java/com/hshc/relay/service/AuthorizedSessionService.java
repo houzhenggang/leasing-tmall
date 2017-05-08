@@ -77,4 +77,8 @@ public class AuthorizedSessionService extends BaseService<AuthorizedSession> {
     public String getAuthUrl() {
         return authUrl;
     }
+
+    public String getTokenUrl() {
+        return tokenUrl;
+    }
 }
