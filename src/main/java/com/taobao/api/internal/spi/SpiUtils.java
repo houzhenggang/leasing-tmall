@@ -33,6 +33,7 @@ public class SpiUtils {
 	public static CheckResult checkSign(HttpServletRequest request, String secret) throws IOException {
 		CheckResult result = new CheckResult();
 		String ctype = request.getContentType();
+		log.info("ctype: " + ctype);
 		String charset = WebUtils.getResponseCharset(ctype);
 		if (ctype.startsWith(Constants.CTYPE_APP_JSON) || ctype.startsWith(Constants.CTYPE_TEXT_XML) || ctype.startsWith(Constants.CTYPE_TEXT_PLAIN)) {
 			String body = WebUtils.getStreamAsString(request.getInputStream(), charset);
