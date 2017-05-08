@@ -69,9 +69,9 @@ public class DefaultTaobaoClient implements TaobaoClient {
 		TaobaoParser<T> parser = null;
 		if (this.needEnableParser) {
 			if (Constants.FORMAT_XML.equals(this.format)) {
-				parser = new ObjectXmlParser<T>(request.getResponseClass());
+				parser = new ObjectXmlParser<>(request.getResponseClass());
 			} else {
-				parser = new ObjectJsonParser<T>(request.getResponseClass(), this.useSimplifyJson);
+				parser = new ObjectJsonParser<>(request.getResponseClass(), this.useSimplifyJson);
 			}
 		}
 
@@ -80,7 +80,7 @@ public class DefaultTaobaoClient implements TaobaoClient {
 			try {
 				request.check();
 			} catch (ApiRuleException e) {
-				T localResponse = null;
+				T localResponse;
 				try {
 					localResponse = request.getResponseClass().newInstance();
 				} catch (Exception xe) {
@@ -130,7 +130,7 @@ public class DefaultTaobaoClient implements TaobaoClient {
 			String sysOptQuery = WebUtils.buildQuery(requestHolder.getProtocalOptParams(), Constants.CHARSET_UTF8);
 			String fullUrl = WebUtils.buildRequestUrl(realServerUrl, sysMustQuery, sysOptQuery);
 			
-			String rsp = null;
+			String rsp;
 			// 是否需要压缩响应
 			if (this.useGzipEncoding) {
 				request.getHeaderMap().put(Constants.ACCEPT_ENCODING, Constants.CONTENT_ENCODING_GZIP);
@@ -152,7 +152,7 @@ public class DefaultTaobaoClient implements TaobaoClient {
 			throw new ApiException(e);
 		}
 
-		T tRsp = null;
+		T tRsp;
 		if (this.needEnableParser) {
 			tRsp = parser.parse(requestHolder.getResponseBody());
 			tRsp.setBody(requestHolder.getResponseBody());

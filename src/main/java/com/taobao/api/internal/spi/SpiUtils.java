@@ -33,6 +33,7 @@ public class SpiUtils {
 	public static CheckResult checkSign(HttpServletRequest request, String secret) throws IOException {
 		CheckResult result = new CheckResult();
 		String ctype = request.getContentType();
+		log.info("ctype: " + ctype);
 		String charset = WebUtils.getResponseCharset(ctype);
 		if (ctype.startsWith(Constants.CTYPE_APP_JSON) || ctype.startsWith(Constants.CTYPE_TEXT_XML) || ctype.startsWith(Constants.CTYPE_TEXT_PLAIN)) {
 			String body = WebUtils.getStreamAsString(request.getInputStream(), charset);
@@ -89,7 +90,7 @@ public class SpiUtils {
 	}
 
 	private static boolean checkSignInternal(HttpServletRequest request, Map<String, String> form, String body, String secret, String charset) throws IOException {
-		Map<String, String> params = new HashMap<String, String>();
+		Map<String, String> params = new HashMap<>();
 		// 1. 获取header参数
 		Map<String, String> headerMap = getHeaderMap(request, charset);
 		params.putAll(headerMap);
@@ -122,7 +123,7 @@ public class SpiUtils {
 	 * 获取header参数为map
 	 */
 	public static Map<String, String> getHeaderMap(HttpServletRequest request, String charset) throws IOException {
-		Map<String, String> headerMap = new HashMap<String, String>();
+		Map<String, String> headerMap = new HashMap<>();
 		String signList = request.getHeader(TOP_SIGN_LIST); // 只获取参与签名的头部字段
 		if (!StringUtils.isEmpty(signList)) {
 			String[] keys = signList.split(",");
@@ -142,11 +143,11 @@ public class SpiUtils {
 	 * 获取url参数为map
 	 */
 	public static Map<String, String> getQueryMap(HttpServletRequest request, String charset) throws IOException {
-		Map<String, String> queryMap = new HashMap<String, String>();
+		Map<String, String> queryMap = new HashMap<>();
 		String queryString = request.getQueryString();
 		String[] params = queryString.split("&");
-		for (int i = 0; i < params.length; i++) {
-			String[] kv = params[i].split("=");
+		for (String param : params) {
+			String[] kv = param.split("=");
 			if (kv.length == 2) {
 				String key = URLDecoder.decode(kv[0], charset);
 				String value = URLDecoder.decode(kv[1], charset);
@@ -163,7 +164,7 @@ public class SpiUtils {
 	 * 获取表单参数为map
 	 */
 	public static Map<String, String> getFormMap(HttpServletRequest request, Map<String, String> queryMap) throws IOException {
-		Map<String, String> formMap = new HashMap<String, String>();
+		Map<String, String> formMap = new HashMap<>();
 		Set<?> keys = request.getParameterMap().keySet();
 		for (Object tmp : keys) {
 			String key = String.valueOf(tmp);
@@ -203,13 +204,13 @@ public class SpiUtils {
 	private static String getParamStrFromMap(Map<String, String> params) {
 		StringBuilder sb = new StringBuilder();
 		if (params != null && !params.isEmpty()) {
-			String[] keys = params.keySet().toArray(new String[0]);
+			Set<String> strings = params.keySet();
+			String[] keys = strings.toArray(new String[strings.size()]);
 			Arrays.sort(keys);
-			for (int i = 0; i < keys.length; i++) {
-				String name = keys[i];
-				if (!Constants.SIGN.equals(name)) {
-					sb.append(name);
-					sb.append(params.get(name));
+			for (String key : keys) {
+				if (!Constants.SIGN.equals(key)) {
+					sb.append(key);
+					sb.append(params.get(key));
 				}
 			}
 		}

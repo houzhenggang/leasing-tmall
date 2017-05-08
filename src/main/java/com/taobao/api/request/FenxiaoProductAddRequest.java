@@ -65,7 +65,7 @@ public class FenxiaoProductAddRequest extends BaseTaobaoRequest<FenxiaoProductAd
 	/** 
 	* 是否有发票，可选值：false（否）、true（是），默认false。
 	 */
-	private String haveInvoice;
+	private Boolean haveInvoice;
 
 	/** 
 	* 产品主图，大小不超过500k，格式为gif,jpg,jpeg,png,bmp等图片
@@ -279,11 +279,11 @@ no:不需要授权
 		return this.haveGuarantee;
 	}
 
-	public void setHaveInvoice(String haveInvoice) {
+	public void setHaveInvoice(Boolean haveInvoice) {
 		this.haveInvoice = haveInvoice;
 	}
 
-	public String getHaveInvoice() {
+	public Boolean getHaveInvoice() {
 		return this.haveInvoice;
 	}
 

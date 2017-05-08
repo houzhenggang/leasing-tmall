@@ -10,7 +10,7 @@ import com.taobao.api.TaobaoRequest;
 import com.taobao.api.TaobaoResponse;
 
 @Service
-public class RequestTaobaoClient{
+public class RequestTaobaoService{
 	
 	public static String url="http://gw.api.tbsandbox.com/router/rest";
 	public static String appkey="1023795481";
@@ -33,3 +33,4 @@ public class RequestTaobaoClient{
 	}
 
 }
+

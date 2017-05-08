@@ -20,10 +20,7 @@ import java.util.Map;
  */
 public class ItemAddRequest extends BaseTaobaoRequest<ItemAddResponse> implements TaobaoUploadRequest<ItemAddResponse> {
 
-	
-	
-
-	/** 
+	/**
 	* 售后说明模板id
 	 */
 	private Long afterSaleId;

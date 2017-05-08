@@ -56,9 +56,6 @@
             <if test="w2ExpiresIn != null">
                 w2_expires_in = #{w2ExpiresIn},
             </if>
-            <if test="taobaoUserNick != null">
-                taobao_user_nick = #{taobaoUserNick},
-            </if>
             <if test="taobaoUserId != null">
                 taobao_user_id = #{taobaoUserId},
             </if>

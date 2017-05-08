@@ -31,8 +31,8 @@ public class AuthorizedSessionController extends BaseController {
         logger.info("code: " + code);
 
         Map<String, String> params = new HashMap<>();
-        params.put("client_id", authorizedSessionService.getClientId());
-        params.put("client_secret", authorizedSessionService.getClientSecret());
+        params.put("client_id", authorizedSessionService.getAppKey());
+        params.put("client_secret", authorizedSessionService.getAppSecret());
         params.put("grant_type", "authorization_code");
         params.put("redirect_uri", authorizedSessionService.getRedirectUri());
         params.put("code", code);

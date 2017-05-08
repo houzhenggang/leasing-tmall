@@ -1,5 +1,6 @@
 package com.hshc.relay.controller.erp;
 
+import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.vo.BaseQimenResponseVo;
 import org.slf4j.Logger;
@@ -20,8 +21,11 @@ public class AssociatedController extends BaseController{
 
     @RequestMapping("/lease-associat")
     @ResponseBody
+    @QimenSignAuthentication
     public BaseQimenResponseVo addAssociated(@RequestParam("item_id")Integer itemId ){
         LOGGER.info("itemId:"+itemId);
+        //业务逻辑
+        //处理
         return new BaseQimenResponseVo("创建IC商品与后端商品的映射关系,查询成功");
     }
 
