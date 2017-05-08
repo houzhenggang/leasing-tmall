@@ -20,7 +20,7 @@ import java.util.*;
 public class JSONWriter {
 
     private StringBuffer buf = new StringBuffer();
-    private Stack<Object> calls = new Stack<Object>();
+    private Stack<Object> calls = new Stack<>();
     private boolean emitClassName = true;
     private boolean useApiStyle = false;
     private boolean useApiField = false;
@@ -72,7 +72,7 @@ public class JSONWriter {
         } else {
             calls.push(object);
             if (object instanceof Class<?>) string(object);
-            else if (object instanceof Boolean) bool(((Boolean) object).booleanValue());
+            else if (object instanceof Boolean) bool((Boolean) object);
             else if (object instanceof Number) add(object);
             else if (object instanceof String) string(object);
             else if (object instanceof Character) string(object);
@@ -87,9 +87,7 @@ public class JSONWriter {
     }
 
     private boolean cyclic(Object object) {
-        Iterator<Object> it = calls.iterator();
-        while (it.hasNext()) {
-            Object called = it.next();
+        for (Object called : calls) {
             if (object == called) return true;
         }
         return false;
@@ -102,58 +100,55 @@ public class JSONWriter {
         try {
             info = Introspector.getBeanInfo(object.getClass());
             PropertyDescriptor[] props = info.getPropertyDescriptors();
-            for (int i = 0; i < props.length; ++i) {
-                PropertyDescriptor prop = props[i];
-				
+            for (PropertyDescriptor prop : props) {
                 String name = prop.getName();
                 Method accessor = prop.getReadMethod();
                 if ((emitClassName || !"class".equals(name)) && accessor != null) {
                     if (!accessor.isAccessible()) accessor.setAccessible(true);
-                    Object value = accessor.invoke(object, (Object[])null);
+                    Object value = accessor.invoke(object, (Object[]) null);
                     if (value == null) continue;
                     if (addedSomething) add(',');
 
-    				if(useApiField) {
-    					Field field = null;
-        				try {
-        					field = Converters.getField(object.getClass(), prop);
-        				} catch (Exception e) {
-        					e.printStackTrace();
-        				}
-	                    ApiField jsonField = field.getAnnotation(ApiField.class);
-	    				if (jsonField != null) {
-	    					name = jsonField.value();
-	    				}
-	    				ApiListField jsonListField = field.getAnnotation(ApiListField.class);
-	    				if (jsonListField != null) {
-	    					name = jsonListField.value();
-	    				}
-    				} else {
-	                    if (useApiStyle) {
-	                    	name = StringUtils.toUnderlineStyle(name);
-	                    }
-    				}
+                    if (useApiField) {
+                        Field field = null;
+                        try {
+                            field = Converters.getField(object.getClass(), prop);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        if (field != null) {
+                            ApiField jsonField = field.getAnnotation(ApiField.class);
+                            if (jsonField != null) {
+                                name = jsonField.value();
+                            }
+                            ApiListField jsonListField = field.getAnnotation(ApiListField.class);
+                            if (jsonListField != null) {
+                                name = jsonListField.value();
+                            }
+                        }
+                    } else {
+                        if (useApiStyle) {
+                            name = StringUtils.toUnderlineStyle(name);
+                        }
+                    }
 
                     add(name, value);
                     addedSomething = true;
                 }
             }
             Field[] ff = object.getClass().getFields();
-            for (int i = 0; i < ff.length; ++i) {
-                Field field = ff[i];
+            for (Field field : ff) {
                 Object value = field.get(object);
                 if (value == null) continue;
                 if (addedSomething) add(',');
                 add(field.getName(), value);
                 addedSomething = true;
             }
-        } catch (IllegalAccessException iae) {
-            iae.printStackTrace();
+        } catch (IllegalAccessException | IntrospectionException e) {
+            e.printStackTrace();
         } catch (InvocationTargetException ite) {
             ite.getCause().printStackTrace();
             ite.printStackTrace();
-        } catch (IntrospectionException ie) {
-            ie.printStackTrace();
         }
         add("}");
     }

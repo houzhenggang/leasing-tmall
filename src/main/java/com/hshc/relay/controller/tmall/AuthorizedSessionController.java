@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,13 +32,13 @@ public class AuthorizedSessionController extends BaseController {
         logger.info("code: " + code);
 
         Map<String, String> params = new HashMap<>();
-        params.put("client_id", authorizedSessionService.getClientId());
-        params.put("client_secret", authorizedSessionService.getClientSecret());
+        params.put("client_id", authorizedSessionService.getAppKey());
+        params.put("client_secret", authorizedSessionService.getAppSecret());
         params.put("grant_type", "authorization_code");
         params.put("redirect_uri", authorizedSessionService.getRedirectUri());
         params.put("code", code);
 
-        String s = WebUtils.doPost(authorizedSessionService.getAuthUrl(), params, 15000, 15000);
+        String s = WebUtils.doPost(authorizedSessionService.getTokenUrl(), params, 15000, 15000);
         logger.info("authorized session: " + s);
 
         if(s.contains("error")){
@@ -49,9 +50,16 @@ public class AuthorizedSessionController extends BaseController {
             throw new BaseException("401", "未知错误！");
         }else{
             AuthorizedSession authorizedSession = JSON.parseObject(s, AuthorizedSession.class);
+            // 防止url编码
+            authorizedSession.setTaobaoUserNick(URLDecoder.decode(authorizedSession.getTaobaoUserNick(), "utf-8"));
+            if(authorizedSession.getSubTaobaoUserNick() != null){
+                authorizedSession.setSubTaobaoUserNick(URLDecoder.decode(authorizedSession.getSubTaobaoUserNick(), "utf-8"));
+            }
+
             if(authorizedSessionService.modify(authorizedSession) == 0){
                 authorizedSessionService.add(authorizedSession);
             }
+
             return new BaseResponseVo();
         }
     }

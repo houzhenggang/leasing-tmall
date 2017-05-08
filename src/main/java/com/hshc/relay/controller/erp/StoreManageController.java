@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -20,7 +19,6 @@ import com.hshc.relay.service.RequestTaobaoClientService;
 import com.hshc.relay.service.StoreManageService;
 import com.hshc.relay.vo.BaseQimenResponseVo;
 import com.taobao.api.ApiException;
-import com.taobao.api.TaobaoRequest;
 import com.taobao.api.domain.Store;
 import com.taobao.api.request.InventoryStoreManageRequest;
 import com.taobao.api.response.InventoryStoreManageResponse;
