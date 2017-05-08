@@ -1,4 +1,4 @@
-package com.hshc.relay.Service;
+package com.hshc.relay.service;
 
 import java.util.List;
 

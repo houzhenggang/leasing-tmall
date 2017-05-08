@@ -1,4 +1,4 @@
-package com.hshc.relay.Service.tmallTest;
+package com.hshc.relay.service.tmallTest;
 
 
 import com.hshc.relay.service.RequestTaobaoClientService;
