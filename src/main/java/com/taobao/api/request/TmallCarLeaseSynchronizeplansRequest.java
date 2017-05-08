@@ -21,9 +21,7 @@ import com.taobao.api.response.TmallCarLeaseSynchronizeplansResponse;
  */
 public class TmallCarLeaseSynchronizeplansRequest extends BaseTaobaoRequest<TmallCarLeaseSynchronizeplansResponse> {
 	
-	
-
-	/** 
+	/**
 	* 商品id
 	 */
 	private Long itemId;
@@ -77,16 +75,16 @@ public class TmallCarLeaseSynchronizeplansRequest extends BaseTaobaoRequest<Tmal
 	}
 	
 	/**
- * 租赁计划
- *
- * @author top auto create
- * @since 1.0, null
- */
-public static class CarLeasePlanDo extends TaobaoObject {
+	 * 租赁计划
+	 *
+	 * @author top auto create
+	 * @since 1.0, null
+	 */
+	public static class CarLeasePlanDo extends TaobaoObject {
 
-	private static final long serialVersionUID = 3528962451522396997L;
+		private static final long serialVersionUID = 3528962451522396997L;
 
-	/**
+		/**
 		 * 发布商品时选的汽车品牌
 		 */
 		@ApiField("brand")
@@ -181,124 +179,160 @@ public static class CarLeasePlanDo extends TaobaoObject {
 		 */
 		@ApiField("year")
 		private String year;
-	
 
-	public String getBrand() {
-			return this.brand;
-		}
+
+		public String getBrand() {
+				return this.brand;
+			}
+
 		public void setBrand(String brand) {
 			this.brand = brand;
 		}
+
 		public String getCompanyName() {
 			return this.companyName;
 		}
+
 		public void setCompanyName(String companyName) {
 			this.companyName = companyName;
 		}
+
 		public String getExt() {
 			return this.ext;
 		}
+
 		public void setExt(String ext) {
 			this.ext = ext;
 		}
+
 		public Long getInitialPaymentAmount() {
 			return this.initialPaymentAmount;
 		}
+
 		public void setInitialPaymentAmount(Long initialPaymentAmount) {
 			this.initialPaymentAmount = initialPaymentAmount;
 		}
+
 		public Long getInitialPaymentRatio() {
 			return this.initialPaymentRatio;
 		}
+
 		public void setInitialPaymentRatio(Long initialPaymentRatio) {
 			this.initialPaymentRatio = initialPaymentRatio;
 		}
+
 		public Long getItemId() {
 			return this.itemId;
 		}
+
 		public void setItemId(Long itemId) {
 			this.itemId = itemId;
 		}
+
 		public Long getLeaseTerm() {
 			return this.leaseTerm;
 		}
+
 		public void setLeaseTerm(Long leaseTerm) {
 			this.leaseTerm = leaseTerm;
 		}
+
 		public String getLine() {
 			return this.line;
 		}
+
 		public void setLine(String line) {
 			this.line = line;
 		}
+
 		public Long getLoanAmount() {
 			return this.loanAmount;
 		}
+
 		public void setLoanAmount(Long loanAmount) {
 			this.loanAmount = loanAmount;
 		}
+
 		public String getModel() {
 			return this.model;
 		}
+
 		public void setModel(String model) {
 			this.model = model;
 		}
+
 		public Long getMonthlyPayment() {
 			return this.monthlyPayment;
 		}
+
 		public void setMonthlyPayment(Long monthlyPayment) {
 			this.monthlyPayment = monthlyPayment;
 		}
+
 		public Long getMsrp() {
 			return this.msrp;
 		}
+
 		public void setMsrp(Long msrp) {
 			this.msrp = msrp;
 		}
+
 		public String getOutUniqueId() {
 			return this.outUniqueId;
 		}
+
 		public void setOutUniqueId(String outUniqueId) {
 			this.outUniqueId = outUniqueId;
 		}
+
 		public Long getPenalty() {
 			return this.penalty;
 		}
+
 		public void setPenalty(Long penalty) {
 			this.penalty = penalty;
 		}
+
 		public Long getSellerId() {
 			return this.sellerId;
 		}
+
 		public void setSellerId(Long sellerId) {
 			this.sellerId = sellerId;
 		}
+
 		public Long getStoreFee() {
 			return this.storeFee;
 		}
+
 		public void setStoreFee(Long storeFee) {
 			this.storeFee = storeFee;
 		}
+
 		public Long getTailPaymentAmount() {
 			return this.tailPaymentAmount;
 		}
+
 		public void setTailPaymentAmount(Long tailPaymentAmount) {
 			this.tailPaymentAmount = tailPaymentAmount;
 		}
+
 		public String getTailPaymentType() {
 			return this.tailPaymentType;
 		}
+
 		public void setTailPaymentType(String tailPaymentType) {
 			this.tailPaymentType = tailPaymentType;
 		}
+
 		public String getYear() {
 			return this.year;
 		}
+
 		public void setYear(String year) {
 			this.year = year;
 		}
 
-}
-
+	}
 
 }
