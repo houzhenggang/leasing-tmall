@@ -12,7 +12,7 @@ public class 添加仓库信息  {
 	public  static void main(String[] agrs) {
 		InventoryStoreManageRequest req = new InventoryStoreManageRequest();
 		req.setOperateType("ADD");
-		req.setStoreCode("HS000002");
+		req.setStoreCode("HS000003");
 		req.setStoreName("北京仓");
 		req.setStoreType("TYPE_OWN");
 		req.setAliasName("京");
