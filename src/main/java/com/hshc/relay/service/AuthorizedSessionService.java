@@ -21,7 +21,7 @@ public class AuthorizedSessionService extends BaseService<AuthorizedSession> {
     @Value("${top.sandboxAppKey}")
     private String sandboxAppKey;
 
-    @Value("${top.sandboxAppKey}")
+    @Value("${top.sandboxAppSecret}")
     private String sandboxAppSecret;
 
     @Value("${qimen.redirectUri}")
