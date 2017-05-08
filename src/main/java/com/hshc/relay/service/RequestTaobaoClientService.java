@@ -3,7 +3,6 @@ package com.hshc.relay.service;
 import org.springframework.stereotype.Service;
 
 import com.taobao.api.ApiException;
-import com.taobao.api.BaseTaobaoRequest;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.TaobaoRequest;

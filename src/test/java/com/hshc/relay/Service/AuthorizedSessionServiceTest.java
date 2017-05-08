@@ -1,7 +1,9 @@
-package com.hshc.relay.service;
+package com.hshc.relay.Service;
 
 import com.hshc.relay.BaseTest;
 import com.hshc.relay.entity.AuthorizedSession;
+import com.hshc.relay.service.AuthorizedSessionService;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

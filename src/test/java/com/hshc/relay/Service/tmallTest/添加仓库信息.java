@@ -1,7 +1,7 @@
 package com.hshc.relay.Service.tmallTest;
 
 
-import com.hshc.relay.service.RequestTaobaoClient;
+import com.hshc.relay.service.RequestTaobaoClientService;
 import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
@@ -23,7 +23,7 @@ public class 添加仓库信息  {
 		req.setPostcode(100000L);
 		InventoryStoreManageResponse rsp;
 		try {
-			rsp = (InventoryStoreManageResponse) RequestTaobaoClient.requset(req);
+			rsp = (InventoryStoreManageResponse) RequestTaobaoClientService.requset(req);
 			System.out.println(rsp.getBody());
 		} catch (ApiException e) {
 			// TODO Auto-generated catch block

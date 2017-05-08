@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import static com.hshc.relay.service.RequestTaobaoClient.*;
+import static com.hshc.relay.service.RequestTaobaoClientService.*;
 
 /**
  * 发布后端商品
