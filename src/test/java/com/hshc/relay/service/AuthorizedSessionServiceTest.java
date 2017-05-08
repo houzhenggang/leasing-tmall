@@ -1,4 +1,4 @@
-package com.hshc.relay.service1;
+package com.hshc.relay.service;
 
 import com.hshc.relay.BaseTest;
 import com.hshc.relay.entity.AuthorizedSession;
