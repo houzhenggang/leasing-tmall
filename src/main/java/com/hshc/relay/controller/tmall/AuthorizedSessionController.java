@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,9 +50,16 @@ public class AuthorizedSessionController extends BaseController {
             throw new BaseException("401", "未知错误！");
         }else{
             AuthorizedSession authorizedSession = JSON.parseObject(s, AuthorizedSession.class);
+            // 防止url编码
+            authorizedSession.setTaobaoUserNick(URLDecoder.decode(authorizedSession.getTaobaoUserNick(), "utf-8"));
+            if(authorizedSession.getSubTaobaoUserNick() != null){
+                authorizedSession.setSubTaobaoUserNick(URLDecoder.decode(authorizedSession.getSubTaobaoUserNick(), "utf-8"));
+            }
+
             if(authorizedSessionService.modify(authorizedSession) == 0){
                 authorizedSessionService.add(authorizedSession);
             }
+
             return new BaseResponseVo();
         }
     }
