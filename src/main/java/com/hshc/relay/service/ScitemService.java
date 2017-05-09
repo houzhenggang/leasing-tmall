@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- *  发布后端商品
+ *  商品信息
  *  @version V1.0 2017年5月7日16:36:36
  *  @author  王华英
  */

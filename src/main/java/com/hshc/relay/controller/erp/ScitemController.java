@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.hshc.relay.controller.erp;
 
 import com.hshc.relay.annotation.QimenSignAuthentication;
@@ -17,8 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import static com.hshc.relay.service.RequestTaobaoService.*;
 
 /**
  * 发布后端商品
@@ -39,7 +36,7 @@ public class ScitemController extends BaseController{
         try{
             ScItem scItem=new ScItem();
             ScitemAddResponse scitemAddResponse=new ScitemAddResponse();
-            scitemService.addScitem(scItem,scitemAddRequest,scitemAddResponse);
+            scitemService.addScitem(scitemAddRequest);
         }catch(Exception e){
             System.out.print("发布后端商品："+e);
         }
