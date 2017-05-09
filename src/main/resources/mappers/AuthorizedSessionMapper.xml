@@ -87,5 +87,4 @@
         where taobao_user_nick = #{taobaoUserNick}
     </update>
 
->>>>>>> 7b038d3b18c08d076aeec23f8be971ed765e54c3
 </mapper>
