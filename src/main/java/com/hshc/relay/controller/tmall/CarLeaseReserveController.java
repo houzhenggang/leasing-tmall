@@ -15,6 +15,12 @@ import com.hshc.relay.controller.erp.ScitemController;
 import com.hshc.relay.service.CarLeaseReserveService;
 import com.hshc.relay.vo.BaseQimenResponseVo;
 import com.taobao.api.request.TmallCarLeaseReserveRequest;
+import com.taobao.api.response.TmallCarLeaseReserveResponse;
+/**
+ * 整车租车回传预约信息
+ * @author 史珂 2017年5月9日14:00:43
+ *
+ */
 @Controller
 public class CarLeaseReserveController extends BaseController {
     private static Logger LOGGER = LoggerFactory.getLogger(ScitemController.class);
@@ -28,7 +34,9 @@ public class CarLeaseReserveController extends BaseController {
 	public BaseQimenResponseVo leaseReserve(@Valid TmallCarLeaseReserveRequest req){
 		try {
 			//获取返回参数
-			clrService.leaseReserve(req);
+			TmallCarLeaseReserveResponse lr = clrService.leaseReserve(req);
+			//保存返回的数据
+			clrService.addLeaseReserve(lr);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

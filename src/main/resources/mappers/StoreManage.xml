@@ -29,7 +29,7 @@
     )
 </insert>
 
-<update id="update" parameterType="om.taobao.api.domain.Store">
+<update id="update" parameterType="com.taobao.api.domain.Store">
     update inventory_store set
         store_code = #{storeCode}
     <if test="storeName != null">
@@ -59,7 +59,7 @@
     where store_code = #{storeCode}
 </update>
 
-<select id="selectOne" parameterType="om.taobao.api.domain.Store" resultType="om.taobao.api.domain.Store">
+<select id="selectOne" parameterType="com.taobao.api.domain.Store" resultType="com.taobao.api.domain.Store">
   select 
   <include refid="columns"/>
   from inventory_store 
