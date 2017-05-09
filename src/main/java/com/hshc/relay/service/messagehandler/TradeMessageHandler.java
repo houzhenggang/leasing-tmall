@@ -23,7 +23,6 @@ import util.SpringUtil;
 public class TradeMessageHandler implements HshcMessageHandler {
 
     @Override
-    @Transactional
     public void handle(Message message) throws ApiException {
 
         if("taobao_trade_TradeBuyerPay".equals(message.getTopic()) ){

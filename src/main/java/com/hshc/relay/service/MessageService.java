@@ -17,6 +17,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import util.SpringUtil;
 
 /**
@@ -64,6 +65,7 @@ public class MessageService extends BaseService<Message> implements Initializing
     }
 
     private class DefaultMessageHandler implements MessageHandler{
+        @Transactional
         public void onMessage(Message message, MessageStatus status) {
             try {
                 baseDao.insert(message);
