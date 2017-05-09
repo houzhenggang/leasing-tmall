@@ -27,7 +27,7 @@ public class AuthorizedSessionServiceTest extends BaseTest {
 
     @Test(expected = NoAuthorizedSessionAcquiredException.class)
     public void testGetAuthorizedSessionException(){
-        String userName = "null";
+        String userName = "花生好车旗舰店";
 
         AuthorizedSession authorizedSession = authorizedSessionService.getAuthorizedSession(userName);
 
