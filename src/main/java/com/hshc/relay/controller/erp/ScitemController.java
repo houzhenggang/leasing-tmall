@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.hshc.relay.controller.erp;
 
 import com.hshc.relay.annotation.QimenSignAuthentication;
@@ -45,6 +44,5 @@ public class ScitemController extends BaseController{
         }
         return new BaseQimenResponseVo("发布后端商品,查询成功");
     }
-
 
 }
