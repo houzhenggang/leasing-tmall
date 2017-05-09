@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.hshc.relay.controller.erp;
 
 import com.hshc.relay.annotation.QimenSignAuthentication;
@@ -29,8 +28,8 @@ import static com.hshc.relay.service.RequestTaobaoService.*;
 public class ScitemController extends BaseController{
     private static Logger LOGGER = LoggerFactory.getLogger(ScitemController.class);
 
-    @Autowired
-    private ScitemService scitemService;
+//    @Autowired
+//    private ScitemService scitemService;
 
     @RequestMapping("/lease-scitem")
     @ResponseBody
@@ -39,7 +38,7 @@ public class ScitemController extends BaseController{
         try{
             ScItem scItem=new ScItem();
             ScitemAddResponse scitemAddResponse=new ScitemAddResponse();
-            scitemService.addScitem(scItem,scitemAddRequest,scitemAddResponse);
+           // scitemService.addScitem(scItem,scitemAddRequest,scitemAddResponse);
         }catch(Exception e){
             System.out.print("发布后端商品："+e);
         }
