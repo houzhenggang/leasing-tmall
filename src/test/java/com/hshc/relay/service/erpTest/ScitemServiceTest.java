@@ -1,6 +1,6 @@
 package com.hshc.relay.service.erpTest;
 
-import com.hshc.relay.service.BaseTest;
+import com.hshc.relay.BaseTest;
 import com.hshc.relay.service.ScitemService;
 import com.taobao.api.ApiException;
 import com.taobao.api.domain.ScItem;

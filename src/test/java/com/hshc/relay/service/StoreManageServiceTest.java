@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.Feature;
+import com.hshc.relay.BaseTest;
 import com.hshc.relay.service.RequestTaobaoClientService;
 import com.hshc.relay.service.StoreManageService;
 import com.taobao.api.ApiException;
