@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import static com.hshc.relay.service.RequestTaobaoService.*;
-
 /**
  * 发布后端商品
  * @author 王华英
@@ -28,8 +26,8 @@ import static com.hshc.relay.service.RequestTaobaoService.*;
 public class ScitemController extends BaseController{
     private static Logger LOGGER = LoggerFactory.getLogger(ScitemController.class);
 
-//    @Autowired
-//    private ScitemService scitemService;
+    @Autowired
+    private ScitemService scitemService;
 
     @RequestMapping("/lease-scitem")
     @ResponseBody
@@ -38,12 +36,11 @@ public class ScitemController extends BaseController{
         try{
             ScItem scItem=new ScItem();
             ScitemAddResponse scitemAddResponse=new ScitemAddResponse();
-           // scitemService.addScitem(scItem,scitemAddRequest,scitemAddResponse);
+            scitemService.addScitem(scitemAddRequest);
         }catch(Exception e){
             System.out.print("发布后端商品："+e);
         }
         return new BaseQimenResponseVo("发布后端商品,查询成功");
     }
-
 
 }

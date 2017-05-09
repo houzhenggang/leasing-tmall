@@ -4,6 +4,7 @@ import com.hshc.relay.service.BaseTest;
 import com.hshc.relay.service.ScitemService;
 import com.taobao.api.ApiException;
 import com.taobao.api.domain.ScItem;
+import com.taobao.api.request.ItemSellerGetRequest;
 import com.taobao.api.request.ScitemAddRequest;
 import com.taobao.api.response.ScitemAddResponse;
 import org.junit.Test;
@@ -15,6 +16,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ScitemServiceTest extends BaseTest{
     @Autowired
     private ScitemService scitemService;
+
+    @Test
+    public void testgetItemSeller() throws ApiException{
+        //num_iid  550367105833
+        ItemSellerGetRequest reqSc =new ItemSellerGetRequest();
+        reqSc.setFields("num_iid,title,nick,price,approve_status,sku,outer_id");
+        reqSc.setNumIid(550367105833L);
+        scitemService.getItemSeller(reqSc);
+    }
 
     @Test
     public void testAddScitem() throws ApiException {
