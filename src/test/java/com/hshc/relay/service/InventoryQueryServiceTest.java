@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.hshc.relay.BaseTest;
 import com.taobao.api.ApiException;
 import com.taobao.api.request.InventoryQueryRequest;
 import com.taobao.api.response.InventoryQueryResponse;
