@@ -1,6 +1,5 @@
 package com.hshc.relay.service;
 
-import com.hshc.relay.BaseTest;
 import com.taobao.api.ApiException;
 import com.taobao.api.request.ItemAddRequest;
 import com.taobao.api.request.ItemSellerGetRequest;
