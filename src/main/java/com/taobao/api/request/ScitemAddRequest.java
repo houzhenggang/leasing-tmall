@@ -16,9 +16,7 @@ import java.util.Map;
  */
 public class ScitemAddRequest extends BaseTaobaoRequest<ScitemAddResponse> {
 	
-	
-
-	/** 
+	/**
 	* 条形码
 	 */
 	private String barCode;

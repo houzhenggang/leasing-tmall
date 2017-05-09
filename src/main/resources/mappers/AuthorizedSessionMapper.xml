@@ -28,7 +28,7 @@
 
     <update id="update" parameterType="com.hshc.relay.entity.AuthorizedSession">
         update tmall_authorized_session
-        <set>
+        set modify_time = now(),
             <if test="accessToken != null">
                 access_token = #{accessToken},
             </if>
@@ -83,8 +83,9 @@
             <if test="refreshTokenValidTime != null">
                 refresh_token_valid_time = #{refreshTokenValidTime},
             </if>
-        </set>
+            version = version + 1
         where taobao_user_nick = #{taobaoUserNick}
     </update>
 
+>>>>>>> 7b038d3b18c08d076aeec23f8be971ed765e54c3
 </mapper>
