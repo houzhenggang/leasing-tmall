@@ -43,5 +43,4 @@ public class ScitemController extends BaseController{
         return new BaseQimenResponseVo("发布后端商品,查询成功");
     }
 
-
 }

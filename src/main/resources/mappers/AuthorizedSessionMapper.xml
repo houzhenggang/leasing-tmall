@@ -86,4 +86,5 @@
             version = version + 1
         where taobao_user_nick = #{taobaoUserNick}
     </update>
+
 </mapper>
