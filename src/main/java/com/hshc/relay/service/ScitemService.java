@@ -4,9 +4,11 @@ import com.hshc.relay.dao.*;
 import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
+import com.taobao.api.request.ItemSellerGetRequest;
 import com.taobao.api.request.ScitemAddRequest;
 import com.taobao.api.request.ScitemGetRequest;
 import com.taobao.api.request.ScitemMapAddRequest;
+import com.taobao.api.response.ItemSellerGetResponse;
 import com.taobao.api.response.ScitemAddResponse;
 import com.taobao.api.response.ScitemGetResponse;
 import com.taobao.api.response.ScitemMapAddResponse;
@@ -14,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- *  发布后端商品
+ *  商品信息
  *  @version V1.0 2017年5月7日16:36:36
  *  @author  王华英
  */
@@ -34,6 +36,16 @@ public class ScitemService extends BaseService<ScitemAddResponse>{
     private ScitemMapAddRequestDao scitemMapAddRequestDao;
     @Autowired
     private ScitemMapAddResponseDao scitemMapAddResponseDao;
+    @Autowired
+    private ItemSellerGetResponseDao itemSellerGetResponseDao;
+
+
+    //获取单个商品详细信息
+    public ItemSellerGetResponse getItemSeller(ItemSellerGetRequest reqSc) throws ApiException{
+        TaobaoClient client = new DefaultTaobaoClient("https://eco.taobao.com/router/rest", authorizedSessionService.getAppKey(), authorizedSessionService.getAppSecret());
+        ItemSellerGetResponse repSc=client.execute(reqSc, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
+        return repSc;
+    }
 
     //发布后端商品
     public ScitemAddResponse addScitem(ScitemAddRequest reqSc) throws ApiException {

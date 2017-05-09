@@ -8,6 +8,8 @@ import com.taobao.api.response.InventoryStoreManageResponse;
 
 import java.util.Map;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * TOP API: taobao.inventory.store.manage request
  * 
@@ -21,11 +23,13 @@ public class InventoryStoreManageRequest extends BaseTaobaoRequest<InventoryStor
 	/** 
 	* 仓库的物理地址，可更新
 	 */
+	@NotBlank(message = "仓库物理地址不能为空")
 	private String address;
 
 	/** 
 	* 仓库区域名，可更新
 	 */
+	@NotBlank(message = "仓库区域名不能为空")
 	private String addressAreaName;
 
 	/** 
@@ -41,6 +45,7 @@ public class InventoryStoreManageRequest extends BaseTaobaoRequest<InventoryStor
 	/** 
 	* 参数定义，ADD：新建; UPDATE：更新
 	 */
+	@NotBlank(message = "参数定义不能为空")
 	private String operateType;
 
 	/** 
@@ -56,16 +61,19 @@ public class InventoryStoreManageRequest extends BaseTaobaoRequest<InventoryStor
 	/** 
 	* 商家的仓库编码，不允许重复，不允许更新
 	 */
+	@NotBlank(message = "商家仓库编码不能为空")
 	private String storeCode;
 
 	/** 
 	* 商家的仓库名称，可更新
 	 */
+	@NotBlank(message = "商家仓库名称不能为空")
 	private String storeName;
 
 	/** 
 	* 仓库类型，可更新。目前只支持自有仓，TYPE_OWN：自有物理仓
 	 */
+	@NotBlank(message = "仓库类型不能为空")
 	private String storeType;
 
 	public void setAddress(String address) {

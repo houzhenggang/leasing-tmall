@@ -1,8 +1,9 @@
 package com.hshc.relay.service;
 
-import com.hshc.relay.BaseTest;
 import com.hshc.relay.entity.AuthorizedSession;
 import com.hshc.relay.exception.NoAuthorizedSessionAcquiredException;
+import com.hshc.relay.service.AuthorizedSessionService;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class AuthorizedSessionServiceTest extends BaseTest {
 
     @Test(expected = NoAuthorizedSessionAcquiredException.class)
     public void testGetAuthorizedSessionException(){
-        String userName = "null";
+        String userName = "花生好车旗舰店";
 
         AuthorizedSession authorizedSession = authorizedSessionService.getAuthorizedSession(userName);
 

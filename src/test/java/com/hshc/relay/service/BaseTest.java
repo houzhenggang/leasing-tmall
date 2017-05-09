@@ -1,4 +1,4 @@
-package com.hshc.relay;
+package com.hshc.relay.service;
 
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import org.junit.runner.RunWith;

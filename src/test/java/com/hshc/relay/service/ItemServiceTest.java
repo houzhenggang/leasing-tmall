@@ -1,14 +1,14 @@
 package com.hshc.relay.service;
 
-import com.hshc.relay.BaseTest;
+import org.junit.Assert;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.taobao.api.ApiException;
 import com.taobao.api.request.ItemAddRequest;
 import com.taobao.api.request.ItemSellerGetRequest;
 import com.taobao.api.response.ItemAddResponse;
 import com.taobao.api.response.ItemSellerGetResponse;
-import org.junit.Assert;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author 钟林俊
