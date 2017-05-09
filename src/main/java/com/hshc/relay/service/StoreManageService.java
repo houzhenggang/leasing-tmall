@@ -6,6 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hshc.relay.dao.StoreManageDao;
 import com.taobao.api.domain.Store;
+/**
+ * 创建更新仓库
+ * @author 史珂
+ *
+ */
 @Service
 public class StoreManageService extends BaseService<Store>{
 
