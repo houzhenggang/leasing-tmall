@@ -15,7 +15,6 @@ import com.taobao.api.response.TmcUserPermitResponse;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import util.SpringUtil;
@@ -60,25 +59,29 @@ public class MessageService extends BaseService<Message> implements Initializing
     @Override
     public void afterPropertiesSet() throws Exception {
         TmcClient client = new TmcClient(authorizedSessionService.getAppKey(), authorizedSessionService.getAppSecret());
-        client.setMessageHandler(new DefaultMessageHandler());
+        client.setMessageHandler(SpringUtil.getBeanByClass(DefaultMessageHandler.class));
         client.connect(authorizedSessionService.getMessageServiceUrl());
     }
 
+
+    @Service
     private class DefaultMessageHandler implements MessageHandler{
+
         @Transactional
         public void onMessage(Message message, MessageStatus status) {
-            try {
+//            try {
                 baseDao.insert(message);
-                HshcMessageHandler messageHandler = getMessageHandler(message.getTopic());
-                if(messageHandler != null){
-                    messageHandler.handle(message);
-                }
-            } catch (Exception e) {
-                logger.error("", e);
-                // 消息处理失败回滚，服务端需要重发
-                status.setReason(e.getMessage());
-                status.fail();
-            }
+                throw new RuntimeException();
+//                HshcMessageHandler messageHandler = getMessageHandler(message.getTopic());
+//                if(messageHandler != null){
+//                    messageHandler.handle(message);
+//                }
+//            } catch (Exception e) {
+//                logger.error("", e);
+//                // 消息处理失败回滚，服务端需要重发
+//                status.setReason(e.getMessage());
+//                status.fail();
+//            }
         }
     }
 
