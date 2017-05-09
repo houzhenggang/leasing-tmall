@@ -3,6 +3,7 @@ package com.hshc.relay.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hshc.relay.dao.CarLeaseReserveDao;
 import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
@@ -30,9 +31,9 @@ public class CarLeaseReserveService extends BaseService<TmallCarLeaseReserveResp
 		return rsp;
 	}
 
-	public void addLeaseReserve(TmallCarLeaseReserveResponse lr) {
-		Result result = lr.getResult();
-		
+	public void addLeaseReserve(TmallCarLeaseReserveResponse tclr) {
+		Result result = tclr.getResult();
+		baseDao.insert(tclr);
 	}
 
 }
