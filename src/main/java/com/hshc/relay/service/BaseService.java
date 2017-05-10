@@ -4,6 +4,7 @@ import com.hshc.relay.dao.BaseDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,61 @@ public class BaseService<T>{
 
     @Autowired
     protected BaseDao<T> baseDao;
+
+    @Value("${top.appKey}")
+    private String appKey;
+
+    @Value("${top.appSecret}")
+    private String appSecret;
+
+    @Value("${qimen.redirectUri}")
+    private String redirectUri;
+
+    @Value("${qimen.authUrl}")
+    private String authUrl;
+
+    @Value("${qimen.tokenUrl}")
+    private String tokenUrl;
+
+    /**
+     * top接口地址
+     */
+    @Value("${top.httpsApi}")
+    private String topApi;
+
+    /**
+     * 淘宝消息服务地址
+     */
+    @Value("${taobao.messageService}")
+    private String messageServiceUrl;
+
+    public String getAppKey() {
+        return appKey;
+    }
+
+    public String getAppSecret() {
+        return appSecret;
+    }
+
+    public String getRedirectUri() {
+        return redirectUri;
+    }
+
+    public String getAuthUrl() {
+        return authUrl;
+    }
+
+    public String getTokenUrl() {
+        return tokenUrl;
+    }
+
+    public String getTopApi() {
+        return topApi;
+    }
+
+    public String getMessageServiceUrl() {
+        return messageServiceUrl;
+    }
 
     @Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
     public T getOne(T t){
