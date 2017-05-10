@@ -3,7 +3,6 @@ package com.hshc.relay.service;
 import com.alibaba.fastjson.JSON;
 import com.hshc.relay.exception.BaseException;
 import com.hshc.relay.service.messagehandler.HshcMessageHandler;
-import com.hshc.relay.service.messagehandler.TradeMessageHandler;
 import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
@@ -38,7 +37,7 @@ public class MessageService extends BaseService<Message> implements Initializing
                 topicStr += "," + topics[i];
             }
 
-            TaobaoClient client = new DefaultTaobaoClient(authorizedSessionService.getTopApi(), authorizedSessionService.getAppKey(), authorizedSessionService.getAppSecret());
+            TaobaoClient client = new DefaultTaobaoClient(getTopApi(), getAppKey(), getAppSecret());
             TmcUserPermitRequest req = new TmcUserPermitRequest();
 
             req.setTopics(topicStr);
@@ -80,10 +79,16 @@ public class MessageService extends BaseService<Message> implements Initializing
         client.connect(authorizedSessionService.getMessageServiceUrl());
     }
 
-
+    /**
+     * 根据topic获取相应的处理器
+     *
+     * @param topic 消息主题
+     * @return 处理器对象
+     */
     private HshcMessageHandler getMessageHandler(String topic) {
         switch (topic){
-            case "taobao_trade_TradeBuyerPay ": return SpringUtil.getBeanByClass(TradeMessageHandler.class);
+            case "taobao_trade_TradeBuyerPay ": return (HshcMessageHandler) SpringUtil.getBeanById("tradeMessageHandler");
+            case "taobao_item_ItemUpdate" : return (HshcMessageHandler) SpringUtil.getBeanById("itemUpdateMessageHandler");
         }
 
         return null;
