@@ -68,7 +68,7 @@ public class InventoryMerchantAdjustController extends BaseController{
 		     result = inventoryMerchantAdjustService.InventoryMerchantAdjust(inventoryMerchantAdjustRequest);
 		} catch (ApiException e) {
 
-			e.printStackTrace();
+			result = e.getMessage();
 		}
 		
 		return new BaseQimenResponseVo(result);
