@@ -14,57 +14,6 @@ import java.util.Date;
 @Service
 public class AuthorizedSessionService extends BaseService<AuthorizedSession> {
 
-    @Value("${top.appKey}")
-    private String appKey;
-
-    @Value("${top.appSecret}")
-    private String appSecret;
-
-    @Value("${qimen.redirectUri}")
-    private String redirectUri;
-
-    @Value("${qimen.authUrl}")
-    private String authUrl;
-
-    @Value("${qimen.tokenUrl}")
-    private String tokenUrl;
-
-    /**
-     * top接口地址
-     */
-    @Value("${top.httpsApi}")
-    private String topApi;
-
-    /**
-     * 淘宝消息服务地址
-     */
-    @Value("${taobao.messageService}")
-    private String messageServiceUrl;
-
-    public String getAppKey() {
-        return appKey;
-    }
-
-    public String getAppSecret() {
-        return appSecret;
-    }
-
-    public String getRedirectUri() {
-        return redirectUri;
-    }
-
-    public String getAuthUrl() {
-        return authUrl;
-    }
-
-    public String getTokenUrl() {
-        return tokenUrl;
-    }
-
-    public String getTopApi() {
-        return topApi;
-    }
-
     /**
      * 根据用户名获取相应的授权
      *
@@ -84,7 +33,4 @@ public class AuthorizedSessionService extends BaseService<AuthorizedSession> {
         return authorizedSession;
     }
 
-    public String getMessageServiceUrl() {
-        return messageServiceUrl;
-    }
 }
