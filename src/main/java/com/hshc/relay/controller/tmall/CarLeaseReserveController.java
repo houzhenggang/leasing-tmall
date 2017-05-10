@@ -35,6 +35,7 @@ public class CarLeaseReserveController extends BaseController {
 		try {
 			//获取返回参数
 			TmallCarLeaseReserveResponse lr = clrService.leaseReserve(req);
+			LOGGER.info("result:"+lr);
 			//保存返回的数据
 			clrService.addLeaseReserve(lr);
 		} catch (Exception e) {
