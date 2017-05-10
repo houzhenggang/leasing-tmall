@@ -1,8 +1,8 @@
 package com.hshc.relay.service;
 
+import com.hshc.relay.BaseTest;
 import com.hshc.relay.entity.AuthorizedSession;
 import com.hshc.relay.exception.NoAuthorizedSessionAcquiredException;
-import com.hshc.relay.service.AuthorizedSessionService;
 
 import org.junit.Assert;
 import org.junit.Test;
