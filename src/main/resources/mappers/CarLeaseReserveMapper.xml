@@ -2,8 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.hshc.relay.dao.CarLeaseReserveDao">
+<resultMap type="com.taobao.api.response.TmallCarLeaseReserveResponse" id="LeaseReserve">
+</resultMap>
+<resultMap type="com.taobao.api.response.TmallCarLeaseReserveResponse" id="ResultMap" extends="LeaseReserve">
+   <collection property="result" ofType="com.taobao.api.response.TmallCarLeaseReserveResponse$Result">
+      
+   </collection>
+</resultMap>
 
-<insert id="insert" parameterType="com.taobao.api.response.TmallCarLeaseReserveResponse$Result">
+<insert id="insertMap" parameterType="Map">
  insert into tmall_lease_reserve_result(
    <if test="costTime !=null">cost_time,</if>
    <if test="errorCode !=null">error_code,</if>
@@ -26,7 +33,7 @@
      now()
  )
 </insert>
-<select id="selectOne"  parameterType="com.taobao.api.response.TmallCarLeaseReserveResponse$Result" resultType="com.taobao.api.response.TmallCarLeaseReserveResponse$Result">
+<select id="selectOne"  parameterType="int" resultType="com.taobao.api.response.TmallCarLeaseReserveResponse$Result">
 select 
    id 
    cost_time,
