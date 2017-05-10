@@ -1,8 +1,13 @@
 package com.hshc.relay.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.hshc.relay.dao.CarLeaseReserveDao;
 import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
@@ -19,6 +24,8 @@ public class CarLeaseReserveService extends BaseService<TmallCarLeaseReserveResp
 
 	@Autowired
 	private AuthorizedSessionService asService;
+	@Autowired
+	private CarLeaseReserveDao clrDao;
 	
 	public TmallCarLeaseReserveResponse leaseReserve(TmallCarLeaseReserveRequest req) throws ApiException {
 		// TODO Auto-generated method stub
@@ -30,9 +37,25 @@ public class CarLeaseReserveService extends BaseService<TmallCarLeaseReserveResp
 		return rsp;
 	}
 
+	@Transactional(rollbackFor = Exception.class)
 	public void addLeaseReserve(TmallCarLeaseReserveResponse lr) {
 		Result result = lr.getResult();
-		
+		Map<String, Object> map = getMapResult(result);
+		clrDao.insertMap(map);
+	}
+	
+	public Map<String,Object> getMapResult(Result result){
+		Map<String,Object> map = new HashMap<>();
+		map.put("costTime", result.getCostTime());
+		map.put("errorCode", result.getErrorCode());
+		map.put("errorMessage", result.getErrorMessage());
+		map.put("gmtCurrentTime", result.getGmtCurrentTime());
+		map.put("msgCode", result.getMsgCode());
+		map.put("msgInfo", result.getMsgInfo());
+		map.put("object", result.getObject());
+		map.put("success", result.getSuccess());
+		map.put("type", "整车租车回传预约信息");
+		return map;
 	}
 
 }

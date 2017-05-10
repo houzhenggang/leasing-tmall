@@ -1,8 +1,8 @@
 package com.hshc.relay.service;
 
+import com.alibaba.fastjson.JSON;
 import com.hshc.relay.exception.BaseException;
 import com.hshc.relay.service.messagehandler.HshcMessageHandler;
-import com.hshc.relay.service.messagehandler.TradeMessageHandler;
 import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
@@ -10,13 +10,13 @@ import com.taobao.api.internal.tmc.Message;
 import com.taobao.api.internal.tmc.MessageHandler;
 import com.taobao.api.internal.tmc.MessageStatus;
 import com.taobao.api.internal.tmc.TmcClient;
+import com.taobao.api.internal.toplink.LinkException;
 import com.taobao.api.request.TmcUserPermitRequest;
 import com.taobao.api.response.TmcUserPermitResponse;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import util.SpringUtil;
 
 /**
@@ -29,14 +29,6 @@ public class MessageService extends BaseService<Message> implements Initializing
     @Autowired
     private AuthorizedSessionService authorizedSessionService;
 
-    private HshcMessageHandler getMessageHandler(String topic) {
-        switch (topic){
-            case "taobao_trade_TradeBuyerPay ": return SpringUtil.getBeanByClass(TradeMessageHandler.class);
-        }
-
-        return null;
-    }
-
     public void permitUser(String ... topics) throws ApiException {
 
         if(!ArrayUtils.isEmpty(topics)){
@@ -45,7 +37,7 @@ public class MessageService extends BaseService<Message> implements Initializing
                 topicStr += "," + topics[i];
             }
 
-            TaobaoClient client = new DefaultTaobaoClient(authorizedSessionService.getTopApi(), authorizedSessionService.getAppKey(), authorizedSessionService.getAppSecret());
+            TaobaoClient client = new DefaultTaobaoClient(getTopApi(), getAppKey(), getAppSecret());
             TmcUserPermitRequest req = new TmcUserPermitRequest();
 
             req.setTopics(topicStr);
@@ -57,32 +49,48 @@ public class MessageService extends BaseService<Message> implements Initializing
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet(){
+
+    }
+
+    public void initClient() throws LinkException {
         TmcClient client = new TmcClient(authorizedSessionService.getAppKey(), authorizedSessionService.getAppSecret());
-        client.setMessageHandler(SpringUtil.getBeanByClass(DefaultMessageHandler.class));
+        client.setMessageHandler(new MessageHandler() {
+
+            @Override
+            public void onMessage(Message message, MessageStatus status) throws Exception {
+                try {
+                    add(message);
+                    HshcMessageHandler messageHandler = getMessageHandler(message.getTopic());
+                    if(messageHandler != null){
+                        messageHandler.handle(message);
+                    }
+                }catch (Exception e) {
+                    logger.error("", e);
+                    logger.info("message", JSON.toJSONString(message));
+                    if(e instanceof BaseException){
+                        // 消息处理失败回滚，服务端需要重发
+                        status.setReason(e.getMessage());
+                        status.fail();
+                    }
+                }
+            }
+        });
         client.connect(authorizedSessionService.getMessageServiceUrl());
     }
 
-
-    @Service
-    private class DefaultMessageHandler implements MessageHandler{
-
-        @Transactional
-        public void onMessage(Message message, MessageStatus status) {
-//            try {
-                baseDao.insert(message);
-                throw new RuntimeException();
-//                HshcMessageHandler messageHandler = getMessageHandler(message.getTopic());
-//                if(messageHandler != null){
-//                    messageHandler.handle(message);
-//                }
-//            } catch (Exception e) {
-//                logger.error("", e);
-//                // 消息处理失败回滚，服务端需要重发
-//                status.setReason(e.getMessage());
-//                status.fail();
-//            }
+    /**
+     * 根据topic获取相应的处理器
+     *
+     * @param topic 消息主题
+     * @return 处理器对象
+     */
+    private HshcMessageHandler getMessageHandler(String topic) {
+        switch (topic){
+            case "taobao_trade_TradeBuyerPay ": return (HshcMessageHandler) SpringUtil.getBeanById("tradeMessageHandler");
+            case "taobao_item_ItemUpdate" : return (HshcMessageHandler) SpringUtil.getBeanById("itemUpdateMessageHandler");
         }
-    }
 
+        return null;
+    }
 }

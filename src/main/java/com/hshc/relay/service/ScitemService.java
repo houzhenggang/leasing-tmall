@@ -48,6 +48,7 @@ public class ScitemService extends BaseService<ScitemAddResponse>{
         System.out.print("后端商品名称："+reqSc.getItemName().toString());
         System.out.print("商家编号："+reqSc.getOuterCode());
         //请求后端商品
+
         TaobaoClient client = new DefaultTaobaoClient("https://eco.taobao.com/router/rest", authorizedSessionService.getAppKey(), authorizedSessionService.getAppSecret());
         ScitemAddResponse repSc=client.execute(reqSc, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
         //持久化发布成功的商品
@@ -96,5 +97,6 @@ public class ScitemService extends BaseService<ScitemAddResponse>{
         System.out.print("查询IC商品与后端商品的映射关系:"+repSc.getBody());
         return repSc;
     }
+
 
 }

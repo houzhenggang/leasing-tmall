@@ -3,7 +3,6 @@ package com.hshc.relay.service;
 import com.hshc.relay.BaseTest;
 import com.hshc.relay.entity.AuthorizedSession;
 import com.hshc.relay.exception.NoAuthorizedSessionAcquiredException;
-import com.hshc.relay.service.AuthorizedSessionService;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -29,7 +28,7 @@ public class AuthorizedSessionServiceTest extends BaseTest{
 
     @Test(expected = NoAuthorizedSessionAcquiredException.class)
     public void testGetAuthorizedSessionException(){
-        String userName = "花生好车旗舰店";
+        String userName = "xx";
 
         AuthorizedSession authorizedSession = authorizedSessionService.getAuthorizedSession(userName);
 
