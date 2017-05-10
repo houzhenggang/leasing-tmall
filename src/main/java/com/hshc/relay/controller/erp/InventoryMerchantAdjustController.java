@@ -56,6 +56,7 @@ public class InventoryMerchantAdjustController extends BaseController{
 		inventoryMerchantAdjustRequest.setInventoryCheck(ic);
 		//发送天猫
 		String result = inventoryMerchantAdjustService.InventoryMerchantAdjust(inventoryMerchantAdjustRequest);
+		
 		return result;
 	}
 }
