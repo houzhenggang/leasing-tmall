@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +29,7 @@ import com.taobao.api.request.InventoryMerchantAdjustRequest.InventoryCheckDto;
 @Controller
 public class InventoryMerchantAdjustController extends BaseController{
 
+	private Logger logger =Logger.getLogger(InventoryMerchantAdjustController.class);
 	@Autowired
 	private InventoryMerchantAdjustService inventoryMerchantAdjustService;
 	@RequestMapping("/merchant-adjust")
@@ -36,6 +39,8 @@ public class InventoryMerchantAdjustController extends BaseController{
 		List<Object> list = JSON.parseArray(JSON.parseObject(res).get("data").toString());
 		//数据封装
 		InventoryMerchantAdjustRequest inventoryMerchantAdjustRequest = new InventoryMerchantAdjustRequest();
+		logger.info(res);
+		logger.info("=="+list);
 		InventoryCheckDto ic = new InventoryCheckDto();
 		ic.setCheckMode(2L);
 		ic.setInvStoreType(2L);
