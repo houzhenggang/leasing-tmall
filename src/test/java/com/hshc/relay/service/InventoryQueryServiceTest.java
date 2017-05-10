@@ -22,12 +22,12 @@ public class InventoryQueryServiceTest extends BaseTest{
 	
 	@Test
 	public void inventoryQueryTest() throws ApiException{
-		InventoryQueryRequest req = new InventoryQueryRequest();
-		req.setScItemIds("550354838075");
-		//req.setScItemCodes("GLY201210120001^GLY23214141");
-		//req.setSellerNick("Nike");
-		//req.setStoreCodes("GLY001^GLY002");
-		InventoryQueryResponse rsp = inventoryQueryService.inventoryQuery(req);
-		Assert.assertNotNull(rsp);
+//		InventoryQueryRequest req = new InventoryQueryRequest();
+//		req.setScItemIds("550354838075");
+//		//req.setScItemCodes("GLY201210120001^GLY23214141");
+//		//req.setSellerNick("Nike");
+//		//req.setStoreCodes("GLY001^GLY002");
+//		InventoryQueryResponse rsp = inventoryQueryService.inventoryQuery(req);
+//		Assert.assertNotNull(rsp);
 	}
 }
