@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author 钟林俊
  * @version V1.0 2017-05-07 10:13
  */
-public class AuthorizedSessionServiceTest extends BaseTest {
+public class AuthorizedSessionServiceTest extends BaseTest{
 
     @Autowired
     private AuthorizedSessionService authorizedSessionService;
