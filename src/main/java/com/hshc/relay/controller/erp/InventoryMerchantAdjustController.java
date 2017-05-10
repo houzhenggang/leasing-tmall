@@ -32,6 +32,8 @@ public class InventoryMerchantAdjustController extends BaseController{
 	private Logger logger =Logger.getLogger(InventoryMerchantAdjustController.class);
 	@Autowired
 	private InventoryMerchantAdjustService inventoryMerchantAdjustService;
+	
+	
 	@RequestMapping("/merchant-adjust")
 	@ResponseBody
 	public Object inventoryMerchantAdjust(@RequestBody String res)throws ApiException{
@@ -39,7 +41,6 @@ public class InventoryMerchantAdjustController extends BaseController{
 		List<Object> list = JSON.parseArray(JSON.parseObject(res).get("data").toString());
 		//数据封装
 		InventoryMerchantAdjustRequest inventoryMerchantAdjustRequest = new InventoryMerchantAdjustRequest();
-		logger.info(res);
 		logger.info("=="+list);
 		InventoryCheckDto ic = new InventoryCheckDto();
 		ic.setCheckMode(2L);
@@ -61,7 +62,6 @@ public class InventoryMerchantAdjustController extends BaseController{
 		inventoryMerchantAdjustRequest.setInventoryCheck(ic);
 		//发送天猫
 		String result = inventoryMerchantAdjustService.InventoryMerchantAdjust(inventoryMerchantAdjustRequest);
-		
 		return result;
 	}
 }
