@@ -4,8 +4,7 @@ import com.hshc.relay.BaseTest;
 import com.hshc.relay.service.ScitemService;
 import com.taobao.api.ApiException;
 import com.taobao.api.domain.ScItem;
-import com.taobao.api.request.ItemSellerGetRequest;
-import com.taobao.api.request.ScitemAddRequest;
+import com.taobao.api.request.*;
 import com.taobao.api.response.ScitemAddResponse;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +21,30 @@ public class ScitemServiceTest extends BaseTest{
         //num_iid  550367105833
         ItemSellerGetRequest reqSc =new ItemSellerGetRequest();
         reqSc.setFields("num_iid,title,nick,price,approve_status,sku,outer_id");
-        reqSc.setNumIid(550367105833L);
+        reqSc.setNumIid(550471303845L);
         scitemService.getItemSeller(reqSc);
+    }
+
+    //查询后端商品
+    @Test
+    public void testGetScitem()throws ApiException{
+        ScitemGetRequest reqSc =new ScitemGetRequest();
+        reqSc.setItemId(550389528294L);
+        scitemService.getScitem(reqSc);
+    }
+
+    @Test
+    public void testQueryScitem() throws ApiException{
+        ScitemQueryRequest reqSc=new ScitemQueryRequest();
+        scitemService.queryScitem(reqSc);
     }
 
     @Test
     public void testAddScitem() throws ApiException {
         ScitemAddRequest req =new ScitemAddRequest();
-        req.setItemName("宝贝");
-        req.setOuterCode("商家编码");
-        req.setItemType(0L);
+        req.setItemName("测试车型CC");
+        req.setOuterCode("hs2017CC");
+        /*req.setItemType(0L);
         req.setProperties("111:222;333:444");
         req.setBarCode("条形码");
         req.setWmsCode("仓储商编码");
@@ -50,7 +63,7 @@ public class ScitemServiceTest extends BaseTest{
         req.setBrandId(1L);
         req.setBrandName("brand_Name");
         req.setSpuId(1234L);
-        req.setIsAreaSale(1L);
+        req.setIsAreaSale(1L);*/
 
 
       /*  ScitemAddResponse rep =new ScitemAddResponse();
@@ -82,4 +95,25 @@ public class ScitemServiceTest extends BaseTest{
         scitemService.addScitem(req);
     }
 
+
+    //所有前后端商品信息
+    @Test
+    public void testAddScitemMap() throws ApiException{
+        ScitemMapAddRequest reqSc=new ScitemMapAddRequest();
+        reqSc.setItemId(550471303845L);//前端IC商品ID
+        reqSc.setScItemId(550440125619L);//后端SC商品ID
+        reqSc.setSkuId(3354444973434L);
+        reqSc.setOuterCode("hs2017yl");//商家编号hs2016ky
+        reqSc.setNeedCheck(false);
+        scitemService.addScitemMap(reqSc);
+    }
+
+    //查询前后端映射信息
+    @Test
+    public void queryScitemMap() throws ApiException{
+        ScitemMapQueryRequest reqSc=new ScitemMapQueryRequest();
+        reqSc.setItemId(550367105833L);//前台IC商品ID
+        //reqSc.set
+        scitemService.queryScitemMap(reqSc);
+    }
 }
