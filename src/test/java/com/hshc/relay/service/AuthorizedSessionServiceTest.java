@@ -1,5 +1,6 @@
 package com.hshc.relay.service;
 
+import com.hshc.relay.BaseTest;
 import com.hshc.relay.entity.AuthorizedSession;
 import com.hshc.relay.exception.NoAuthorizedSessionAcquiredException;
 import com.hshc.relay.service.AuthorizedSessionService;
@@ -12,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author 钟林俊
  * @version V1.0 2017-05-07 10:13
  */
-public class AuthorizedSessionServiceTest extends BaseTest {
+public class AuthorizedSessionServiceTest extends BaseTest{
 
     @Autowired
     private AuthorizedSessionService authorizedSessionService;

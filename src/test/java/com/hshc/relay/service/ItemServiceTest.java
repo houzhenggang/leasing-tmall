@@ -1,5 +1,6 @@
 package com.hshc.relay.service;
 
+import com.hshc.relay.BaseTest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

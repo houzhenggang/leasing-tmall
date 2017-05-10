@@ -4,11 +4,16 @@ import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.service.ScitemService;
 import com.hshc.relay.vo.BaseQimenResponseVo;
+import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.domain.ScItem;
+import com.taobao.api.request.ItemSellerGetRequest;
 import com.taobao.api.request.ScitemAddRequest;
+import com.taobao.api.request.ScitemMapAddRequest;
+import com.taobao.api.response.ItemSellerGetResponse;
 import com.taobao.api.response.ScitemAddResponse;
+import com.taobao.api.response.ScitemMapAddResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,18 +34,54 @@ public class ScitemController extends BaseController{
     @Autowired
     private ScitemService scitemService;
 
-    @RequestMapping("/lease-scitem")
+    @RequestMapping("/add-scitem")
     @ResponseBody
-    @QimenSignAuthentication
-    public BaseQimenResponseVo addScitem(@RequestBody ScitemAddRequest scitemAddRequest){
+    //@QimenSignAuthentication
+    public ScitemAddResponse addScitem(@RequestBody ScitemAddRequest scitemAddRequest){
+        ScitemAddResponse response=new ScitemAddResponse();
+        System.out.print("发布后端商品_商品名称："+scitemAddRequest.getItemName());
+        System.out.print("发布后端商品_商家编号："+scitemAddRequest.getOuterCode());
         try{
-            ScItem scItem=new ScItem();
-            ScitemAddResponse scitemAddResponse=new ScitemAddResponse();
-            scitemService.addScitem(scitemAddRequest);
+            response=scitemService.addScitem(scitemAddRequest);
         }catch(Exception e){
             System.out.print("发布后端商品："+e);
         }
-        return new BaseQimenResponseVo("发布后端商品,查询成功");
+        return response;
     }
+
+    @RequestMapping("/get-seller")
+    @ResponseBody
+    @QimenSignAuthentication
+    public ItemSellerGetResponse getItemSeller(@RequestBody ItemSellerGetRequest reqSc){
+        ItemSellerGetResponse response=new ItemSellerGetResponse();
+        try{
+            response=scitemService.getItemSeller(reqSc);
+        }catch(Exception e){
+            System.out.print("获取单个商品详细信息："+e);
+        }
+        return response;
+    }
+
+    @RequestMapping("/add-scitemMap")
+    @ResponseBody
+    @QimenSignAuthentication
+    public ScitemMapAddResponse addScitemMap(@RequestBody ScitemMapAddRequest reqSc){
+        ScitemMapAddResponse response=new ScitemMapAddResponse();
+        System.out.print(reqSc.getOuterCode());
+        System.out.print(reqSc.getItemId());
+        System.out.print(reqSc.getSkuId());
+        System.out.print(reqSc.getScItemId());
+        System.out.print(reqSc.getNeedCheck());
+        try {
+            response=scitemService.addScitemMap(reqSc);
+        }catch (Exception e){
+            System.out.print("创建IC商品与后端商品的映射关系:"+e);
+        }
+        return response;
+    }
+
+
+
+
 
 }

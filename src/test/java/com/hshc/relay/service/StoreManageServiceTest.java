@@ -2,6 +2,7 @@ package com.hshc.relay.service;
 
 import java.util.List;
 
+import com.hshc.relay.BaseTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
