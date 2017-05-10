@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hshc.relay.dao.CarLeaseReserveDao;
 import com.taobao.api.ApiException;
@@ -36,6 +37,7 @@ public class CarLeaseReserveService extends BaseService<TmallCarLeaseReserveResp
 		return rsp;
 	}
 
+	@Transactional(rollbackFor = Exception.class)
 	public void addLeaseReserve(TmallCarLeaseReserveResponse lr) {
 		Result result = lr.getResult();
 		Map<String, Object> map = getMapResult(result);
@@ -52,6 +54,7 @@ public class CarLeaseReserveService extends BaseService<TmallCarLeaseReserveResp
 		map.put("msgInfo", result.getMsgInfo());
 		map.put("object", result.getObject());
 		map.put("success", result.getSuccess());
+		map.put("type", "整车租车回传预约信息");
 		return map;
 	}
 
