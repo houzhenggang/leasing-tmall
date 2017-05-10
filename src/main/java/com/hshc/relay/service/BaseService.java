@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional(readOnly = true)
 public class BaseService<T>{
 
     protected static final Logger logger = LoggerFactory.getLogger(BaseService.class);
