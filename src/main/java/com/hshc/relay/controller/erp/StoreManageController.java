@@ -40,7 +40,7 @@ public class StoreManageController extends BaseController{
 	protected StoreManageService smService;
 
 	
-	@RequestMapping("/lease-store")
+	@RequestMapping("/lease-storeManage")
 	@ResponseBody
 	@QimenSignAuthentication
 	public BaseQimenResponseVo storeManager(@Valid InventoryStoreManageRequest smr){
