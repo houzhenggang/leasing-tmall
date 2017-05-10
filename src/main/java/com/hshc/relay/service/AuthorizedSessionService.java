@@ -20,12 +20,6 @@ public class AuthorizedSessionService extends BaseService<AuthorizedSession> {
     @Value("${top.appSecret}")
     private String appSecret;
 
-    @Value("${top.sandboxAppKey}")
-    private String sandboxAppKey;
-
-    @Value("${top.sandboxAppSecret}")
-    private String sandboxAppSecret;
-
     @Value("${qimen.redirectUri}")
     private String redirectUri;
 
@@ -34,6 +28,42 @@ public class AuthorizedSessionService extends BaseService<AuthorizedSession> {
 
     @Value("${qimen.tokenUrl}")
     private String tokenUrl;
+
+    /**
+     * top接口地址
+     */
+    @Value("${top.httpsApi}")
+    private String topApi;
+
+    /**
+     * 淘宝消息服务地址
+     */
+    @Value("${taobao.messageService}")
+    private String messageServiceUrl;
+
+    public String getAppKey() {
+        return appKey;
+    }
+
+    public String getAppSecret() {
+        return appSecret;
+    }
+
+    public String getRedirectUri() {
+        return redirectUri;
+    }
+
+    public String getAuthUrl() {
+        return authUrl;
+    }
+
+    public String getTokenUrl() {
+        return tokenUrl;
+    }
+
+    public String getTopApi() {
+        return topApi;
+    }
 
     /**
      * 根据用户名获取相应的授权
@@ -48,37 +78,13 @@ public class AuthorizedSessionService extends BaseService<AuthorizedSession> {
 
         // 当前没有可用的授权或者授权过期,抛出异常需要用户重新授权
         if(authorizedSession == null || authorizedSession.getExpireTime().compareTo(new Date()) <= 0){
-            throw new NoAuthorizedSessionAcquiredException(authUrl + "?response_type=code&client_id=" + appKey
-                    + "&redirect_uri=" + redirectUri + "/session-auth" + "&view=web");
+            throw new NoAuthorizedSessionAcquiredException(getAuthUrl() + "?response_type=code&client_id=" + getAppKey()
+                    + "&redirect_uri=" + getRedirectUri() + "/session-auth" + "&view=web");
         }
         return authorizedSession;
     }
 
-    public String getAppKey() {
-        return appKey;
-    }
-
-    public String getAppSecret() {
-        return appSecret;
-    }
-
-    public String getSandboxAppKey() {
-        return sandboxAppKey;
-    }
-
-    public String getSandboxAppSecret() {
-        return sandboxAppSecret;
-    }
-
-    public String getRedirectUri() {
-        return redirectUri;
-    }
-
-    public String getAuthUrl() {
-        return authUrl;
-    }
-
-    public String getTokenUrl() {
-        return tokenUrl;
+    public String getMessageServiceUrl() {
+        return messageServiceUrl;
     }
 }

@@ -9,7 +9,8 @@
    source_inv_store_type,
    source_store_code
 </sql>
-<select id="select"  resultType="com.taobao.api.request.LocationRelationEditRequest$LocationRelationDto">
-    select <include refid="columns"/> from  shop_store_relation
+<select id="selectList"  resultType="com.taobao.api.request.LocationRelationEditRequest$LocationRelationDto">
+    select <include refid="columns"/> from  shop_store_relation where id =168
 </select>
+
 </mapper> 

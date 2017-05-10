@@ -1,6 +1,5 @@
 package com.hshc.relay.service;
 
-import com.hshc.relay.exception.BaseException;
 import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
