@@ -8,15 +8,14 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.service.InventoryMerchantAdjustService;
 import com.taobao.api.ApiException;
-import com.taobao.api.DefaultTaobaoClient;
-import com.taobao.api.TaobaoClient;
 import com.taobao.api.request.InventoryMerchantAdjustRequest;
 import com.taobao.api.request.InventoryMerchantAdjustRequest.InventoryCheckDetailDto;
 import com.taobao.api.request.InventoryMerchantAdjustRequest.InventoryCheckDto;
@@ -32,24 +31,31 @@ public class InventoryMerchantAdjustController extends BaseController{
 	private InventoryMerchantAdjustService inventoryMerchantAdjustService;
 	@RequestMapping("/merchant-adjust")
 	@ResponseBody
-	public Map<String,Object> inventoryMerchantAdjust(@RequestParam("sc_item_id")String sc_item_id,@RequestParam("quantity")String quantity)throws ApiException{
-		
+	public Object inventoryMerchantAdjust(@RequestBody String res)throws ApiException{
+		//获取JSON
+		List<Object> list = JSON.parseArray(JSON.parseObject(res).get("data").toString());
+		//数据封装
 		InventoryMerchantAdjustRequest inventoryMerchantAdjustRequest = new InventoryMerchantAdjustRequest();
-		InventoryCheckDto obj1 = new InventoryCheckDto();
-		obj1.setCheckMode(2L);
-		obj1.setInvStoreType(2L);
+		InventoryCheckDto ic = new InventoryCheckDto();
+		ic.setCheckMode(2L);
+		ic.setInvStoreType(2L);
 		List<InventoryCheckDetailDto> listc_inc = new ArrayList<InventoryCheckDetailDto>();
-		InventoryCheckDetailDto obj4 = new InventoryCheckDetailDto();
-		//obj4.setInvBizCode("ONLINE_INVENTORY");
-		obj4.setQuantity(Long.valueOf(quantity));
-		obj4.setScItemId(Long.valueOf(sc_item_id));
-		obj4.setSubOrderId("hshc_checksub"+new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
-		obj1.setStoreCode("testck");
-		obj1.setOrderId("hshc_checkmain"+new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
-		listc_inc.add(obj4);
-		obj1.setDetailList(listc_inc);
-		inventoryMerchantAdjustRequest.setInventoryCheck(obj1);
-		inventoryMerchantAdjustService.InventoryMerchantAdjust(inventoryMerchantAdjustRequest);
-		return null;
+		Map<String,Object>  m;
+		for(Object o:list){
+			m = (Map<String,Object>)o;
+			InventoryCheckDetailDto obj4 = new InventoryCheckDetailDto();
+			//obj4.setInvBizCode("ONLINE_INVENTORY");
+			obj4.setQuantity(Long.valueOf(m.get("QUANTITY").toString()));
+			obj4.setScItemId(Long.valueOf(m.get("SC_ITEM_ID").toString()));
+			obj4.setSubOrderId("hshc_checksub"+m.get("SC_ITEM_ID")+"_"+new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
+			listc_inc.add(obj4);
+		}
+		ic.setStoreCode("testck");
+		ic.setOrderId("hshc_checkmain"+new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
+		ic.setDetailList(listc_inc);
+		inventoryMerchantAdjustRequest.setInventoryCheck(ic);
+		//发送天猫
+		String result = inventoryMerchantAdjustService.InventoryMerchantAdjust(inventoryMerchantAdjustRequest);
+		return result;
 	}
 }
