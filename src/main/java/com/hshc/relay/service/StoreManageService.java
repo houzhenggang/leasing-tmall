@@ -24,12 +24,12 @@ public class StoreManageService extends BaseService<Store>{
 	@Autowired
 	private AuthorizedSessionService asService;
 	
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void addStoreList(Store storeManage) {
 		smDao.insert(storeManage);
 	}
 	
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void upStoreList(Store storeManage) {
 		smDao.update(storeManage);
 	}

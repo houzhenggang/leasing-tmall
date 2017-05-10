@@ -4,6 +4,10 @@ import com.taobao.api.internal.mapping.ApiField;
 import com.taobao.api.TaobaoObject;
 import java.util.Map;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.taobao.api.ApiRuleException;
 import com.taobao.api.BaseTaobaoRequest;
 import com.taobao.api.internal.util.TaobaoHashMap;
@@ -85,11 +89,13 @@ public static class TailPaymentDto extends TaobaoObject {
 		/**
 		 * 处置名字，支持3种：归还车辆; 购买车辆，一次性支付尾款; 购买车辆，分期付尾款
 		 */
+		@NotBlank(message = "处置名字不能为空")
 		@ApiField("name")
 		private String name;
 		/**
 		 * 订单id
 		 */
+		@NotNull(message = "订单id不能为空")
 		@ApiField("order_id")
 		private Long orderId;
 		/**

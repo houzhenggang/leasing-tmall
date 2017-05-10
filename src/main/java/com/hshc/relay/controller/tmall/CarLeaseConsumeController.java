@@ -14,7 +14,6 @@ import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.controller.erp.StoreManageController;
 import com.hshc.relay.service.CarLeaseConsumeService;
 import com.hshc.relay.vo.BaseQimenResponseVo;
-import com.taobao.api.request.TmallCarLeaseConsumeRequest;
 import com.taobao.api.request.TmallCarLeaseConsumeRequest.CosumeCodeReqDto;
 import com.taobao.api.response.TmallCarLeaseConsumeResponse;
 /**
