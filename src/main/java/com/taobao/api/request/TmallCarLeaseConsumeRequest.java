@@ -4,6 +4,10 @@ import com.taobao.api.internal.mapping.ApiField;
 import com.taobao.api.TaobaoObject;
 import java.util.Map;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.taobao.api.ApiRuleException;
 import com.taobao.api.BaseTaobaoRequest;
 import com.taobao.api.internal.util.TaobaoHashMap;
@@ -75,36 +79,43 @@ public static class CosumeCodeReqDto extends TaobaoObject {
 		/**
 		 * 业务类型,整车租赁传入：car_lease
 		 */
+		@NotBlank(message = "业务类型不能为空")
 		@ApiField("biz_type")
 		private String bizType;
 		/**
 		 * 车牌号
 		 */
+		@NotBlank(message = "车牌号不能为空")
 		@ApiField("car_no")
 		private String carNo;
 		/**
 		 * 核销码
 		 */
+		@NotBlank(message = "核销码不能为空")
 		@ApiField("code")
 		private String code;
 		/**
 		 * 身份证
 		 */
+		@NotBlank(message = "身份证不能为空")
 		@ApiField("identity_no")
 		private String identityNo;
 		/**
 		 * 门店id
 		 */
+		@NotNull(message = "门店id不能为空")
 		@ApiField("store_id")
 		private Long storeId;
 		/**
 		 * 门店名字
 		 */
+		@NotBlank(message = "门店名字不能为空")
 		@ApiField("store_name")
 		private String storeName;
 		/**
 		 * 车架号
 		 */
+		@NotBlank(message = "车架号不能为空")
 		@ApiField("vin")
 		private String vin;
 	
