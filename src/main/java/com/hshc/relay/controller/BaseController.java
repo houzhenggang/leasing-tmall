@@ -1,7 +1,8 @@
 package com.hshc.relay.controller;
 
 import com.hshc.relay.exception.BaseException;
-import com.hshc.relay.vo.BaseResponseVo;
+import com.qimencloud.api.QimenCloudResponse;
+import com.taobao.api.ApiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -20,10 +21,10 @@ public abstract class BaseController
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public BaseResponseVo errorResponse(Exception e, HttpServletResponse response) {
+    public QimenCloudResponse errorResponse(Exception e, HttpServletResponse response) {
         logger.error("", e);
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        BaseResponseVo responseVo = new BaseResponseVo();
+        QimenCloudResponse qimenCloudResponse = new QimenCloudResponse();
         String code = "400";
         String message = e.getMessage();
         if(e instanceof BindException){
@@ -38,15 +39,17 @@ public abstract class BaseController
             code = "412";
         } else if (e instanceof BaseException) {
             BaseException baseException = (BaseException) e;
-            responseVo.setCode(baseException.getCode());
+            code = baseException.getCode();
             message = e.getMessage();
-            if (baseException.getAttrs() != null) {
-                responseVo.setAttrs(baseException.getAttrs());
-            }
+        } else if (e instanceof ApiException){
+            ApiException apiException = (ApiException) e;
+            code = apiException.getSubErrCode();
+            message = apiException.getSubErrMsg();
         }
-        responseVo.setCode(code);
-        responseVo.setMessage(message);
-        return responseVo;
+        qimenCloudResponse.setFlag("failure");
+        qimenCloudResponse.setSubCode(code);
+        qimenCloudResponse.setSubMessage(message);
+        return qimenCloudResponse;
     }
 
 }
