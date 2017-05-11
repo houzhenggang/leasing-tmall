@@ -43,7 +43,7 @@ public class TradeFullinfoGetController extends BaseController{
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return null;
+		return new BaseQimenResponseVo("获取单笔交易的详细信息成功");
 	}
 
 }
