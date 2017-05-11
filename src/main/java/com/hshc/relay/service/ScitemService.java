@@ -1,6 +1,7 @@
 package com.hshc.relay.service;
 
 import com.hshc.relay.dao.*;
+import com.hshc.relay.entity.ISGetResponse;
 import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
@@ -8,7 +9,6 @@ import com.taobao.api.request.*;
 import com.taobao.api.response.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *  商品信息
@@ -22,7 +22,7 @@ public class ScitemService extends BaseService<ScitemAddResponse>{
     @Autowired
     private ScitemAddRequestDao scitemAddRequestDao;
     @Autowired
-    private ScitemAddResponseDao scitemAddResponseDao;
+    private AddScitemResponseDao addScitemResponseDao;
     @Autowired
     private ScitemGetRequestDao scitemGetRequestDao;
     @Autowired
@@ -36,24 +36,25 @@ public class ScitemService extends BaseService<ScitemAddResponse>{
 
 
     //获取单个商品详细信息
-    public ItemSellerGetResponse getItemSeller(ItemSellerGetRequest reqSc) throws ApiException{
+    public ISGetResponse getItemSeller(ItemSellerGetRequest reqSc) throws ApiException{
         TaobaoClient client = new DefaultTaobaoClient("https://eco.taobao.com/router/rest", authorizedSessionService.getAppKey(), authorizedSessionService.getAppSecret());
         ItemSellerGetResponse repSc=client.execute(reqSc, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
-        System.out.print(repSc.getBody());
-        return repSc;
+        ISGetResponse rep=new ISGetResponse();
+        rep.setItem(repSc.getItem());
+        rep.setRepCode("一级错误码:"+repSc.getErrorCode()+";二级错误码:"+repSc.getSubCode());
+        rep.setRepMsg("一级错误提示语：:"+repSc.getMsg()+";二级错误提示语："+repSc.getSubMsg());
+        //单个商品详细信息持久化
+        return rep;
     }
 
     //发布后端商品
     public ScitemAddResponse addScitem(ScitemAddRequest reqSc) throws ApiException {
-        System.out.print("后端商品名称："+reqSc.getItemName().toString());
-        System.out.print("商家编号："+reqSc.getOuterCode());
         //请求后端商品
-
         TaobaoClient client = new DefaultTaobaoClient("https://eco.taobao.com/router/rest", authorizedSessionService.getAppKey(), authorizedSessionService.getAppSecret());
         ScitemAddResponse repSc=client.execute(reqSc, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
         //持久化发布成功的商品
         if(repSc.getBody()!=null){
-            //scitemAddResponseDao.insert(repSc);
+            addScitemResponseDao.insert(repSc);
         }
         return repSc;
     }
