@@ -1,20 +1,19 @@
 package com.hshc.relay.controller.tmall;
 
-import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.controller.erp.StoreManageController;
 import com.hshc.relay.service.CarLeaseTailpaymentbackService;
 import com.hshc.relay.vo.BaseQimenResponseVo;
-
 import com.taobao.api.request.TmallCarLeaseTailpaymentbackRequest.TailPaymentDto;
 import com.taobao.api.response.TmallCarLeaseTailpaymentbackResponse;
 /**
@@ -33,8 +32,9 @@ public class CarLeaseTailpaymentbackController extends BaseController {
 	@RequestMapping("/lease-tailpaymentback")
 	@ResponseBody
 	@QimenSignAuthentication
-	public BaseQimenResponseVo leaseTailpaymentback(@Valid TailPaymentDto tailPaymentDto){
+	public BaseQimenResponseVo leaseTailpaymentback(@RequestBody String res){
 		try {
+			TailPaymentDto tailPaymentDto = JSON.parseObject(res,TailPaymentDto.class);
 			//获取返回值
 			TmallCarLeaseTailpaymentbackResponse leaseTailpaymentback = cltService.leaseTailpaymentback(tailPaymentDto);
 			LOGGER.info("leaseTailpaymentback:"+leaseTailpaymentback.getBody());

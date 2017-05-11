@@ -25,7 +25,7 @@ public class InventoryQueryService extends BaseService<InventoryQueryRequest> {
 
         TaobaoClient client = new DefaultTaobaoClient(inventoryQueryRequest.getApiMethodName(), authorizedSessionService.getAppKey(), authorizedSessionService.getAppSecret());
 
-        return client.execute(inventoryQueryRequest, authorizedSessionService.getAuthorizedSession("sandbox_taobao1234").getAccessToken());
+        return client.execute(inventoryQueryRequest, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
 
     }
 

@@ -24,6 +24,7 @@ import com.taobao.api.request.TmallCarLeaseConsumeRequest.CosumeCodeReqDto;
 import com.taobao.api.request.TmallCarLeaseReserveRequest;
 import com.taobao.api.request.TmallCarLeaseTailpaymentbackRequest.TailPaymentDto;
 import com.taobao.api.response.InventoryStoreManageResponse;
+import com.taobao.api.response.InventoryStoreQueryResponse;
 import com.taobao.api.response.TmallCarLeaseConsumeResponse;
 import com.taobao.api.response.TmallCarLeaseReserveResponse;
 import com.taobao.api.response.TmallCarLeaseTailpaymentbackResponse;
@@ -36,24 +37,18 @@ public class StoreManageServiceTest extends BaseTest{
 	@Autowired
 	CarLeaseConsumeService clcService;
 	@Autowired
-	private CarLeaseTailpaymentbackService cltService;
+	private StoreQueryService sqService;
 	
 	@Test
 	public void testStoreManage(){
-		TailPaymentDto obj1 = new TailPaymentDto();
-		obj1.setBuyerId(1312313L);
-		obj1.setMonthlyPay(2000L);
-		obj1.setMonths(12L);
-		obj1.setName("分期付尾款");
-		obj1.setOrderId(13131232132L);
-		obj1.setTailAmount(80000L);
+		String testck = "testck";
 		try {
-			//获取返回值
-			TmallCarLeaseTailpaymentbackResponse leaseTailpaymentback = cltService.leaseTailpaymentback(obj1);
-			//保存返回的信息
-			cltService.addleaseTailpaymentback(leaseTailpaymentback.getResult());
+			//获取仓库信息
+			InventoryStoreQueryResponse storeQuery = sqService.storeQuery(testck);
+			LOGGER.info("storeQuery:"+storeQuery.getBody());
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+
 	}
 }
