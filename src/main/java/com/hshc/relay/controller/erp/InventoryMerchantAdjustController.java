@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.service.InventoryMerchantAdjustService;
 import com.hshc.relay.vo.BaseQimenResponseVo;
@@ -36,6 +37,7 @@ public class InventoryMerchantAdjustController extends BaseController{
 	
 	@RequestMapping("/merchant-adjust")
 	@ResponseBody
+	@QimenSignAuthentication
 	public BaseQimenResponseVo inventoryMerchantAdjust(InventoryMerchantAdjustRequest inventoryMerchantAdjustRequest){
 		//获取JSON
 //		System.out.println("res========"+res);
