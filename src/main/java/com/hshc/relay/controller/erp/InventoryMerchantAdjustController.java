@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.service.InventoryMerchantAdjustService;
+import com.hshc.relay.vo.BaseQimenResponseVo;
 import com.taobao.api.request.InventoryMerchantAdjustRequest;
 import com.taobao.api.request.InventoryMerchantAdjustRequest.InventoryCheckDetailDto;
 import com.taobao.api.request.InventoryMerchantAdjustRequest.InventoryCheckDto;
@@ -35,7 +36,7 @@ public class InventoryMerchantAdjustController extends BaseController{
 	
 	@RequestMapping("/merchant-adjust")
 	@ResponseBody
-	public InventoryMerchantAdjustResponse inventoryMerchantAdjust(InventoryMerchantAdjustRequest inventoryMerchantAdjustRequest){
+	public BaseQimenResponseVo inventoryMerchantAdjust(InventoryMerchantAdjustRequest inventoryMerchantAdjustRequest){
 		//获取JSON
 //		System.out.println("res========"+res);
 //		List<Object> list = JSON.parseArray(JSON.parseObject(res).get("data").toString());
@@ -68,9 +69,10 @@ public class InventoryMerchantAdjustController extends BaseController{
 //			inventoryMerchantAdjustRequest.setInventoryCheck(ic);
 			//发送天猫
 		   rsp = inventoryMerchantAdjustService.InventoryMerchantAdjust(inventoryMerchantAdjustRequest);
+		   
 		} catch (Exception e) {
 			System.out.println("更新失败");
 		}
-		return rsp;
+		return new BaseQimenResponseVo("更新成功"+rsp.getMsg());
 	}
 }
