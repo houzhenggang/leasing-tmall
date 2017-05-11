@@ -1,7 +1,5 @@
 package com.hshc.relay.controller.tmall;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.controller.erp.StoreManageController;
 import com.hshc.relay.service.CarLeaseTailpaymentbackService;
@@ -32,7 +31,7 @@ public class CarLeaseTailpaymentbackController extends BaseController {
 	
 	@RequestMapping("/lease-tailpaymentback")
 	@ResponseBody
-	//@QimenSignAuthentication
+	@QimenSignAuthentication
 	public BaseQimenResponseVo leaseTailpaymentback(@RequestBody String res){
 		try {
 			TailPaymentDto tailPaymentDto = JSON.parseObject(res,TailPaymentDto.class);
