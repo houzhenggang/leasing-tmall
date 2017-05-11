@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.service.InventoryMerchantAdjustService;
-import com.hshc.relay.vo.BaseQimenResponseVo;
-import com.taobao.api.ApiException;
 import com.taobao.api.request.InventoryMerchantAdjustRequest;
 import com.taobao.api.request.InventoryMerchantAdjustRequest.InventoryCheckDetailDto;
 import com.taobao.api.request.InventoryMerchantAdjustRequest.InventoryCheckDto;
@@ -41,7 +38,6 @@ public class InventoryMerchantAdjustController extends BaseController{
 	public InventoryMerchantAdjustResponse inventoryMerchantAdjust(@RequestBody String res){
 		//获取JSON
 		List<Object> list = JSON.parseArray(JSON.parseObject(res).get("data").toString());
-		
 		InventoryMerchantAdjustResponse rsp = new InventoryMerchantAdjustResponse();
 		try {
 			//数据封装
@@ -68,10 +64,8 @@ public class InventoryMerchantAdjustController extends BaseController{
 			//发送天猫
 		   rsp = inventoryMerchantAdjustService.InventoryMerchantAdjust(inventoryMerchantAdjustRequest);
 		} catch (Exception e) {
-
 			System.out.println("更新失败");
 		}
-		
 		return rsp;
 	}
 }
