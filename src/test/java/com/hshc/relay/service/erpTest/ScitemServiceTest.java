@@ -21,7 +21,7 @@ public class ScitemServiceTest extends BaseTest{
         //num_iid  550367105833
         ItemSellerGetRequest reqSc =new ItemSellerGetRequest();
         reqSc.setFields("num_iid,title,nick,price,approve_status,sku,outer_id");
-        reqSc.setNumIid(550471303845L);
+        reqSc.setNumIid(550471303845L);//前端商品ID
         scitemService.getItemSeller(reqSc);
     }
 
@@ -42,8 +42,8 @@ public class ScitemServiceTest extends BaseTest{
     @Test
     public void testAddScitem() throws ApiException {
         ScitemAddRequest req =new ScitemAddRequest();
-        req.setItemName("测试车型CC");
-        req.setOuterCode("hs2017CC");
+        req.setItemName("测试车型DD");
+        req.setOuterCode("hs2017DD");
         /*req.setItemType(0L);
         req.setProperties("111:222;333:444");
         req.setBarCode("条形码");

@@ -2,6 +2,7 @@ package com.hshc.relay.controller.erp;
 
 import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
+import com.hshc.relay.entity.ISGetResponse;
 import com.hshc.relay.service.ScitemService;
 import com.hshc.relay.vo.BaseQimenResponseVo;
 import com.taobao.api.ApiException;
@@ -51,9 +52,9 @@ public class ScitemController extends BaseController{
 
     @RequestMapping("/get-seller")
     @ResponseBody
-    @QimenSignAuthentication
-    public ItemSellerGetResponse getItemSeller(@RequestBody ItemSellerGetRequest reqSc){
-        ItemSellerGetResponse response=new ItemSellerGetResponse();
+    //@QimenSignAuthentication
+    public ISGetResponse getItemSeller(@RequestBody ItemSellerGetRequest reqSc){
+        ISGetResponse response=new ISGetResponse();
         try{
             response=scitemService.getItemSeller(reqSc);
         }catch(Exception e){
@@ -64,7 +65,7 @@ public class ScitemController extends BaseController{
 
     @RequestMapping("/add-scitemMap")
     @ResponseBody
-    @QimenSignAuthentication
+    //@QimenSignAuthentication
     public ScitemMapAddResponse addScitemMap(@RequestBody ScitemMapAddRequest reqSc){
         ScitemMapAddResponse response=new ScitemMapAddResponse();
         System.out.print(reqSc.getOuterCode());
