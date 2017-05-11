@@ -22,6 +22,7 @@ import com.taobao.api.ApiException;
 import com.taobao.api.request.InventoryMerchantAdjustRequest;
 import com.taobao.api.request.InventoryMerchantAdjustRequest.InventoryCheckDetailDto;
 import com.taobao.api.request.InventoryMerchantAdjustRequest.InventoryCheckDto;
+import com.taobao.api.response.InventoryMerchantAdjustResponse;
 /**
  * taobao.inventory.merchant.adjust (货品库存商家端调整)
  * @author 吴国伟
@@ -37,11 +38,11 @@ public class InventoryMerchantAdjustController extends BaseController{
 	
 	@RequestMapping("/merchant-adjust")
 	@ResponseBody
-	public BaseQimenResponseVo inventoryMerchantAdjust(@RequestBody String res){
+	public InventoryMerchantAdjustResponse inventoryMerchantAdjust(@RequestBody String res){
 		//获取JSON
 		List<Object> list = JSON.parseArray(JSON.parseObject(res).get("data").toString());
 		
-		String result = "";
+		InventoryMerchantAdjustResponse rsp = new InventoryMerchantAdjustResponse();
 		try {
 			//数据封装
 			InventoryMerchantAdjustRequest inventoryMerchantAdjustRequest = new InventoryMerchantAdjustRequest();
@@ -65,12 +66,12 @@ public class InventoryMerchantAdjustController extends BaseController{
 			ic.setDetailList(listc_inc);
 			inventoryMerchantAdjustRequest.setInventoryCheck(ic);
 			//发送天猫
-		     result = inventoryMerchantAdjustService.InventoryMerchantAdjust(inventoryMerchantAdjustRequest);
-		} catch (ApiException e) {
+		   rsp = inventoryMerchantAdjustService.InventoryMerchantAdjust(inventoryMerchantAdjustRequest);
+		} catch (Exception e) {
 
-			result = e.getMessage();
+			System.out.println("更新失败");
 		}
 		
-		return new BaseQimenResponseVo(result);
+		return rsp;
 	}
 }
