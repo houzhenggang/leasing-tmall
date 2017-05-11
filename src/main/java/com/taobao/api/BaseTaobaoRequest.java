@@ -1,6 +1,7 @@
 package com.taobao.api;
 
 import com.taobao.api.internal.util.TaobaoHashMap;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Map;
 
@@ -14,6 +15,8 @@ public abstract class BaseTaobaoRequest<T extends TaobaoResponse> implements Tao
 
 	protected Map<String, String> headerMap; // HTTP请求头参数
 	protected TaobaoHashMap udfParams; // 自定义表单参数
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd+HH:mm:ss")
 	protected Long timestamp; // 请求时间戳
 	protected String targetAppKey; // 请求目标AppKey
 	protected String topMixParams; // 指定哪个入参是混淆参数
