@@ -52,7 +52,7 @@ public class ScitemController extends BaseController{
 
     @RequestMapping("/get-seller")
     @ResponseBody
-    //@QimenSignAuthentication
+    @QimenSignAuthentication
     public ISGetResponse getItemSeller(@RequestBody ItemSellerGetRequest reqSc){
         ISGetResponse response=new ISGetResponse();
         try{
