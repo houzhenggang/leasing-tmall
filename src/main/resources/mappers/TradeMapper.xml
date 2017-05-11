@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.hshc.relay.dao.TradeDao">
+
+<insert id="insert" parameterType="com.taobao.api.domain.Trade">
+insert into orders_main(
+  PAYMENT,
+  STATUS,
+  TID,
+  CREATE_TIME,
+  TITLE,
+  CREATED,
+  BUYER_MESSAGE,
+  BUYER_MEMO,
+  RECEIVER_NAME,
+  RECEIVER_STATE,
+  RECEIVER_ADDRESS,
+  RECEIVER_MOBILE,
+  RECEIVER_PHONE,
+  BUYER_NICK
+  
+)values(
+  #{payment,jdbcType=VARCHAR},
+  #{status,jdbcType=VARCHAR},
+  #{tid,jdbcType=VARCHAR},
+  now(),
+  #{title,jdbcType=VARCHAR},
+  #{created,jdbcType=VARCHAR},
+  #{buyerMessage,jdbcType=VARCHAR},
+  #{buyerMemo,jdbcType=VARCHAR},
+  #{receiverName,jdbcType=VARCHAR},
+  #{receiverState,jdbcType=VARCHAR},
+  #{receiverAddress,jdbcType=VARCHAR},
+  #{receiverMobile,jdbcType=VARCHAR},
+  #{receiverPhone,jdbcType=VARCHAR},
+  #{buyerNick,jdbcType=VARCHAR}
+)
+</insert>
+
+</mapper>

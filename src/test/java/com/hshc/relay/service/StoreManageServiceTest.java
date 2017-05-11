@@ -23,11 +23,13 @@ import com.taobao.api.request.TmallCarLeaseConsumeRequest;
 import com.taobao.api.request.TmallCarLeaseConsumeRequest.CosumeCodeReqDto;
 import com.taobao.api.request.TmallCarLeaseReserveRequest;
 import com.taobao.api.request.TmallCarLeaseTailpaymentbackRequest.TailPaymentDto;
+import com.taobao.api.request.TradeFullinfoGetRequest;
 import com.taobao.api.response.InventoryStoreManageResponse;
 import com.taobao.api.response.InventoryStoreQueryResponse;
 import com.taobao.api.response.TmallCarLeaseConsumeResponse;
 import com.taobao.api.response.TmallCarLeaseReserveResponse;
 import com.taobao.api.response.TmallCarLeaseTailpaymentbackResponse;
+import com.taobao.api.response.TradeFullinfoGetResponse;
 import com.taobao.api.response.TmallCarLeaseReserveResponse.Result;
 
 public class StoreManageServiceTest extends BaseTest{
@@ -38,14 +40,20 @@ public class StoreManageServiceTest extends BaseTest{
 	CarLeaseConsumeService clcService;
 	@Autowired
 	private StoreQueryService sqService;
+	@Autowired
+	private TradeFullinfoGetService tfgService;
 	
 	@Test
 	public void testStoreManage(){
-		String testck = "testck";
+		long tid = 9126862183837616L;
 		try {
-			//获取仓库信息
-			InventoryStoreQueryResponse storeQuery = sqService.storeQuery(testck);
-			LOGGER.info("storeQuery:"+storeQuery.getBody());
+			//获取单笔交易地详细信息
+			TradeFullinfoGetResponse tradeFullinfo = tfgService.tradeFullinfo(tid);
+			LOGGER.info("tradeFullinfo:"+tradeFullinfo.getBody());
+			//保存订单信息
+			tfgService.addtradeFullinfo(tradeFullinfo.getTrade());
+			//把数据传给erp
+			tfgService.toErp(tradeFullinfo.getTrade());
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

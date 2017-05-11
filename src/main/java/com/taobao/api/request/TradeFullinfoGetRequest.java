@@ -8,6 +8,10 @@ import com.taobao.api.response.TradeFullinfoGetResponse;
 
 import java.util.Map;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * TOP API: taobao.trade.fullinfo.get request
  * 
@@ -21,11 +25,13 @@ public class TradeFullinfoGetRequest extends BaseTaobaoRequest<TradeFullinfoGetR
 	/** 
 	* 需要返回的字段列表，多个字段用半角逗号分隔，可选值为返回示例中能看到的所有字段。
 	 */
+	@NotBlank(message = "需要返回的字段列表不能为空")
 	private String fields;
 
 	/** 
 	* 交易编号
 	 */
+	@NotNull(message = "交易编号不能为空")
 	private Long tid;
 
 	public void setFields(String fields) {
