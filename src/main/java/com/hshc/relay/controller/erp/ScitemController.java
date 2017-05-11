@@ -53,7 +53,7 @@ public class ScitemController extends BaseController{
     @RequestMapping("/get-seller")
     @ResponseBody
     @QimenSignAuthentication
-    public ISGetResponse getItemSeller(@RequestBody ItemSellerGetRequest reqSc){
+    public ISGetResponse getItemSeller(ItemSellerGetRequest reqSc){
         ISGetResponse response=new ISGetResponse();
         try{
             response=scitemService.getItemSeller(reqSc);
@@ -65,8 +65,9 @@ public class ScitemController extends BaseController{
 
     @RequestMapping("/add-scitemMap")
     @ResponseBody
-    //@QimenSignAuthentication
+//    @QimenSignAuthentication
     public ScitemMapAddResponse addScitemMap(@RequestBody ScitemMapAddRequest reqSc){
+
         ScitemMapAddResponse response=new ScitemMapAddResponse();
         System.out.print(reqSc.getOuterCode());
         System.out.print(reqSc.getItemId());
