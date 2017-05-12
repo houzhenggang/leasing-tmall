@@ -34,17 +34,18 @@ public class CarLeaseReserveController extends BaseController {
 	@RequestMapping("/lease-reserve")
 	@ResponseBody
 	@QimenSignAuthentication
-	public BaseQimenResponseVo leaseReserve(@RequestBody String res){
+	public BaseQimenResponseVo leaseReserve(TmallCarLeaseReserveRequest req){
+		TmallCarLeaseReserveResponse rsp = new TmallCarLeaseReserveResponse();
 		try {
-			TmallCarLeaseReserveRequest req = JSON.parseObject(res,TmallCarLeaseReserveRequest.class);
 			//获取返回参数
-			TmallCarLeaseReserveResponse lr = clrService.leaseReserve(req);
-			LOGGER.info("result:"+lr.getBody());
+			rsp = clrService.leaseReserve(req);
+			LOGGER.info("result:"+rsp.getBody());
 			//保存返回的数据
-			clrService.addLeaseReserve(lr);
+			clrService.addLeaseReserve(rsp);
+			new BaseQimenResponseVo(rsp.getResult().toString());
 		} catch (Exception e) {
-			// TODO: handle exception
+			new BaseQimenResponseVo(rsp.getResult().getErrorMessage());
 		}
-		return new BaseQimenResponseVo("整车租车回传预约信息成功");
+		return new BaseQimenResponseVo(rsp.getResult().toString());
 	}
 }

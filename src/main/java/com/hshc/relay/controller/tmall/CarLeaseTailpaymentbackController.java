@@ -14,6 +14,7 @@ import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.controller.erp.StoreManageController;
 import com.hshc.relay.service.CarLeaseTailpaymentbackService;
 import com.hshc.relay.vo.BaseQimenResponseVo;
+import com.taobao.api.request.TmallCarLeaseTailpaymentbackRequest;
 import com.taobao.api.request.TmallCarLeaseTailpaymentbackRequest.TailPaymentDto;
 import com.taobao.api.response.TmallCarLeaseTailpaymentbackResponse;
 /**
@@ -32,11 +33,10 @@ public class CarLeaseTailpaymentbackController extends BaseController {
 	@RequestMapping("/lease-tailpaymentback")
 	@ResponseBody
 	@QimenSignAuthentication
-	public BaseQimenResponseVo leaseTailpaymentback(@RequestBody String res){
+	public BaseQimenResponseVo leaseTailpaymentback(TmallCarLeaseTailpaymentbackRequest req){
 		try {
-			TailPaymentDto tailPaymentDto = JSON.parseObject(res,TailPaymentDto.class);
 			//获取返回值
-			TmallCarLeaseTailpaymentbackResponse leaseTailpaymentback = cltService.leaseTailpaymentback(tailPaymentDto);
+			TmallCarLeaseTailpaymentbackResponse leaseTailpaymentback = cltService.leaseTailpaymentback(req);
 			LOGGER.info("leaseTailpaymentback:"+leaseTailpaymentback.getBody());
 			//保存返回的信息
 			cltService.addleaseTailpaymentback(leaseTailpaymentback.getResult());
