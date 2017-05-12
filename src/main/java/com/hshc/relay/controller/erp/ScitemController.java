@@ -4,6 +4,7 @@ import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.entity.ISGetResponse;
 import com.hshc.relay.entity.ScAddResponse;
+import com.hshc.relay.entity.ScMapAddResponse;
 import com.hshc.relay.service.ScitemService;
 import com.hshc.relay.vo.BaseQimenResponseVo;
 import com.taobao.api.ApiException;
@@ -38,7 +39,7 @@ public class ScitemController extends BaseController{
 
     @RequestMapping("/add-scitem")
     @ResponseBody
-    //@QimenSignAuthentication
+    @QimenSignAuthentication
     public ScAddResponse addScitem(@RequestBody ScitemAddRequest scitemAddRequest)throws ApiException{
         ScAddResponse response=new ScAddResponse();
         response=scitemService.addScitem(scitemAddRequest);
@@ -54,22 +55,12 @@ public class ScitemController extends BaseController{
         return response;
     }
 
-    @RequestMapping("/add-scitemMap")
+    @RequestMapping("/add-scitemmap")
     @ResponseBody
-//    @QimenSignAuthentication
-    public ScitemMapAddResponse addScitemMap(@RequestBody ScitemMapAddRequest reqSc){
-
-        ScitemMapAddResponse response=new ScitemMapAddResponse();
-        System.out.print(reqSc.getOuterCode());
-        System.out.print(reqSc.getItemId());
-        System.out.print(reqSc.getSkuId());
-        System.out.print(reqSc.getScItemId());
-        System.out.print(reqSc.getNeedCheck());
-        try {
-            response=scitemService.addScitemMap(reqSc);
-        }catch (Exception e){
-            System.out.print("创建IC商品与后端商品的映射关系:"+e);
-        }
+    @QimenSignAuthentication
+    public ScMapAddResponse addScitemMap(ScitemMapAddRequest reqSc)throws ApiException{
+        ScMapAddResponse response=new ScMapAddResponse();
+        response=scitemService.addScitemMap(reqSc);
         return response;
     }
 

@@ -25,6 +25,7 @@ public class InventoryMerchantAdjustRequest extends BaseTaobaoRequest<InventoryM
 	/** 
 	* 调整库存对象
 	 */
+	//@ApiField("inventory_check")
 	private String inventoryCheck;
 
 	public void setInventoryCheck(String inventoryCheck) {
