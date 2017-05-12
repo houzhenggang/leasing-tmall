@@ -2,6 +2,7 @@ package com.hshc.relay.service;
 
 import java.util.List;
 
+import com.hshc.relay.BaseTest;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +23,13 @@ import com.taobao.api.request.TmallCarLeaseConsumeRequest;
 import com.taobao.api.request.TmallCarLeaseConsumeRequest.CosumeCodeReqDto;
 import com.taobao.api.request.TmallCarLeaseReserveRequest;
 import com.taobao.api.request.TmallCarLeaseTailpaymentbackRequest.TailPaymentDto;
+import com.taobao.api.request.TradeFullinfoGetRequest;
 import com.taobao.api.response.InventoryStoreManageResponse;
+import com.taobao.api.response.InventoryStoreQueryResponse;
 import com.taobao.api.response.TmallCarLeaseConsumeResponse;
 import com.taobao.api.response.TmallCarLeaseReserveResponse;
 import com.taobao.api.response.TmallCarLeaseTailpaymentbackResponse;
+import com.taobao.api.response.TradeFullinfoGetResponse;
 import com.taobao.api.response.TmallCarLeaseReserveResponse.Result;
 
 public class StoreManageServiceTest extends BaseTest{
@@ -35,24 +39,24 @@ public class StoreManageServiceTest extends BaseTest{
 	@Autowired
 	CarLeaseConsumeService clcService;
 	@Autowired
-	private CarLeaseTailpaymentbackService cltService;
+	private StoreQueryService sqService;
+	@Autowired
+	private TradeFullinfoGetService tfgService;
 	
 	@Test
 	public void testStoreManage(){
-		TailPaymentDto obj1 = new TailPaymentDto();
-		obj1.setBuyerId(1312313L);
-		obj1.setMonthlyPay(2000L);
-		obj1.setMonths(12L);
-		obj1.setName("分期付尾款");
-		obj1.setOrderId(13131232132L);
-		obj1.setTailAmount(80000L);
+		long tid = 9126862183837616L;
 		try {
-			//获取返回值
-			TmallCarLeaseTailpaymentbackResponse leaseTailpaymentback = cltService.leaseTailpaymentback(obj1);
-			//保存返回的信息
-			cltService.addleaseTailpaymentback(leaseTailpaymentback.getResult());
+			//获取单笔交易地详细信息
+			TradeFullinfoGetResponse tradeFullinfo = tfgService.tradeFullinfo(tid);
+			LOGGER.info("tradeFullinfo:"+tradeFullinfo.getBody());
+			//保存订单信息
+			tfgService.addtradeFullinfo(tradeFullinfo.getTrade());
+			//把数据传给erp
+			tfgService.toErp(tradeFullinfo.getTrade());
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+
 	}
 }

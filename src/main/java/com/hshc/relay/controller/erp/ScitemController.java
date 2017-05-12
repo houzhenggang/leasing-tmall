@@ -2,13 +2,21 @@ package com.hshc.relay.controller.erp;
 
 import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
+import com.hshc.relay.entity.ISGetResponse;
+import com.hshc.relay.entity.ScAddResponse;
+import com.hshc.relay.entity.ScMapAddResponse;
 import com.hshc.relay.service.ScitemService;
 import com.hshc.relay.vo.BaseQimenResponseVo;
+import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.domain.ScItem;
+import com.taobao.api.request.ItemSellerGetRequest;
 import com.taobao.api.request.ScitemAddRequest;
+import com.taobao.api.request.ScitemMapAddRequest;
+import com.taobao.api.response.ItemSellerGetResponse;
 import com.taobao.api.response.ScitemAddResponse;
+import com.taobao.api.response.ScitemMapAddResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,18 +37,35 @@ public class ScitemController extends BaseController{
     @Autowired
     private ScitemService scitemService;
 
-    @RequestMapping("/lease-scitem")
+    @RequestMapping("/add-scitem")
     @ResponseBody
     @QimenSignAuthentication
-    public BaseQimenResponseVo addScitem(@RequestBody ScitemAddRequest scitemAddRequest){
-        try{
-            ScItem scItem=new ScItem();
-            ScitemAddResponse scitemAddResponse=new ScitemAddResponse();
-            scitemService.addScitem(scitemAddRequest);
-        }catch(Exception e){
-            System.out.print("发布后端商品："+e);
-        }
-        return new BaseQimenResponseVo("发布后端商品,查询成功");
+    public ScAddResponse addScitem(@RequestBody ScitemAddRequest scitemAddRequest)throws ApiException{
+        ScAddResponse response=new ScAddResponse();
+        response=scitemService.addScitem(scitemAddRequest);
+        return response;
     }
+
+    @RequestMapping("/get-seller")
+    @ResponseBody
+    @QimenSignAuthentication
+    public ISGetResponse getItemSeller(ItemSellerGetRequest reqSc) throws ApiException{
+        ISGetResponse response=new ISGetResponse();
+        response=scitemService.getItemSeller(reqSc);
+        return response;
+    }
+
+    @RequestMapping("/add-scitemmap")
+    @ResponseBody
+    @QimenSignAuthentication
+    public ScMapAddResponse addScitemMap(ScitemMapAddRequest reqSc)throws ApiException{
+        ScMapAddResponse response=new ScMapAddResponse();
+        response=scitemService.addScitemMap(reqSc);
+        return response;
+    }
+
+
+
+
 
 }

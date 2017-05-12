@@ -20,7 +20,7 @@ public class QimenTestController extends BaseController{
     @RequestMapping("/lease-plans")
     @ResponseBody
     @QimenSignAuthentication
-    public BaseQimenResponseVo syncLeasePlans(@RequestParam("item_id") Integer itemId, @RequestParam("plans") String plans){
+    public BaseQimenResponseVo syncLeasePlans(@RequestParam("item_id") Integer itemId, @RequestParam(value = "plans", required = false) String plans){
         logger.info("itemId:" + itemId);
         logger.info("plans:" + plans);
         //业务逻辑

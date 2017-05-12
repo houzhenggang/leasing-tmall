@@ -10,7 +10,7 @@
     </sql>
 
     <insert id="insert"  parameterType="com.taobao.api.response.ScitemAddResponse">
-        insert into sc_commodity (item_id,item_name,outer_code,item_type,properties,bar_code,wms_code,is_friable,is_dangerous,is_costly,is_warranty,weight,
+        insert into t_scitem_request (item_id,item_name,outer_code,item_type,properties,bar_code,wms_code,is_friable,is_dangerous,is_costly,is_warranty,weight,
                     length,width,height,volume,price,remark,matter_status,brand_id,brand_name,is_area_sale,options)
         values(#{scItem.itemId},#{scItem.itemName},#{scItem.outerCode},#{scItem.itemType},#{scItem.properties},#{scItem.barCode},#{scItem.wmsCode},#{scItem.isFriable},
               #{scItem.isDangerous},#{scItem.isCostly},#{scItem.isWarranty},#{scItem.weight},#{scItem.length},#{scItem.width},#{scItem.height},#{scItem.volume},#{scItem.price},

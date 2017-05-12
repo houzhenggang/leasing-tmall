@@ -628,7 +628,20 @@ public class Order extends TaobaoObject {
 	@ApiField("zhengji_status")
 	private String zhengjiStatus;
 
+	
+	/**
+	 * 交易编号 (父订单的交易编号)
+	 */
+	@ApiField("tid")
+	private Long tid;
+	
 
+	public Long getTid() {
+		return tid;
+	}
+	public void setTid(Long tid) {
+		this.tid = tid;
+	}
 	public String getAdjustFee() {
 		return this.adjustFee;
 	}

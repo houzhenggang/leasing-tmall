@@ -1060,7 +1060,18 @@ public class Trade extends TaobaoObject {
 	@ApiField("zero_purchase")
 	private Boolean zeroPurchase;
 
+	/**
+	 * 主订单id shike
+	 */
+	private int id;
+	
 
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getAcookieId() {
 		return this.acookieId;
 	}
