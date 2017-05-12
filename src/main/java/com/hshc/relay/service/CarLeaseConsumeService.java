@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSON;
 import com.hshc.relay.dao.CarLeaseConsumeDao;
 import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
@@ -28,9 +29,7 @@ public class CarLeaseConsumeService extends BaseService<TmallCarLeaseConsumeResp
 	@Autowired
 	private CarLeaseConsumeDao clcDao;
 	
-	public TmallCarLeaseConsumeResponse leaseConsume(CosumeCodeReqDto cosumeCodeReqDto) throws ApiException {
-		TmallCarLeaseConsumeRequest req = new TmallCarLeaseConsumeRequest();
-		req.setCosumeCodeReqDTO(cosumeCodeReqDto);
+	public TmallCarLeaseConsumeResponse leaseConsume(TmallCarLeaseConsumeRequest req) throws ApiException {
 		TaobaoClient client = new DefaultTaobaoClient("http://gw.api.taobao.com/router/rest", asService.getAppKey(), asService.getAppSecret());
 		TmallCarLeaseConsumeResponse rsp = client.execute(req, asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
 	    return rsp;

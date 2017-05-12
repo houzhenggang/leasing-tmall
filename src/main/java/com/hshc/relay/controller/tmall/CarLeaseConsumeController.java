@@ -16,6 +16,7 @@ import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.controller.erp.StoreManageController;
 import com.hshc.relay.service.CarLeaseConsumeService;
 import com.hshc.relay.vo.BaseQimenResponseVo;
+import com.taobao.api.request.TmallCarLeaseConsumeRequest;
 import com.taobao.api.request.TmallCarLeaseConsumeRequest.CosumeCodeReqDto;
 import com.taobao.api.request.TmallCarLeaseTailpaymentbackRequest.TailPaymentDto;
 import com.taobao.api.response.TmallCarLeaseConsumeResponse;
@@ -36,17 +37,17 @@ public class CarLeaseConsumeController extends BaseController {
 	@RequestMapping("/lease-consume")
 	@ResponseBody
 	@QimenSignAuthentication
-	public BaseQimenResponseVo leaseConsume(@RequestBody String res){
+	public BaseQimenResponseVo leaseConsume(TmallCarLeaseConsumeRequest res){
+		TmallCarLeaseConsumeResponse leaseConsume = new TmallCarLeaseConsumeResponse();
 		try {
-			CosumeCodeReqDto cosumeCodeReqDto = JSON.parseObject(res,CosumeCodeReqDto.class);
 			//获取返回参数
-			TmallCarLeaseConsumeResponse leaseConsume = clcService.leaseConsume(cosumeCodeReqDto);
+			leaseConsume = clcService.leaseConsume(res);
 			LOGGER.info("leaseConsume:"+leaseConsume.getBody());
 		    //保存核销返回信息
 			clcService.addleaseConsume(leaseConsume.getResult());
 		} catch (Exception e) {
-			// TODO: handle exception
+			new BaseQimenResponseVo(leaseConsume.getResult().getErrorMessage());
 		}
-		return new BaseQimenResponseVo("汽车租赁核销成功");
+		return new BaseQimenResponseVo(leaseConsume.getResult().toString());
 	}
 }
