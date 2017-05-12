@@ -39,39 +39,10 @@ public class InventoryMerchantAdjustController extends BaseController{
 	@ResponseBody
 	@QimenSignAuthentication
 	public BaseQimenResponseVo inventoryMerchantAdjust(InventoryMerchantAdjustRequest inventoryMerchantAdjustRequest){
-		//获取JSON
-//		System.out.println("res========"+res);
-//		List<Object> list = JSON.parseArray(JSON.parseObject(res).get("data").toString());
 		InventoryMerchantAdjustResponse rsp = new InventoryMerchantAdjustResponse();
 		try {
-			//数据封装
-//			InventoryMerchantAdjustRequest inventoryMerchantAdjustRequest = new InventoryMerchantAdjustRequest();
-//			logger.info("=="+list);
-//			InventoryCheckDto ic = new InventoryCheckDto();
-//			ic.setCheckMode(2L);
-//			ic.setInvStoreType(2L);
-//			
-//			List<InventoryCheckDetailDto> listc_inc = new ArrayList<InventoryCheckDetailDto>();
-//			Map<String,Object>  m;
-//			
-//			for(Object o:list){
-//				m = (Map<String,Object>)o;
-//				InventoryCheckDetailDto obj4 = new InventoryCheckDetailDto();
-//				//obj4.setInvBizCode("ONLINE_INVENTORY");
-//				obj4.setQuantity(Long.valueOf(m.get("QUANTITY").toString()));
-//				obj4.setScItemId(Long.valueOf(m.get("SC_ITEM_ID").toString()));
-//				obj4.setSubOrderId("hshc_checksub"+m.get("SC_ITEM_ID")+"_"+new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
-//				listc_inc.add(obj4);
-//			}
-//			
-//			
-//			ic.setStoreCode("testck");
-//			ic.setOrderId("hshc_checkmain"+new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
-//			ic.setDetailList(listc_inc);
-//			inventoryMerchantAdjustRequest.setInventoryCheck(ic);
-			//发送天猫
 		   rsp = inventoryMerchantAdjustService.InventoryMerchantAdjust(inventoryMerchantAdjustRequest);
-		   
+		   logger.info(rsp.getBody());
 		} catch (Exception e) {
 			new BaseQimenResponseVo("更新失败");
 		}
