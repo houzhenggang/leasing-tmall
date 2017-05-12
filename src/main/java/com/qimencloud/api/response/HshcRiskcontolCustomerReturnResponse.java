@@ -1,4 +1,4 @@
-package com.qimen.api.response;
+package com.qimencloud.api.response;
 
 import com.taobao.api.internal.mapping.ApiField;
 

@@ -1,11 +1,11 @@
-package com.qimen.api.request;
+package com.qimencloud.api.request;
 
 import com.taobao.api.internal.mapping.ApiField;
 import com.taobao.api.TaobaoObject;
 import java.util.Map;
 
 import com.taobao.api.ApiRuleException;
-import com.qimen.api.response.HshcRiskcontolOrdersReturnResponse;
+import com.qimencloud.api.response.HshcRiskcontolOrdersReturnResponse;
 import com.qimencloud.api.BaseQimenCloudRequest;
 import com.taobao.api.internal.util.TaobaoHashMap;
 import com.taobao.api.internal.util.json.JSONWriter;
