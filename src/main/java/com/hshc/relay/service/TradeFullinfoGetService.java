@@ -9,10 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.parser.Feature;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.hshc.relay.controller.erp.StoreManageController;
 import com.hshc.relay.dao.OrderDao;
 import com.hshc.relay.dao.TradeDao;
+import com.qimencloud.api.request.HshcRiskcontolOrdersReturnRequest;
+import com.qimencloud.api.response.HshcRiskcontolOrdersReturnResponse;
 import com.taobao.api.ApiException;
 import com.taobao.api.domain.Order;
 import com.taobao.api.domain.Trade;
@@ -47,21 +50,29 @@ public class TradeFullinfoGetService extends BaseService<TradeFullinfoGetRespons
 
 	@Transactional(rollbackFor = Exception.class)
 	public void addtradeFullinfo(Trade trade) {
-		//添加主订单信息
-		tDao.insert(trade);
-		Long tid = trade.getTid();
-		List<Order> orders = trade.getOrders();
-		for (Order order : orders) {
-			order.setTid((long) tid);
-			//保存子订单
-			oDao.insert(order);
+		if(trade!=null){
+			//添加主订单信息
+			tDao.insert(trade);
+			Long tid = trade.getTid();
+			List<Order> orders = trade.getOrders();
+			for (Order order : orders) {
+				order.setTid((long) tid);
+				//保存子订单
+				oDao.insert(order);
+			}
 		}
 	}
 
-	public void toErp(Trade trade) {
+	public HshcRiskcontolOrdersReturnResponse toErp(Trade trade) throws ApiException {
+		//trade.setOrders(null);
 		//实体转化json
 		String str=JSON.toJSONStringWithDateFormat(trade, "yyyy-MM-dd HH:mm:ss",SerializerFeature.DisableCircularReferenceDetect);
+		HshcRiskcontolOrdersReturnRequest parseObject = JSON.parseObject(str, HshcRiskcontolOrdersReturnRequest.class, Feature.UseBigDecimal);
 		LOGGER.info("str:"+str);
+		
+		HshcRiskcontolOrdersReturnResponse res= (HshcRiskcontolOrdersReturnResponse)RequestQimenCloudClientService.client().execute(parseObject);
+		System.out.println(res.getBody());
+		return res;
 	}
 
 	

@@ -1,7 +1,5 @@
 package com.hshc.relay.controller.erp;
 
-import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,7 @@ import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.service.TradeFullinfoGetService;
 import com.hshc.relay.vo.BaseQimenResponseVo;
-import com.taobao.api.request.TradeFullinfoGetRequest;
+import com.qimencloud.api.response.HshcRiskcontolOrdersReturnResponse;
 import com.taobao.api.response.TradeFullinfoGetResponse;
 /**
  * 获取单笔交易的详细信息
@@ -39,7 +37,8 @@ public class TradeFullinfoGetController extends BaseController{
 			//保存订单信息
 			tfgService.addtradeFullinfo(tradeFullinfo.getTrade());
 		    //把数据传给erp
-			tfgService.toErp(tradeFullinfo.getTrade());
+			HshcRiskcontolOrdersReturnResponse erp = tfgService.toErp(tradeFullinfo.getTrade());
+			erp.getMessage();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

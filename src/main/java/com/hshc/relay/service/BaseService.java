@@ -45,6 +45,12 @@ public class BaseService<T>{
     @Value("${taobao.messageService}")
     private String messageServiceUrl;
 
+    /**
+     * 回传erp地址
+     */
+    @Value("${qimen.returnUrl}")
+    private String returnUrl;
+
     public String getAppKey() {
         return appKey;
     }
@@ -71,6 +77,10 @@ public class BaseService<T>{
 
     public String getMessageServiceUrl() {
         return messageServiceUrl;
+    }
+
+    public String getReturnUrl() {
+        return returnUrl;
     }
 
     @Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)

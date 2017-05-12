@@ -1,6 +1,5 @@
 package com.hshc.relay.service.messagehandler;
 
-import com.hshc.relay.entity.User;
 import com.hshc.relay.service.BaseService;
 import com.taobao.api.ApiException;
 import com.taobao.api.internal.tmc.Message;

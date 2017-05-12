@@ -14,9 +14,9 @@ import java.util.List;
 public class UserService extends BaseService<User> {
 
     @Transactional(rollbackFor = Exception.class)
-    public int batchAdd(List<User> userList){
+    public int batchAdd1(List<User> userList) throws Exception {
         add(userList.get(0));
-        throw new RuntimeException();
+        throw new Exception();
     }
 
 }
