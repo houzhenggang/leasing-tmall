@@ -24,6 +24,7 @@ public class Message implements Serializable {
 	private String content;
 	private Map<String, Object> raw;
 	private Map<?, ?> contentMap;
+	private boolean handled;
 
 	public Long getId() {
 		return this.id;
@@ -103,5 +104,13 @@ public class Message implements Serializable {
 
 	public void setContentMap(Map<?, ?> contentMap) {
 		this.contentMap = contentMap;
+	}
+
+	public boolean isHandled() {
+		return handled;
+	}
+
+	public void setHandled(boolean handled) {
+		this.handled = handled;
 	}
 }

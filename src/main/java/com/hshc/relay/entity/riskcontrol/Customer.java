@@ -28,6 +28,11 @@ public class Customer extends BaseEntity {
     @JSONField(name = "reject_msg")
     private String rejectMsg;
 
+    /**
+     * 是否已回传的标记
+     */
+    private boolean returned;
+
     public String getName() {
         return name;
     }
@@ -82,5 +87,13 @@ public class Customer extends BaseEntity {
 
     public void setRejectMsg(String rejectMsg) {
         this.rejectMsg = rejectMsg;
+    }
+
+    public boolean isReturned() {
+        return returned;
+    }
+
+    public void setReturned(boolean returned) {
+        this.returned = returned;
     }
 }

@@ -25,6 +25,7 @@ public class QimenSignInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
     private AuthorizedSessionService authorizedSessionService;
+
     /**
      * This implementation always returns {@code true}.
      */

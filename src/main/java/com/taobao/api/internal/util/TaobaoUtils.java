@@ -71,7 +71,8 @@ public abstract class TaobaoUtils {
     public static String signTopRequest(Map<String, String> params, String body, String secret, String signMethod)
             throws IOException {
         // 第一步：检查参数是否已经排序
-        String[] keys = params.keySet().toArray(new String[0]);
+        Set<String> strings = params.keySet();
+        String[] keys = strings.toArray(new String[strings.size()]);
         Arrays.sort(keys);
 
         // 第二步：把所有参数名和参数值串在一起
@@ -115,8 +116,8 @@ public abstract class TaobaoUtils {
      *            请求body体
      * @param secret
      *            签名密钥
-     * @param isHmac
-     *            是否为HMAC方式加密
+     * @param signMethod
+     *            加密算法
      * @return 签名
      */
     public static String signTopRequestWithBody(RequestParametersHolder requestHolder, String body, String secret,
@@ -126,7 +127,7 @@ public abstract class TaobaoUtils {
     }
     
     private static byte[] encryptHMACSHA256(String data, String secret) throws IOException  {
-    	byte[] bytes = null;
+    	byte[] bytes;
     	try {
 	        SecretKey secretKey = new SecretKeySpec(secret.getBytes(Constants.CHARSET_UTF8), "HmacSHA256");
 	        Mac mac = Mac.getInstance(secretKey.getAlgorithm());
@@ -139,7 +140,7 @@ public abstract class TaobaoUtils {
     }
 
     private static byte[] encryptHMAC(String data, String secret) throws IOException {
-        byte[] bytes = null;
+        byte[] bytes;
         try {
             SecretKey secretKey = new SecretKeySpec(secret.getBytes(Constants.CHARSET_UTF8), "HmacMD5");
             Mac mac = Mac.getInstance(secretKey.getAlgorithm());
@@ -162,7 +163,7 @@ public abstract class TaobaoUtils {
      * 对字节流进行MD5摘要。
      */
     public static byte[] encryptMD5(byte[] data) throws IOException {
-        byte[] bytes = null;
+        byte[] bytes;
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             bytes = md.digest(data);
@@ -177,8 +178,8 @@ public abstract class TaobaoUtils {
      */
     public static String byte2hex(byte[] bytes) {
         StringBuilder sign = new StringBuilder();
-        for (int i = 0; i < bytes.length; i++) {
-            String hex = Integer.toHexString(bytes[i] & 0xFF);
+        for (byte aByte : bytes) {
+            String hex = Integer.toHexString(aByte & 0xFF);
             if (hex.length() == 1) {
                 sign.append("0");
             }
@@ -201,7 +202,7 @@ public abstract class TaobaoUtils {
             return null;
         }
 
-        Map<String, V> result = new HashMap<String, V>(map.size());
+        Map<String, V> result = new HashMap<>(map.size());
         Set<Entry<String, V>> entries = map.entrySet();
 
         for (Entry<String, V> entry : entries) {
@@ -261,7 +262,7 @@ public abstract class TaobaoUtils {
      * @return API响应对象
      */
     public static <T extends TaobaoResponse> T parseResponse(String json, Class<T> clazz) throws ApiException {
-        ObjectJsonParser<T> parser = new ObjectJsonParser<T>(clazz);
+        ObjectJsonParser<T> parser = new ObjectJsonParser<>(clazz);
         T rsp = parser.parse(json);
         rsp.setBody(json);
         return rsp;
@@ -393,7 +394,7 @@ public abstract class TaobaoUtils {
      *            被签名的字符串
      * @param encryptKey
      *            密钥
-     * @param compressLen压缩长度
+     * @param compressLen 压缩长度
      * @return
      * @throws Exception
      */
@@ -454,7 +455,7 @@ public abstract class TaobaoUtils {
      * @return
      */
     public static List<String> getSlideWindows(String input, int slideSize) {
-        List<String> windows = new ArrayList<String>();
+        List<String> windows = new ArrayList<>();
         int startIndex = 0;
         int endIndex = 0;
         int currentWindowSize = 0;
@@ -505,10 +506,7 @@ public abstract class TaobaoUtils {
     }
     
     private static boolean isLetterOrDigit(char x) {
-        if (0 <= x && x <= 127) {
-            return true;
-        }
-        return false;
+        return x <= 127;
     }
 
     private static byte[] compress(byte[] input, int toLength) {

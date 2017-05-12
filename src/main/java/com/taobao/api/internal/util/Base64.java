@@ -92,7 +92,7 @@ public class Base64
 	 * little faster.
 	 * @return A BASE64 encoded array. Never <code>null</code>.
 	 */
-	public final static char[] encodeToChar(byte[] sArr, boolean lineSep)
+	public static char[] encodeToChar(byte[] sArr, boolean lineSep)
 	{
 		// Check special case
 		int sLen = sArr != null ? sArr.length : 0;
@@ -144,7 +144,7 @@ public class Base64
 	 * @return The decoded array of bytes. May be of length 0. Will be <code>null</code> if the legal characters
 	 * (including '=') isn't divideable by 4.  (I.e. definitely corrupted).
 	 */
-	public final static byte[] decode(char[] sArr)
+	public static byte[] decode(char[] sArr)
 	{
 		// Check special case
 		int sLen = sArr != null ? sArr.length : 0;
@@ -201,7 +201,7 @@ public class Base64
 	 * @param sArr The source array. Length 0 will return an empty array. <code>null</code> will throw an exception.
 	 * @return The decoded array of bytes. May be of length 0.
 	 */
-	public final static byte[] decodeFast(char[] sArr)
+	public static byte[] decodeFast(char[] sArr)
 	{
 		// Check special case
 		int sLen = sArr.length;
@@ -268,7 +268,7 @@ public class Base64
 	 * little faster.
 	 * @return A BASE64 encoded array. Never <code>null</code>.
 	 */
-	public final static byte[] encodeToByte(byte[] sArr, boolean lineSep)
+	public static byte[] encodeToByte(byte[] sArr, boolean lineSep)
 	{
 		// Check special case
 		int sLen = sArr != null ? sArr.length : 0;
@@ -320,7 +320,7 @@ public class Base64
 	 * @return The decoded array of bytes. May be of length 0. Will be <code>null</code> if the legal characters
 	 * (including '=') isn't divideable by 4. (I.e. definitely corrupted).
 	 */
-	public final static byte[] decode(byte[] sArr)
+	public static byte[] decode(byte[] sArr)
 	{
 		// Check special case
 		int sLen = sArr.length;
@@ -328,8 +328,8 @@ public class Base64
 		// Count illegal characters (including '\r', '\n') to know what size the returned array will be,
 		// so we don't have to reallocate & copy it later.
 		int sepCnt = 0; // Number of separator characters. (Actually illegal characters, but that's a bonus...)
-		for (int i = 0; i < sLen; i++)      // If input is "pure" (I.e. no line separators or illegal chars) base64 this loop can be commented out.
-			if (IA[sArr[i] & 0xff] < 0)
+		for (byte aSArr : sArr)
+			if (IA[aSArr & 0xff] < 0)
 				sepCnt++;
 
 		// Check so that legal chars (including '=') are evenly divideable by 4 as specified in RFC 2045.
@@ -378,7 +378,7 @@ public class Base64
 	 * @param sArr The source array. Length 0 will return an empty array. <code>null</code> will throw an exception.
 	 * @return The decoded array of bytes. May be of length 0.
 	 */
-	public final static byte[] decodeFast(byte[] sArr)
+	public static byte[] decodeFast(byte[] sArr)
 	{
 		// Check special case
 		int sLen = sArr.length;
@@ -445,7 +445,7 @@ public class Base64
 	 * little faster.
 	 * @return A BASE64 encoded array. Never <code>null</code>.
 	 */
-	public final static String encodeToString(byte[] sArr, boolean lineSep)
+	public static String encodeToString(byte[] sArr, boolean lineSep)
 	{
 		// Reuse char[] since we can't create a String incrementally anyway and StringBuffer/Builder would be slower.
 		return new String(encodeToChar(sArr, lineSep));
@@ -459,7 +459,7 @@ public class Base64
 	 * @return The decoded array of bytes. May be of length 0. Will be <code>null</code> if the legal characters
 	 * (including '=') isn't divideable by 4.  (I.e. definitely corrupted).
 	 */
-	public final static byte[] decode(String str)
+	public static byte[] decode(String str)
 	{
 		// Check special case
 		int sLen = str != null ? str.length() : 0;
@@ -514,7 +514,7 @@ public class Base64
 	 * @param str
 	 * @return
 	 */
-	public final static boolean isBase64Value(String str)
+	public static boolean isBase64Value(String str)
     {
         // Check special case
         int sLen = str != null ? str.length() : 0;
@@ -529,11 +529,8 @@ public class Base64
                 sepCnt++;
 
         // Check so that legal chars (including '=') are evenly divideable by 4 as specified in RFC 2045.
-        if ((sLen - sepCnt) % 4 != 0) {
-            return false;
-        }
-        return true;
-    }
+		return (sLen - sepCnt) % 4 == 0;
+	}
 
 	/** Decodes a BASE64 encoded string that is known to be resonably well formatted. The method is about twice as
 	 * fast as {@link #decode(String)}. The preconditions are:<br>
@@ -544,7 +541,7 @@ public class Base64
 	 * @param s The source string. Length 0 will return an empty array. <code>null</code> will throw an exception.
 	 * @return The decoded array of bytes. May be of length 0.
 	 */
-	public final static byte[] decodeFast(String s)
+	public static byte[] decodeFast(String s)
 	{
 		// Check special case
 		int sLen = s.length();

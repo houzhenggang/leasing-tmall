@@ -18,24 +18,27 @@ import java.util.Map;
  * @version V1.0 2017-05-07 16:49
  */
 @Controller
+@RequestMapping("/risk-control")
 public class RiskControlController extends BaseController {
 
     @Autowired
     private RiskControlService riskControlService;
 
-    @RequestMapping(value = "/risk-control", method = RequestMethod.POST)
+    @RequestMapping(value = "/customer", method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> acceptCustomerInfo(@RequestBody Customer customer){
+        Map<String, Object> ret = new HashMap<>();
         try{
             riskControlService.add(customer);
+            ret.put("success", "true");
+            ret.put("code", "200");
+            ret.put("message", "接收成功");
         }catch (Exception e){
             logger.error("", e);
+            ret.put("success", "false");
+            ret.put("code", "400");
+            ret.put("message", e.getMessage());
         }
-
-        Map<String, Object> ret = new HashMap<>();
-        ret.put("success", "true");
-        ret.put("code", "200");
-        ret.put("message", "接收成功");
 
         return ret;
     }
