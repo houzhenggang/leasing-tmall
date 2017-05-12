@@ -14,4 +14,15 @@ public class ScAddResponse extends BaseResponse{
     @ApiField("sc_item")
     private ScItem scItem;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public ScItem getScItem() {
+        return scItem;
+    }
+
+    public void setScItem(ScItem scItem) {
+        this.scItem = scItem;
+    }
 }

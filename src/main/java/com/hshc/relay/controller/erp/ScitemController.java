@@ -3,6 +3,7 @@ package com.hshc.relay.controller.erp;
 import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.entity.ISGetResponse;
+import com.hshc.relay.entity.ScAddResponse;
 import com.hshc.relay.service.ScitemService;
 import com.hshc.relay.vo.BaseQimenResponseVo;
 import com.taobao.api.ApiException;
@@ -38,28 +39,18 @@ public class ScitemController extends BaseController{
     @RequestMapping("/add-scitem")
     @ResponseBody
     //@QimenSignAuthentication
-    public ScitemAddResponse addScitem(@RequestBody ScitemAddRequest scitemAddRequest){
-        ScitemAddResponse response=new ScitemAddResponse();
-        System.out.print("发布后端商品_商品名称："+scitemAddRequest.getItemName());
-        System.out.print("发布后端商品_商家编号："+scitemAddRequest.getOuterCode());
-        try{
-            response=scitemService.addScitem(scitemAddRequest);
-        }catch(Exception e){
-            System.out.print("发布后端商品："+e);
-        }
+    public ScAddResponse addScitem(@RequestBody ScitemAddRequest scitemAddRequest)throws ApiException{
+        ScAddResponse response=new ScAddResponse();
+        response=scitemService.addScitem(scitemAddRequest);
         return response;
     }
 
     @RequestMapping("/get-seller")
     @ResponseBody
     @QimenSignAuthentication
-    public ISGetResponse getItemSeller(ItemSellerGetRequest reqSc){
+    public ISGetResponse getItemSeller(ItemSellerGetRequest reqSc) throws ApiException{
         ISGetResponse response=new ISGetResponse();
-        try{
-            response=scitemService.getItemSeller(reqSc);
-        }catch(Exception e){
-            System.out.print("获取单个商品详细信息："+e);
-        }
+        response=scitemService.getItemSeller(reqSc);
         return response;
     }
 

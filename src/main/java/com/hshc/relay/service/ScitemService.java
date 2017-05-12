@@ -2,6 +2,7 @@ package com.hshc.relay.service;
 
 import com.hshc.relay.dao.*;
 import com.hshc.relay.entity.ISGetResponse;
+import com.hshc.relay.entity.ScAddResponse;
 import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
@@ -48,15 +49,19 @@ public class ScitemService extends BaseService<ScitemAddResponse>{
     }
 
     //发布后端商品
-    public ScitemAddResponse addScitem(ScitemAddRequest reqSc) throws ApiException {
+    public ScAddResponse addScitem(ScitemAddRequest reqSc) throws ApiException {
         //请求后端商品
         TaobaoClient client = new DefaultTaobaoClient("https://eco.taobao.com/router/rest", authorizedSessionService.getAppKey(), authorizedSessionService.getAppSecret());
         ScitemAddResponse repSc=client.execute(reqSc, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
+        ScAddResponse rep=new ScAddResponse();
+        rep.setScItem(repSc.getScItem());
+        rep.setRepCode("一级错误码:"+repSc.getErrorCode()+";二级错误码:"+repSc.getSubCode());
+        rep.setRepMsg("一级错误提示语：:"+repSc.getMsg()+";二级错误提示语："+repSc.getSubMsg());
         //持久化发布成功的商品
         if(repSc.getBody()!=null){
             addScitemResponseDao.insert(repSc);
         }
-        return repSc;
+        return rep;
     }
 
     //查询根据后端商品id查询后端商品信息
