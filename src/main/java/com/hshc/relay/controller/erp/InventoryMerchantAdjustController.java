@@ -71,7 +71,7 @@ public class InventoryMerchantAdjustController extends BaseController{
 //			inventoryMerchantAdjustRequest.setInventoryCheck(ic);
 			//发送天猫
 		   rsp = inventoryMerchantAdjustService.InventoryMerchantAdjust(inventoryMerchantAdjustRequest);
-		   
+		   logger.info(rsp.getBody());
 		} catch (Exception e) {
 			new BaseQimenResponseVo("更新失败");
 		}
