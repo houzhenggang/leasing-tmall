@@ -38,7 +38,7 @@ public class ScitemController extends BaseController{
 
     @RequestMapping("/add-scitem")
     @ResponseBody
-    //@QimenSignAuthentication
+    @QimenSignAuthentication
     public ScAddResponse addScitem(@RequestBody ScitemAddRequest scitemAddRequest)throws ApiException{
         ScAddResponse response=new ScAddResponse();
         response=scitemService.addScitem(scitemAddRequest);
