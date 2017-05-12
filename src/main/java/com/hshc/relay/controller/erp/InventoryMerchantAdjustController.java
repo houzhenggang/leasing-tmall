@@ -47,6 +47,6 @@ public class InventoryMerchantAdjustController extends BaseController{
 		} catch (Exception e) {
 			new BaseQimenResponseVo(rsp.getResult().getErrorMessage());
 		}
-		return new BaseQimenResponseVo(rsp.getResult().getSuccess().toString());
+		return new BaseQimenResponseVo(rsp.getResult().toString());
 	}
 }
