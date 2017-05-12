@@ -43,9 +43,10 @@ public class InventoryMerchantAdjustController extends BaseController{
 		try {
 		   rsp = inventoryMerchantAdjustService.InventoryMerchantAdjust(inventoryMerchantAdjustRequest);
 		   logger.info(rsp.getBody());
+		   logger.info(rsp.getResult().getSuccess());
 		} catch (Exception e) {
-			new BaseQimenResponseVo("更新失败");
+			new BaseQimenResponseVo(rsp.getResult().getErrorMessage());
 		}
-		return new BaseQimenResponseVo("更新成功");
+		return new BaseQimenResponseVo(rsp.getResult().getSuccess().toString());
 	}
 }
