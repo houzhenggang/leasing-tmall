@@ -2,7 +2,6 @@ package com.hshc.relay.service.messagehandler;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.Feature;
-import com.hshc.relay.dao.TradeFullinfoGetResponseDao;
 import com.hshc.relay.entity.taobaomessage.TradeBuyerPayMessage;
 import com.hshc.relay.service.AuthorizedSessionService;
 import com.hshc.relay.service.BaseService;
@@ -28,9 +27,6 @@ public class TradeMessageHandler extends BaseService<TradeFullinfoGetResponse> i
     @Autowired
     private AuthorizedSessionService authorizedSessionService;
 
-    @Autowired
-    private TradeFullinfoGetResponseDao tradeInfoDao;
-
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void handle(Message message) throws ApiException {
@@ -52,8 +48,8 @@ public class TradeMessageHandler extends BaseService<TradeFullinfoGetResponse> i
 
             TradeFullinfoGetResponse fullinfoGetResponse = client.execute(req, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
             // TODO 消息可能会是同一条订单的多次发送, 所以先update,如果没有更新，再插入
-            if(tradeInfoDao.update(fullinfoGetResponse) == 0){
-                tradeInfoDao.insert(fullinfoGetResponse);
+            if(modify(fullinfoGetResponse) == 0){
+                add(fullinfoGetResponse);
             }
 
             // 事务提交后再执行（跟租赁系统通信）
