@@ -29,10 +29,10 @@ public class StoreQueryController extends BaseController{
 	@RequestMapping("/lease-storeQuery")
 	@ResponseBody
 	@QimenSignAuthentication
-	public BaseQimenResponseVo storeQuery(@RequestParam("storeCode") String store_code){
+	public BaseQimenResponseVo storeQuery(@RequestParam("store_code") String storeCode){
 		try {
 			//获取仓库信息
-			InventoryStoreQueryResponse storeQuery = sqService.storeQuery(store_code);
+			InventoryStoreQueryResponse storeQuery = sqService.storeQuery(storeCode);
 			LOGGER.info("storeQuery:"+storeQuery.getBody());
 		} catch (Exception e) {
 			// TODO: handle exception
