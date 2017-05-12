@@ -58,9 +58,9 @@ public class ScitemService extends BaseService<ScitemAddResponse>{
         rep.setRepCode("一级错误码:"+repSc.getErrorCode()+";二级错误码:"+repSc.getSubCode());
         rep.setRepMsg("一级错误提示语：:"+repSc.getMsg()+";二级错误提示语："+repSc.getSubMsg());
         //持久化发布成功的商品
-        if(repSc.getBody()!=null){
+        /*if(repSc.getBody()!=null){
             addScitemResponseDao.insert(repSc);
-        }
+        }*/
         return rep;
     }
 
