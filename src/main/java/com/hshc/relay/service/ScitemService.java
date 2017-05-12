@@ -3,6 +3,7 @@ package com.hshc.relay.service;
 import com.hshc.relay.dao.*;
 import com.hshc.relay.entity.ISGetResponse;
 import com.hshc.relay.entity.ScAddResponse;
+import com.hshc.relay.entity.ScMapAddResponse;
 import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
@@ -85,13 +86,17 @@ public class ScitemService extends BaseService<ScitemAddResponse>{
     }
 
     //创建IC商品与后端商品的映射关系
-    public ScitemMapAddResponse addScitemMap(ScitemMapAddRequest reqSc) throws ApiException{
+    public ScMapAddResponse addScitemMap(ScitemMapAddRequest reqSc) throws ApiException{
         TaobaoClient client = new DefaultTaobaoClient("https://eco.taobao.com/router/rest", authorizedSessionService.getAppKey(), authorizedSessionService.getAppSecret());
         ScitemMapAddResponse repSc=client.execute(reqSc, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
+        ScMapAddResponse rep=new ScMapAddResponse();
+        rep.setOuterCode(repSc.getOuterCode());
+        rep.setRepCode("一级错误码:"+repSc.getErrorCode()+";二级错误码:"+repSc.getSubCode());
+        rep.setRepMsg("一级错误提示语：:"+repSc.getMsg()+";二级错误提示语："+repSc.getSubMsg());
         //持久化IC商品与后端商品的映射关系
         //scitemMapAddResponseDao.insert(repSc);
         System.out.print("创建IC商品与后端商品的映射关系:"+repSc.getBody());
-        return repSc;
+        return rep;
     }
 
     //查询IC商品与后端商品的映射关系
