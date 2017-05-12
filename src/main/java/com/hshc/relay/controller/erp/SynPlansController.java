@@ -23,16 +23,10 @@ public class SynPlansController extends BaseController{
     private SynPlansService synPlansService;
 
     //同步租赁方案信息
-    @RequestMapping("/lease-sysPlans")
+    @RequestMapping("/lease-sysplans")
     @ResponseBody
-    public TmallCarLeaseSynchronizeplansResponse sysPlans(@RequestBody TmallCarLeaseSynchronizeplansRequest reqSyn){
-        TmallCarLeaseSynchronizeplansResponse response=new TmallCarLeaseSynchronizeplansResponse();
-        try {
-            response=synPlansService.sysPlans(reqSyn);
-        }catch (Exception e){
-            System.out.print("同步租赁方案信息："+e);
-        }
-        return response;
+    public TmallCarLeaseSynchronizeplansResponse sysPlans(@RequestBody TmallCarLeaseSynchronizeplansRequest reqSyn)throws ApiException{
+          return  synPlansService.sysPlans(reqSyn);
     }
 
 }
