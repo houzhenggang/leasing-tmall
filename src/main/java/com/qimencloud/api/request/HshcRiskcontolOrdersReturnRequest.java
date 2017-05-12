@@ -1,12 +1,14 @@
 package com.qimencloud.api.request;
 
+import java.util.List;
 import com.taobao.api.internal.mapping.ApiField;
+import com.taobao.api.internal.util.RequestCheckUtils;
 import com.taobao.api.TaobaoObject;
 import java.util.Map;
 
 import com.taobao.api.ApiRuleException;
-import com.qimencloud.api.response.HshcRiskcontolOrdersReturnResponse;
 import com.qimencloud.api.BaseQimenCloudRequest;
+import com.qimencloud.api.response.HshcRiskcontolOrdersReturnResponse;
 import com.taobao.api.internal.util.TaobaoHashMap;
 import com.taobao.api.internal.util.json.JSONWriter;
 
@@ -106,7 +108,7 @@ public class HshcRiskcontolOrdersReturnRequest extends BaseQimenCloudRequest<Hsh
 		this.orders = orders;
 	}
 
-	public void setOrders(Order orders) {
+	public void setOrders(List<Order> orders) {
 		this.orders = new JSONWriter(false,false,true).write(orders);
 	}
 
@@ -224,6 +226,7 @@ public class HshcRiskcontolOrdersReturnRequest extends BaseQimenCloudRequest<Hsh
 	}
 
      public void check() throws ApiRuleException {
+		RequestCheckUtils.checkObjectMaxListSize(orders, 20, "orders");
      }
      
 	/**
