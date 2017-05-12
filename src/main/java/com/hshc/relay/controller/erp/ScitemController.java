@@ -58,7 +58,7 @@ public class ScitemController extends BaseController{
     @RequestMapping("/add-scitemmap")
     @ResponseBody
     @QimenSignAuthentication
-    public ScMapAddResponse addScitemMap(@RequestBody ScitemMapAddRequest reqSc)throws ApiException{
+    public ScMapAddResponse addScitemMap(ScitemMapAddRequest reqSc)throws ApiException{
         ScMapAddResponse response=new ScMapAddResponse();
         response=scitemService.addScitemMap(reqSc);
         return response;
