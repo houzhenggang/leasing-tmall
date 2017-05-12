@@ -95,7 +95,7 @@ public class ScitemService extends BaseService<ScitemAddResponse>{
         rep.setRepMsg("一级错误提示语：:"+repSc.getMsg()+";二级错误提示语："+repSc.getSubMsg());
         //持久化IC商品与后端商品的映射关系
         //scitemMapAddResponseDao.insert(repSc);
-        System.out.print("创建IC商品与后端商品的映射关系:"+repSc.getBody());
+        //System.out.print("创建IC商品与后端商品的映射关系:"+repSc.getBody());
         return rep;
     }
 
