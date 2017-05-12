@@ -1,5 +1,6 @@
 package com.hshc.relay.controller.erp;
 
+import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.service.SynPlansService;
 import com.taobao.api.ApiException;
@@ -25,6 +26,7 @@ public class SynPlansController extends BaseController{
     //同步租赁方案信息
     @RequestMapping("/lease-sysplans")
     @ResponseBody
+    @QimenSignAuthentication
     public TmallCarLeaseSynchronizeplansResponse sysPlans(@RequestBody TmallCarLeaseSynchronizeplansRequest reqSyn)throws ApiException{
           return  synPlansService.sysPlans(reqSyn);
     }
