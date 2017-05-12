@@ -27,7 +27,7 @@ public class SynPlansController extends BaseController{
     @RequestMapping("/lease-sysplans")
     @ResponseBody
     @QimenSignAuthentication
-    public TmallCarLeaseSynchronizeplansResponse sysPlans(@RequestBody TmallCarLeaseSynchronizeplansRequest reqSyn)throws ApiException{
+    public TmallCarLeaseSynchronizeplansResponse sysPlans(TmallCarLeaseSynchronizeplansRequest reqSyn)throws ApiException{
           return  synPlansService.sysPlans(reqSyn);
     }
 
