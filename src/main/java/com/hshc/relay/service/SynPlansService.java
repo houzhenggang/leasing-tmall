@@ -25,7 +25,6 @@ public class SynPlansService extends BaseService<TmallCarLeaseSynchronizeplansRe
     public TmallCarLeaseSynchronizeplansResponse sysPlans(TmallCarLeaseSynchronizeplansRequest reqSyn) throws ApiException{
         TaobaoClient client = new DefaultTaobaoClient("https://eco.taobao.com/router/rest", authorizedSessionService.getAppKey(), authorizedSessionService.getAppSecret());
         TmallCarLeaseSynchronizeplansResponse repSyn=client.execute(reqSyn, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
-
         //持久化租赁方案
         //tmallCarLeaseSynchronizeplansResponseDao.insert();
         return  repSyn;

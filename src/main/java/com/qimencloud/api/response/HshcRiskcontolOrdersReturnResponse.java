@@ -12,7 +12,7 @@ import com.qimencloud.api.AbstractQimenCloudResponse;
  */
 public class HshcRiskcontolOrdersReturnResponse extends AbstractQimenCloudResponse {
 
-	private static final long serialVersionUID = 2831222423532873447L;
+	private static final long serialVersionUID = 1192136346679898354L;
 
 	/** 
 	 * 一级响应参数

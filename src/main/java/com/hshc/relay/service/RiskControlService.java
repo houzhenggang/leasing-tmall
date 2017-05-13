@@ -1,12 +1,15 @@
 package com.hshc.relay.service;
 
-import com.hshc.relay.dao.CallbackLogDao;
 import com.hshc.relay.entity.riskcontrol.Customer;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
+import com.qimencloud.api.DefaultQimenCloudClient;
+import com.qimencloud.api.QimenCloudClient;
+import com.qimencloud.api.sceneo67v8y8p21.request.HshcRiskControlCustomerReturnRequest;
+import com.qimencloud.api.sceneo67v8y8p21.response.HshcRiskControlCustomerReturnResponse;
+import com.taobao.api.ApiException;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.TimeUnit;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronizationAdapter;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 /**
  * @author 钟林俊
@@ -15,16 +18,35 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class RiskControlService extends BaseService<Customer> {
 
-    @Autowired
-    private CallbackLogDao callbackLogDao;
+    @Transactional(rollbackFor = Exception.class)
+    public int add(final Customer customer){
+        int rows = baseDao.insert(customer);
 
-    @Async
-    public void riskCallback(Integer id){
-        try {
-            TimeUnit.MINUTES.sleep(8L);
-        } catch (InterruptedException ignored) {
-        }
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
+            @Override
+            public void afterCommit() {
 
+                QimenCloudClient cloudClient = new DefaultQimenCloudClient(getReturnUrl(), getAppKey(), getAppSecret());
+                HshcRiskControlCustomerReturnRequest request = new HshcRiskControlCustomerReturnRequest();
+                request.setConsigneeAddress(customer.getConsigneeAddress());
+                request.setIdentityNo(customer.getIdentityNo());
+                request.setMobile(customer.getMobile());
+                request.setName(customer.getName());
+                request.setTargetAppKey(getAppKey());
+
+                try {
+                    HshcRiskControlCustomerReturnResponse response = cloudClient.execute(request);
+                    if(response.getSuccess() != null && response.getSuccess()){
+                        customer.setReturned(true);
+                        modify(customer);
+                    }
+                } catch (ApiException e) {
+                    logger.error("", e);
+                }
+            }
+        });
+
+        return rows;
 
     }
 

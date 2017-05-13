@@ -58,9 +58,9 @@ public class DefaultQimenCloudClient implements QimenCloudClient {
 		TaobaoParser<T> parser = null;
 		if (this.needEnableParser) {
 			if (Constants.FORMAT_XML.equals(this.format)) {
-				parser = new QimenCloudXmlParser<T>(request.getResponseClass());
+				parser = new QimenCloudXmlParser<>(request.getResponseClass());
 			} else {
-				parser = new QimenCloudJsonParser<T>(request.getResponseClass());
+				parser = new QimenCloudJsonParser<>(request.getResponseClass());
 			}
 		}
 		
@@ -69,7 +69,7 @@ public class DefaultQimenCloudClient implements QimenCloudClient {
 			try {
 				request.check();
 			} catch (ApiRuleException e) {
-				T localResponse = null;
+				T localResponse;
 				try {
 					localResponse = request.getResponseClass().newInstance();
 				} catch (Exception xe) {
@@ -103,7 +103,7 @@ public class DefaultQimenCloudClient implements QimenCloudClient {
 		protocalOptParams.put(Constants.TARGET_APP_KEY, request.getTargetAppKey());
 		requestHolder.setProtocalOptParams(protocalOptParams);
 
-		String fullUrl = null;
+		String fullUrl;
 		try {
 			// 添加签名参数
 			protocalMustParams.put(Constants.SIGN, TaobaoUtils.signTopRequest(requestHolder, appSecret, signMethod));
@@ -113,7 +113,7 @@ public class DefaultQimenCloudClient implements QimenCloudClient {
 			String sysOptQuery = WebUtils.buildQuery(requestHolder.getProtocalOptParams(), Constants.CHARSET_UTF8);
 			fullUrl = WebUtils.buildRequestUrl(realServerUrl, sysMustQuery, sysOptQuery);
 			
-			String rsp = null;
+			String rsp;
 			// 是否需要压缩响应
 			if (this.useGzipEncoding) {
 				request.getHeaderMap().put(Constants.ACCEPT_ENCODING, Constants.CONTENT_ENCODING_GZIP);
@@ -129,7 +129,7 @@ public class DefaultQimenCloudClient implements QimenCloudClient {
 			throw new ApiException(e);
 		}
 		
-		T tRsp = null;
+		T tRsp;
 		if (this.needEnableParser) {
 			tRsp = parser.parse(requestHolder.getResponseBody());
 			tRsp.setRequestUrl(fullUrl);
@@ -157,9 +157,9 @@ public class DefaultQimenCloudClient implements QimenCloudClient {
 		TaobaoParser<QimenCloudResponse> parser = null;
 		if (this.needEnableParser) {
 			if (Constants.FORMAT_XML.equals(this.format)) {
-				parser = new QimenCloudXmlParser<QimenCloudResponse>(request.getResponseClass());
+				parser = new QimenCloudXmlParser<>(request.getResponseClass());
 			} else {
-				parser = new QimenCloudJsonParser<QimenCloudResponse>(request.getResponseClass());
+				parser = new QimenCloudJsonParser<>(request.getResponseClass());
 			}
 		}
 
@@ -185,7 +185,7 @@ public class DefaultQimenCloudClient implements QimenCloudClient {
 		protocalOptParams.put(Constants.TARGET_APP_KEY, request.getTargetAppKey());
 		requestHolder.setProtocalOptParams(protocalOptParams);
 
-		String fullUrl = null;
+		String fullUrl;
 		try {
 			// 添加签名参数
 			protocalMustParams.put(Constants.SIGN, TaobaoUtils.signTopRequest(requestHolder, appSecret, signMethod));
@@ -195,7 +195,7 @@ public class DefaultQimenCloudClient implements QimenCloudClient {
 			String sysOptQuery = WebUtils.buildQuery(requestHolder.getProtocalOptParams(), Constants.CHARSET_UTF8);
 			fullUrl = WebUtils.buildRequestUrl(realServerUrl, sysMustQuery, sysOptQuery);
 			
-			String rsp = null;
+			String rsp;
 			// 是否需要压缩响应
 			if (this.useGzipEncoding) {
 				request.getHeaderMap().put(Constants.ACCEPT_ENCODING, Constants.CONTENT_ENCODING_GZIP);
@@ -211,7 +211,7 @@ public class DefaultQimenCloudClient implements QimenCloudClient {
 			throw new ApiException(e);
 		}
 		
-		QimenCloudResponse tRsp = null;
+		QimenCloudResponse tRsp;
 		if (this.needEnableParser) {
 			tRsp = parser.parse(requestHolder.getResponseBody());
 			tRsp.setRequestUrl(fullUrl);
