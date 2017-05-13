@@ -33,13 +33,14 @@ public class CarLeaseTailpaymentbackController extends BaseController {
 	public BaseQimenResponseVo leaseTailpaymentback(TmallCarLeaseTailpaymentbackRequest req){
 		TmallCarLeaseTailpaymentbackResponse rep = new TmallCarLeaseTailpaymentbackResponse();
 		try {
+			LOGGER.info("leaseTailpaymentback:"+req.getTailPaymentDTO());
 			//获取返回值
 			rep = cltService.leaseTailpaymentback(req);
 			LOGGER.info("leaseTailpaymentback:"+rep.getBody());
 			//保存返回的信息
 			cltService.addleaseTailpaymentback(rep.getResult());
 		} catch (Exception e) {
-			return new BaseQimenResponseVo(rep.getResult().getSuccess(),rep.getResult().getMsgInfo());
+			return new BaseQimenResponseVo(rep.getResult().getSuccess(),rep.getSubMsg());
 		}
 		return new BaseQimenResponseVo(rep.getResult().getSuccess(),rep.getResult().getMsgInfo());
 	}

@@ -48,9 +48,9 @@ public class CarLeaseConsumeController extends BaseController {
 			
 			clcService.addleaseConsume(rsp.getResult());
 		} catch (Exception e) {
-			new BaseQimenResponseVo(rsp.getResult().getSuccess(),rsp.getSubMsg());
+			new BaseQimenResponseVo(rsp.getResult().getSuccess(),rsp.getResult().toString());
 		}
-		return 	new BaseQimenResponseVo(rsp.getResult().getSuccess(),rsp.getSubMsg());
+		return 	new BaseQimenResponseVo(rsp.getResult().getSuccess(),rsp.getResult().toString());
 
 	}
 }
