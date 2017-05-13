@@ -31,17 +31,17 @@ public class CarLeaseTailpaymentbackController extends BaseController {
 	@ResponseBody
 	@QimenSignAuthentication
 	public BaseQimenResponseVo leaseTailpaymentback(TmallCarLeaseTailpaymentbackRequest req){
-		TmallCarLeaseTailpaymentbackResponse rep = new TmallCarLeaseTailpaymentbackResponse();
+		TmallCarLeaseTailpaymentbackResponse rsp = new TmallCarLeaseTailpaymentbackResponse();
 		try {
 			LOGGER.info("leaseTailpaymentback:"+req.getTailPaymentDTO());
 			//获取返回值
-			rep = cltService.leaseTailpaymentback(req);
-			LOGGER.info("leaseTailpaymentback:"+rep.getBody());
+			rsp = cltService.leaseTailpaymentback(req);
+			LOGGER.info("leaseTailpaymentback:"+rsp.getBody());
 			//保存返回的信息
-			cltService.addleaseTailpaymentback(rep.getResult());
+			cltService.addleaseTailpaymentback(rsp.getResult());
 		} catch (Exception e) {
-			return new BaseQimenResponseVo(rep.getResult().getSuccess(),rep.getSubMsg());
+			return new BaseQimenResponseVo(rsp.getResult().getSuccess(),rsp.getMsg()+rsp.getSubMsg()+rsp.getResult().getErrorMessage());
 		}
-		return new BaseQimenResponseVo(rep.getResult().getSuccess(),rep.getResult().getMsgInfo());
+		return new BaseQimenResponseVo(rsp.getResult().getSuccess(),rsp.getMsg()+rsp.getSubMsg()+rsp.getResult().getErrorMessage());
 	}
 }
