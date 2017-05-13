@@ -54,7 +54,7 @@ public class MessageService extends BaseService<Message> implements Initializing
     }
 
     public void initClient() throws LinkException {
-        TmcClient client = new TmcClient(authorizedSessionService.getAppKey(), authorizedSessionService.getAppSecret());
+        TmcClient client = new TmcClient(getAppKey(), getAppSecret());
         client.setMessageHandler(new MessageHandler() {
 
             @Override
@@ -76,7 +76,7 @@ public class MessageService extends BaseService<Message> implements Initializing
                 }
             }
         });
-        client.connect(authorizedSessionService.getMessageServiceUrl());
+        client.connect(getMessageServiceUrl());
     }
 
     /**

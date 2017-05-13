@@ -38,6 +38,7 @@ public class CarLeaseReserveController extends BaseController {
 		TmallCarLeaseReserveResponse rsp = new TmallCarLeaseReserveResponse();
 		try {
 			//获取返回参数
+			LOGGER.info("nic="+req.getBuyerNick());
 			rsp = clrService.leaseReserve(req);
 			LOGGER.info("result:"+rsp.getBody());
 			//保存返回的数据
