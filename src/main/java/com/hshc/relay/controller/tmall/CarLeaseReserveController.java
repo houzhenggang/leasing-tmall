@@ -43,10 +43,10 @@ public class CarLeaseReserveController extends BaseController {
 			LOGGER.info("result:"+rsp.getBody());
 			//保存返回的数据
 			clrService.addLeaseReserve(rsp);
-			new BaseQimenResponseVo(rsp.getResult().toString());
+			new BaseQimenResponseVo(rsp.getSubMsg());
 		} catch (Exception e) {
-			new BaseQimenResponseVo(rsp.getResult().getErrorMessage());
+			new BaseQimenResponseVo(rsp.getBody());
 		}
-		return new BaseQimenResponseVo(rsp.getResult().toString());
+		return new BaseQimenResponseVo(rsp.getSubMsg());
 	}
 }
