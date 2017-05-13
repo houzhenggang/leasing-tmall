@@ -1,6 +1,7 @@
 package com.hshc.relay.controller.erp;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.service.SynPlansService;
@@ -34,6 +35,7 @@ public class SynPlansController extends BaseController{
           System.out.println("同步租赁方案信息-项目编号："+reqSyn.getItemId());
         System.out.println("同步租赁方案信息-方案信息："+reqSyn.getPlans());
         List<TmallCarLeaseSynchronizeplansRequest.CarLeasePlanDo> plans = JSON.parseArray(reqSyn.getPlans(), TmallCarLeaseSynchronizeplansRequest.CarLeasePlanDo.class);
+        reqSyn.setPlans(plans);
         System.out.println("同步租赁方案信息-公司名称："+plans.get(0).getCompanyName());
         return  synPlansService.sysPlans(reqSyn);
     }

@@ -16,9 +16,11 @@ public abstract class TaobaoResponse implements Serializable {
 	private static final long serialVersionUID = 5014379068811962022L;
 
 	@ApiField("code")
+	@JSONField(name="code")
 	private String errorCode;
 
 	@ApiField("msg")
+	@JSONField(name = "message")
 	private String msg;
 
 	@ApiField("sub_code")
