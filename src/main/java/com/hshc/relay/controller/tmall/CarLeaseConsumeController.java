@@ -41,6 +41,7 @@ public class CarLeaseConsumeController extends BaseController {
 		TmallCarLeaseConsumeResponse leaseConsume = new TmallCarLeaseConsumeResponse();
 		try {
 			//获取返回参数
+			LOGGER.info("111:"+res.getCosumeCodeReqDTO());
 			leaseConsume = clcService.leaseConsume(res);
 			LOGGER.info("leaseConsume:"+leaseConsume.getBody());
 		    //保存核销返回信息
