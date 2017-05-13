@@ -29,7 +29,13 @@ public class SynPlansService extends BaseService<TmallCarLeaseSynchronizeplansRe
         rep.setResult(repSyn.getResult());
         rep.setRepCode("一级错误码:"+repSyn.getErrorCode()+";二级错误码:"+repSyn.getSubCode());
         rep.setRepMsg("一级错误提示语:"+repSyn.getMsg()+";二级错误提示语："+repSyn.getSubMsg());
-        System.out.println("result数据："+ repSyn.getResult().toString());
+        System.out.println("result数据："+ repSyn.getResult().getErrorCode());
+        System.out.println("result数据："+ repSyn.getResult().getErrorMessage());
+        System.out.println("result数据："+ repSyn.getResult().getMsgCode());
+        System.out.println("result数据："+ repSyn.getResult().getMsgInfo());
+        System.out.println("result数据："+ repSyn.getResult().getCostTime());
+        System.out.println("result数据："+ repSyn.getResult().getGmtCurrentTime());
+        System.out.println("result数据："+ repSyn.getResult().getSuccess());
         //持久化租赁方案
         //tmallCarLeaseSynchronizeplansResponseDao.insert();
         return  rep;
