@@ -42,12 +42,13 @@ public class CarLeaseReserveController extends BaseController {
 			rsp = clrService.leaseReserve(req);
 			LOGGER.info("getBody:"+rsp.getBody());
 			LOGGER.info("getResult-getMsgInfo:"+rsp.getResult().getMsgInfo());
+			LOGGER.info("getResult-getMsgInfo:"+rsp.getResult().getSuccess());
 			//保存返回的数据
 			clrService.addLeaseReserve(rsp);
-			new BaseQimenResponseVo(rsp.getResult().getMsgInfo());
+			new BaseQimenResponseVo(rsp.getResult().getSuccess(),rsp.getResult().getMsgInfo());
 		} catch (Exception e) {
-			new BaseQimenResponseVo(rsp.getResult().getErrorMessage());
+			new BaseQimenResponseVo(rsp.getResult().getSuccess(),rsp.getResult().getMsgInfo());
 		}
-		return new BaseQimenResponseVo(rsp.getResult().getMsgInfo());
+		return new BaseQimenResponseVo(rsp.getResult().getSuccess(),rsp.getResult().getMsgInfo());
 	}
 }

@@ -38,17 +38,19 @@ public class CarLeaseConsumeController extends BaseController {
 	@ResponseBody
 	@QimenSignAuthentication
 	public BaseQimenResponseVo leaseConsume(TmallCarLeaseConsumeRequest res){
-		TmallCarLeaseConsumeResponse leaseConsume = new TmallCarLeaseConsumeResponse();
+		TmallCarLeaseConsumeResponse rsp = new TmallCarLeaseConsumeResponse();
 		try {
 			//获取返回参数
 			LOGGER.info("111:"+res.getCosumeCodeReqDTO());
-			leaseConsume = clcService.leaseConsume(res);
-			LOGGER.info("leaseConsume:"+leaseConsume.getBody());
+			rsp = clcService.leaseConsume(res);
+			LOGGER.info("leaseConsume:"+rsp.getBody());
 		    //保存核销返回信息
-			clcService.addleaseConsume(leaseConsume.getResult());
+			
+			clcService.addleaseConsume(rsp.getResult());
 		} catch (Exception e) {
-			new BaseQimenResponseVo(leaseConsume.getResult().getErrorMessage());
+			new BaseQimenResponseVo(rsp.getResult().getSuccess(),rsp.getResult().toString());
 		}
-		return new BaseQimenResponseVo(leaseConsume.getResult().toString());
+		return 	new BaseQimenResponseVo(rsp.getResult().getSuccess(),rsp.getResult().toString());
+
 	}
 }
