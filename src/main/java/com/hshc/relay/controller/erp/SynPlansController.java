@@ -34,10 +34,9 @@ public class SynPlansController extends BaseController{
     public TmallCarLeaseSynchronizeplansResponse sysPlans(TmallCarLeaseSynchronizeplansRequest reqSyn)throws ApiException{
           System.out.println("同步租赁方案信息-项目编号："+reqSyn.getItemId());
         System.out.println("同步租赁方案信息-方案信息："+reqSyn.getPlans());
-        String resultData=JSON.toJSONStringWithDateFormat(reqSyn.getPlans(), "yyyy-MM-dd HH:mm:ss", SerializerFeature.DisableCircularReferenceDetect,SerializerFeature.WriteMapNullValue);
-        reqSyn.setPlans(resultData);
-        //List<TmallCarLeaseSynchronizeplansRequest.CarLeasePlanDo> plans = JSON.parseArray(reqSyn.getPlans(), TmallCarLeaseSynchronizeplansRequest.CarLeasePlanDo.class);
-        //System.out.println("同步租赁方案信息-公司名称："+plans.get(0).getCompanyName());
+        List<TmallCarLeaseSynchronizeplansRequest.CarLeasePlanDo> plans = JSON.parseArray(reqSyn.getPlans(), TmallCarLeaseSynchronizeplansRequest.CarLeasePlanDo.class);
+        reqSyn.setPlans(plans);
+        System.out.println("同步租赁方案信息-公司名称："+plans.get(0).getCompanyName());
         return  synPlansService.sysPlans(reqSyn);
     }
 
