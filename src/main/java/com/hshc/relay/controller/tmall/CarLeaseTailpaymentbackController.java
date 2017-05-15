@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.controller.erp.StoreManageController;
@@ -40,8 +41,8 @@ public class CarLeaseTailpaymentbackController extends BaseController {
 			//保存返回的信息
 			cltService.addleaseTailpaymentback(rsp.getResult());
 		} catch (Exception e) {
-			return new BaseQimenResponseVo(rsp.getResult().getSuccess(),rsp.getMsg()+rsp.getSubMsg()+rsp.getResult().getErrorMessage());
+			return new BaseQimenResponseVo(false,JSON.toJSONString(rsp));
 		}
-		return new BaseQimenResponseVo(rsp.getResult().getSuccess(),rsp.getMsg()+rsp.getSubMsg()+rsp.getResult().getErrorMessage());
+		return new BaseQimenResponseVo(true,JSON.toJSONString(rsp));
 	}
 }
