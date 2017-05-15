@@ -20,7 +20,7 @@ public class Customer extends BaseEntity {
 
     private String uuid;
 
-    @JSONField(name = "consignee_address")
+    @JSONField(name = "addr")
     private String consigneeAddress;
 
     @JSONField(name = "item_id")

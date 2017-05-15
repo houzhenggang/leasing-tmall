@@ -1,5 +1,6 @@
 package com.hshc.relay.controller.tmall;
 
+import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.entity.riskcontrol.Customer;
 import com.hshc.relay.service.RiskControlService;
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -26,6 +26,7 @@ public class RiskControlController extends BaseController {
 
     @RequestMapping(value = "/customer")
     @ResponseBody
+    @QimenSignAuthentication
     public Map<String,Object> acceptCustomerInfo(@RequestBody Customer customer){
         Map<String, Object> ret = new HashMap<>();
         try{
@@ -34,8 +35,8 @@ public class RiskControlController extends BaseController {
         }catch (Exception e){
             logger.error("", e);
             ret.put("success", "false");
-            ret.put("code", e.getClass().getSimpleName());
-            ret.put("message", e.getMessage());
+            ret.put("sub_code", e.getClass().getSimpleName());
+            ret.put("sub_message", e.getMessage());
         }
 
         return ret;
