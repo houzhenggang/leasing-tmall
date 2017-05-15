@@ -74,7 +74,7 @@ public class HshcRiskControlCustomerReturnRequest extends BaseQimenCloudRequest<
 	}
 
     public String getApiMethodName() {
-          return "hshc.riskcontol.customer.return";
+          return "hshc.riskcontrol.customer.out";
      }
      
     public Map<String, String> getTextParams() {

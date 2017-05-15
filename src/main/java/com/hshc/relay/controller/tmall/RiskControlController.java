@@ -31,12 +31,10 @@ public class RiskControlController extends BaseController {
         try{
             riskControlService.add(customer);
             ret.put("success", "true");
-            ret.put("code", "200");
-            ret.put("message", "接收成功");
         }catch (Exception e){
             logger.error("", e);
             ret.put("success", "false");
-            ret.put("code", "400");
+            ret.put("code", e.getClass().getSimpleName());
             ret.put("message", e.getMessage());
         }
 
