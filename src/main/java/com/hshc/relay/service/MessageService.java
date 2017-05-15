@@ -54,7 +54,7 @@ public class MessageService extends BaseService<Message> implements Initializing
     }
 
     public void initClient() throws LinkException {
-        TmcClient client = new TmcClient("1023795481", "sandbox9ca8bda28fdf14f3bafac622d");
+        TmcClient client = new TmcClient(getAppKey(), getAppSecret());
         client.setMessageHandler(new MessageHandler() {
 
             @Override
@@ -76,7 +76,7 @@ public class MessageService extends BaseService<Message> implements Initializing
                 }
             }
         });
-        client.connect("ws://mc.api.tbsandbox.com");
+        client.connect(getMessageServiceUrl());
     }
 
     /**
