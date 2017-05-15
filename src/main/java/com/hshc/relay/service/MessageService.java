@@ -49,12 +49,12 @@ public class MessageService extends BaseService<Message> implements Initializing
     }
 
     @Override
-    public void afterPropertiesSet(){
-
+    public void afterPropertiesSet() throws LinkException {
+        initClient();
     }
 
     public void initClient() throws LinkException {
-        TmcClient client = new TmcClient(getAppKey(), getAppSecret());
+        TmcClient client = new TmcClient("1023795481", "sandbox9ca8bda28fdf14f3bafac622d");
         client.setMessageHandler(new MessageHandler() {
 
             @Override
@@ -76,7 +76,7 @@ public class MessageService extends BaseService<Message> implements Initializing
                 }
             }
         });
-        client.connect(getMessageServiceUrl());
+        client.connect("ws://mc.api.tbsandbox.com");
     }
 
     /**
