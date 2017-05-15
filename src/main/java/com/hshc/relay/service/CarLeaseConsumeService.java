@@ -30,9 +30,10 @@ public class CarLeaseConsumeService extends BaseService<TmallCarLeaseConsumeResp
 	private CarLeaseConsumeDao clcDao;
 	
 	public TmallCarLeaseConsumeResponse leaseConsume(TmallCarLeaseConsumeRequest req) throws ApiException {
-		TaobaoClient client = new DefaultTaobaoClient("http://gw.api.taobao.com/router/rest", asService.getAppKey(), asService.getAppSecret());
-		TmallCarLeaseConsumeResponse rsp = client.execute(req, asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
-	    return rsp;
+//		TaobaoClient client = new DefaultTaobaoClient("http://gw.api.taobao.com/router/rest", asService.getAppKey(), asService.getAppSecret());
+//		TmallCarLeaseConsumeResponse rsp = client.execute(req, asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
+		TmallCarLeaseConsumeResponse rsp = (TmallCarLeaseConsumeResponse)RequestTaobaoClientService.requset(req);
+		return rsp;
 	}
 
 	@Transactional(rollbackFor = Exception.class)
