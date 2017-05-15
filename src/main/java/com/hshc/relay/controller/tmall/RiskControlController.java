@@ -24,7 +24,7 @@ public class RiskControlController extends BaseController {
     @Autowired
     private RiskControlService riskControlService;
 
-    @RequestMapping(value = "/customer", method = RequestMethod.POST)
+    @RequestMapping(value = "/customer")
     @ResponseBody
     public Map<String,Object> acceptCustomerInfo(@RequestBody Customer customer){
         Map<String, Object> ret = new HashMap<>();
