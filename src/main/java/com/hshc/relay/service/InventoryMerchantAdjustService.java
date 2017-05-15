@@ -8,6 +8,7 @@ import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.request.InventoryMerchantAdjustRequest;
 import com.taobao.api.response.InventoryMerchantAdjustResponse;
+import com.taobao.api.response.TmallCarLeaseReserveResponse;
 /**
  * 
  * @author 吴国伟
@@ -25,8 +26,10 @@ public class InventoryMerchantAdjustService extends BaseService<InventoryMerchan
 	 * @param quantity 调整数量  +-值
 	 */
 	public InventoryMerchantAdjustResponse InventoryMerchantAdjust(InventoryMerchantAdjustRequest inventoryMerchantAdjustRequest) throws ApiException{
-        TaobaoClient client = new DefaultTaobaoClient(authorizedSessionService.getTopApi(), authorizedSessionService.getAppKey(), authorizedSessionService.getAppSecret());
-		InventoryMerchantAdjustResponse rsp = client.execute(inventoryMerchantAdjustRequest, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
+//        TaobaoClient client = new DefaultTaobaoClient(authorizedSessionService.getTopApi(), authorizedSessionService.getAppKey(), authorizedSessionService.getAppSecret());
+//		InventoryMerchantAdjustResponse rsp = client.execute(inventoryMerchantAdjustRequest, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
+		InventoryMerchantAdjustResponse rsp = (InventoryMerchantAdjustResponse)RequestTaobaoClientService.requset(inventoryMerchantAdjustRequest);
+
 		return rsp;
 	}
 }
