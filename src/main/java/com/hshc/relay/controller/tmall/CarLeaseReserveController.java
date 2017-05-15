@@ -1,12 +1,10 @@
 package com.hshc.relay.controller.tmall;
 
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,7 +15,6 @@ import com.hshc.relay.controller.erp.ScitemController;
 import com.hshc.relay.service.CarLeaseReserveService;
 import com.hshc.relay.vo.BaseQimenResponseVo;
 import com.taobao.api.request.TmallCarLeaseReserveRequest;
-import com.taobao.api.request.TmallCarLeaseConsumeRequest.CosumeCodeReqDto;
 import com.taobao.api.response.TmallCarLeaseReserveResponse;
 /**
  * 整车租车回传预约信息
