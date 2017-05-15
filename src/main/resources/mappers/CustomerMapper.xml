@@ -4,8 +4,8 @@
 <mapper namespace="com.hshc.relay.dao.CustomerDao">
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.hshc.relay.entity.riskcontrol.Customer">
-        insert into rc_customer(id, name, identity_no, mobile, uuid, consignee_address)
-        values(#{id}, #{name}, #{identityNo}, #{mobile}, #{uuid}, #{consigneeAddress})
+        insert into rc_customer(id, name, identity_no, mobile, uuid, consignee_address, item_id)
+        values(#{id}, #{name}, #{identityNo}, #{mobile}, #{uuid}, #{consigneeAddress}, #{itemId})
     </insert>
 
     <update id="update" parameterType="com.hshc.relay.entity.riskcontrol.Customer">
@@ -18,7 +18,10 @@
                 reject_msg = #{rejectMsg},
             </if>
             <if test="returned != null">
-                returned = #{returned}
+                returned = #{returned},
+            </if>
+            <if test="itemId != null">
+                item_id = #{itemId}
             </if>
         </set>
         where id = #{id}

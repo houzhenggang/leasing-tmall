@@ -48,6 +48,7 @@ public class TradeMessageHandler extends BaseService<TradeFullinfoGetResponse> i
 
             TradeFullinfoGetResponse fullinfoGetResponse = client.execute(req, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
             // TODO 消息可能会是同一条订单的多次发送, 所以先update,如果没有更新，再插入
+            // 怎么避免同一条订单被插入多次？
             if(modify(fullinfoGetResponse) == 0){
                 add(fullinfoGetResponse);
             }

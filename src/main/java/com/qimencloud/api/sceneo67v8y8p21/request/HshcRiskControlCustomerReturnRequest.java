@@ -36,6 +36,11 @@ public class HshcRiskControlCustomerReturnRequest extends BaseQimenCloudRequest<
 	 */
 	private String name;
 
+	/**
+	 * 商品id
+	 */
+	private long itemId;
+
 	public void setConsigneeAddress(String consigneeAddress) {
 		this.consigneeAddress = consigneeAddress;
 	}
@@ -68,11 +73,11 @@ public class HshcRiskControlCustomerReturnRequest extends BaseQimenCloudRequest<
 		return this.name;
 	}
 
-     public String getApiMethodName() {
+    public String getApiMethodName() {
           return "hshc.riskcontol.customer.return";
      }
      
-     public Map<String, String> getTextParams() {		
+    public Map<String, String> getTextParams() {
 		TaobaoHashMap txtParams = new TaobaoHashMap();
 		txtParams.put("consignee_address", this.consigneeAddress);
 		txtParams.put("identity_no", this.identityNo);
@@ -84,13 +89,18 @@ public class HshcRiskControlCustomerReturnRequest extends BaseQimenCloudRequest<
 		return txtParams;
 	}
      
-     public Class<HshcRiskControlCustomerReturnResponse> getResponseClass() {
+    public Class<HshcRiskControlCustomerReturnResponse> getResponseClass() {
 		return HshcRiskControlCustomerReturnResponse.class;
 	}
 
-     public void check() throws ApiRuleException {
-     }
-     
+    public void check() throws ApiRuleException {
+    }
 
+	public long getItemId() {
+		return itemId;
+	}
 
+	public void setItemId(long itemId) {
+		this.itemId = itemId;
+	}
 }
