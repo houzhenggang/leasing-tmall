@@ -434,9 +434,9 @@ public abstract class WebUtils {
 
 			return response.toString();
 		} finally {
-			if (stream != null) {
-				stream.close();
-			}
+//			if (stream != null) {
+//				stream.close();
+//			}
 		}
 	}
 
