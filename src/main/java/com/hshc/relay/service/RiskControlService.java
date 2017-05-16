@@ -32,7 +32,7 @@ public class RiskControlService extends BaseService<Customer> {
                 request.setIdentityNo(customer.getIdentityNo());
                 request.setMobile(customer.getMobile());
                 request.setName(customer.getName());
-                request.setItemId(customer.getItemId());
+//                request.setItemId(customer.getItemId());
                 request.setTargetAppKey(getAppKey());
 
                 try {

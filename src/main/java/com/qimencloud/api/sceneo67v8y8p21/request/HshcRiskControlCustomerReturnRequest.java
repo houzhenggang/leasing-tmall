@@ -79,8 +79,8 @@ public class HshcRiskControlCustomerReturnRequest extends BaseQimenCloudRequest<
      
     public Map<String, String> getTextParams() {
 		TaobaoHashMap txtParams = new TaobaoHashMap();
-		txtParams.put("consignee_address", this.consigneeAddress);
-		txtParams.put("identity_no", this.identityNo);
+		txtParams.put("consigneeAddress", this.consigneeAddress);
+		txtParams.put("identityNo", this.identityNo);
 		txtParams.put("mobile", this.mobile);
 		txtParams.put("name", this.name);
 		if(this.udfParams != null) {

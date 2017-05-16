@@ -1,21 +1,13 @@
 package com.hshc.relay.controller.tmall;
 
 import com.alibaba.fastjson.JSON;
-import com.hshc.relay.annotation.QimenSignAuthentication;
-import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.controller.QimenStreamController;
 import com.hshc.relay.entity.riskcontrol.Customer;
 import com.hshc.relay.service.RiskControlService;
 import com.hshc.relay.vo.BaseQimenResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author 钟林俊
