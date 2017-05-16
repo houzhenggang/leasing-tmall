@@ -1,11 +1,15 @@
 package com.hshc.relay.controller.tmall;
 
+import com.alibaba.fastjson.JSON;
 import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
+import com.hshc.relay.controller.QimenStreamController;
 import com.hshc.relay.entity.riskcontrol.Customer;
 import com.hshc.relay.service.RiskControlService;
+import com.hshc.relay.vo.BaseQimenResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,27 +23,17 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/risk-control")
-public class RiskControlController extends BaseController {
+public class RiskControlController extends QimenStreamController {
 
     @Autowired
     private RiskControlService riskControlService;
 
     @RequestMapping(value = "/customer")
     @ResponseBody
-    @QimenSignAuthentication
-    public Map<String,Object> acceptCustomerInfo(@RequestBody Customer customer){
-        Map<String, Object> ret = new HashMap<>();
-        try{
-            riskControlService.add(customer);
-            ret.put("success", "true");
-        }catch (Exception e){
-            logger.error("", e);
-            ret.put("success", "false");
-            ret.put("sub_code", e.getClass().getSimpleName());
-            ret.put("sub_message", e.getMessage());
-        }
+    public BaseQimenResponseVo acceptCustomerInfo(@ModelAttribute("requestBody") String requestBody){
+        riskControlService.add(JSON.parseObject(requestBody, Customer.class));
 
-        return ret;
+        return BaseQimenResponseVo.success();
     }
 
 }
