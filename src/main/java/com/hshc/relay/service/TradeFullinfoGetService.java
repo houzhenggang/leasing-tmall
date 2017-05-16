@@ -59,6 +59,7 @@ public class TradeFullinfoGetService extends BaseService<TradeFullinfoGetRespons
 		return rsp;		
 	}
 
+	
 	@Transactional(rollbackFor = Exception.class)
 	public void addtradeFullinfo(Trade trade) {
 		Long tid = trade.getTid();
@@ -85,6 +86,17 @@ public class TradeFullinfoGetService extends BaseService<TradeFullinfoGetRespons
 		}
 	}
 
+	@Override
+	public int modify(TradeFullinfoGetResponse t){
+		return 0;
+	}
+	
+	@Override
+	public int add(TradeFullinfoGetResponse t){
+		return 0;
+	}
+	
+	
 	public HshcRiskcontolOrdersReturnResponse toErp(Trade trade) throws ApiException {
 		//trade.setOrders(null);
 		//实体转化json

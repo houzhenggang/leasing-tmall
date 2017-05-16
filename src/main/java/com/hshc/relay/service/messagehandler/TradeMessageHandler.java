@@ -49,7 +49,7 @@ public class TradeMessageHandler extends BaseService<TradeFullinfoGetResponse> i
             req.setTid(tradeBuyerPayMessage.getTid());
 
             TradeFullinfoGetResponse fullinfoGetResponse = client.execute(req, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
-
+          
             tradeInfoDao.insert(fullinfoGetResponse);
 
             // 事务提交后再执行（跟租赁系统通信）
