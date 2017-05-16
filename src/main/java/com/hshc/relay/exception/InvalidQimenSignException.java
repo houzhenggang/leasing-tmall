@@ -7,7 +7,7 @@ package com.hshc.relay.exception;
 public class InvalidQimenSignException extends BaseException {
 
     public InvalidQimenSignException(){
-        this("440", "奇门签名验证失败！");
+        this("sign-check-failure", "Illegal request");
     }
 
     private InvalidQimenSignException(String code, String message) {

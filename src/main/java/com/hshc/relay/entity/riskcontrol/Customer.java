@@ -20,8 +20,11 @@ public class Customer extends BaseEntity {
 
     private String uuid;
 
-    @JSONField(name = "consignee_address")
+    @JSONField(name = "addr")
     private String consigneeAddress;
+
+    @JSONField(name = "item_id")
+    private long itemId;
 
     private boolean pass;
 
@@ -95,5 +98,13 @@ public class Customer extends BaseEntity {
 
     public void setReturned(boolean returned) {
         this.returned = returned;
+    }
+
+    public long getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(long itemId) {
+        this.itemId = itemId;
     }
 }
