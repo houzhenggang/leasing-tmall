@@ -1,12 +1,10 @@
 package com.hshc.relay.controller.tmall;
 
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,7 +15,6 @@ import com.hshc.relay.controller.erp.ScitemController;
 import com.hshc.relay.service.CarLeaseReserveService;
 import com.hshc.relay.vo.BaseQimenResponseVo;
 import com.taobao.api.request.TmallCarLeaseReserveRequest;
-import com.taobao.api.request.TmallCarLeaseConsumeRequest.CosumeCodeReqDto;
 import com.taobao.api.response.TmallCarLeaseReserveResponse;
 /**
  * 整车租车回传预约信息
@@ -38,14 +35,14 @@ public class CarLeaseReserveController extends BaseController {
 		TmallCarLeaseReserveResponse rsp = new TmallCarLeaseReserveResponse();
 		try {
 			//获取返回参数
+			LOGGER.info("nic="+req.getBuyerNick());
 			rsp = clrService.leaseReserve(req);
-			LOGGER.info("result:"+rsp.getBody());
+			LOGGER.info("getBody:"+JSON.toJSONString(rsp));
 			//保存返回的数据
 			clrService.addLeaseReserve(rsp);
-			new BaseQimenResponseVo(rsp.getResult().toString());
 		} catch (Exception e) {
-			new BaseQimenResponseVo(rsp.getResult().getErrorMessage());
+			new BaseQimenResponseVo(false,JSON.toJSONString(rsp));
 		}
-		return new BaseQimenResponseVo(rsp.getResult().toString());
+		return new BaseQimenResponseVo(true,JSON.toJSONString(rsp));
 	}
 }

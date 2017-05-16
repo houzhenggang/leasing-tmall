@@ -42,7 +42,7 @@ public class TradeFullinfoGetService extends BaseService<TradeFullinfoGetRespons
 	private OrderDao oDao;
 	
 	
-	public TradeFullinfoGetResponse tradeFullinfo(Long tid) throws ApiException {
+	/*public TradeFullinfoGetResponse tradeFullinfo(Long tid) throws ApiException {
 		TradeFullinfoGetRequest req = new TradeFullinfoGetRequest();
 		req.setFields("tid,title,type,status,payment,est_con_time,receiver_name,receiver_state,receiver_address,receiver_mobile,receiver_phone,orders,buyer_nick");
 		req.setTid(tid);
@@ -57,45 +57,43 @@ public class TradeFullinfoGetService extends BaseService<TradeFullinfoGetRespons
 		   HshcRiskcontolOrdersReturnResponse erp = toErp(trade);
 	   }
 		return rsp;		
-	}
+	}*/
 
 	
+
+	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void addtradeFullinfo(Trade trade) {
+	public int modify(TradeFullinfoGetResponse res){
+		Trade trade = res.getTrade();
 		Long tid = trade.getTid();
-		//保存前查询订单是否存在
-		int i = tDao.selectInt(tid);
-		if(i>0){
-			//修改主订单
-			tDao.update(trade);
-			List<Order> orders = trade.getOrders();
-			for (Order order : orders) {
-				order.setTid((long) tid);
-				//修改子订单
-				oDao.update(order);
-			}
-		}else{
-			//添加主订单信息
-			tDao.insert(trade);
-			List<Order> orders = trade.getOrders();
-			for (Order order : orders) {
-				order.setTid((long) tid);
-				//保存子订单
-				oDao.insert(order);
-			}
+		int i = 0;
+		//修改主表信息
+		i+= tDao.update(trade);
+		List<Order> orders = trade.getOrders();
+		for (Order order : orders) {
+			order.setTid((long) tid);
+			//修改子订单
+		    i+= oDao.update(order);
 		}
-	}
-
-	@Override
-	public int modify(TradeFullinfoGetResponse t){
-		return 0;
+		return i;
 	}
 	
 	@Override
-	public int add(TradeFullinfoGetResponse t){
-		return 0;
+	@Transactional(rollbackFor = Exception.class)
+	public int add(TradeFullinfoGetResponse res){
+		Trade trade = res.getTrade();
+		Long tid = trade.getTid();
+		int i = 0;
+		//添加主订单信息
+		i+= tDao.insert(trade);
+		List<Order> orders = trade.getOrders();
+		for (Order order : orders) {
+			order.setTid((long) tid);
+			//保存子订单
+			i+=oDao.insert(order);
+		}
+		return i;
 	}
-	
 	
 	public HshcRiskcontolOrdersReturnResponse toErp(Trade trade) throws ApiException {
 		//trade.setOrders(null);

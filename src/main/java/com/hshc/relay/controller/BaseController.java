@@ -25,7 +25,7 @@ public abstract class BaseController
         logger.error("", e);
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         QimenCloudResponse qimenCloudResponse = new QimenCloudResponse();
-        String code = "400";
+        String code = e.getClass().getSimpleName();
         String message = e.getMessage();
         if(e instanceof BindException){
             BindException bindException = (BindException) e;
@@ -36,7 +36,6 @@ public abstract class BaseController
                     message += fieldError.getDefaultMessage() + " ";
                 }
             }
-            code = "412";
         } else if (e instanceof BaseException) {
             BaseException baseException = (BaseException) e;
             code = baseException.getCode();

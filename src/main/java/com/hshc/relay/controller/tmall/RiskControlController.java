@@ -1,13 +1,17 @@
 package com.hshc.relay.controller.tmall;
 
+import com.alibaba.fastjson.JSON;
+import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
+import com.hshc.relay.controller.QimenStreamController;
 import com.hshc.relay.entity.riskcontrol.Customer;
 import com.hshc.relay.service.RiskControlService;
+import com.hshc.relay.vo.BaseQimenResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -19,28 +23,17 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/risk-control")
-public class RiskControlController extends BaseController {
+public class RiskControlController extends QimenStreamController {
 
     @Autowired
     private RiskControlService riskControlService;
 
-    @RequestMapping(value = "/customer", method = RequestMethod.POST)
+    @RequestMapping(value = "/customer")
     @ResponseBody
-    public Map<String,Object> acceptCustomerInfo(@RequestBody Customer customer){
-        Map<String, Object> ret = new HashMap<>();
-        try{
-            riskControlService.add(customer);
-            ret.put("success", "true");
-            ret.put("code", "200");
-            ret.put("message", "接收成功");
-        }catch (Exception e){
-            logger.error("", e);
-            ret.put("success", "false");
-            ret.put("code", "400");
-            ret.put("message", e.getMessage());
-        }
+    public BaseQimenResponseVo acceptCustomerInfo(@ModelAttribute("requestBody") String requestBody){
+        riskControlService.add(JSON.parseObject(requestBody, Customer.class));
 
-        return ret;
+        return BaseQimenResponseVo.success();
     }
 
 }

@@ -11,9 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationAdapter;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author 钟林俊
  * @version V1.0 2017-05-07 16:54
@@ -25,9 +22,9 @@ public class RiskControlService extends BaseService<Customer> {
     public int add(final Customer customer){
         int rows = baseDao.insert(customer);
 
-//        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
-//            @Override
-//            public void afterCommit() {
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
+            @Override
+            public void afterCommit() {
 
                 QimenCloudClient cloudClient = new DefaultQimenCloudClient(getReturnUrl(), getAppKey(), getAppSecret());
                 HshcRiskControlCustomerReturnRequest request = new HshcRiskControlCustomerReturnRequest();
@@ -35,11 +32,8 @@ public class RiskControlService extends BaseService<Customer> {
                 request.setIdentityNo(customer.getIdentityNo());
                 request.setMobile(customer.getMobile());
                 request.setName(customer.getName());
+                request.setItemId(customer.getItemId());
                 request.setTargetAppKey(getAppKey());
-
-//                Map<String, String> headers = new HashMap<>();
-//                headers.put("Content-Type", "application/json;charset=utf-8");
-//                request.setHeaderMap(headers);
 
                 try {
                     HshcRiskControlCustomerReturnResponse response = cloudClient.execute(request);
@@ -50,8 +44,8 @@ public class RiskControlService extends BaseService<Customer> {
                 } catch (ApiException e) {
                     logger.error("", e);
                 }
-//            }
-//        });
+            }
+        });
 
         return rows;
 
