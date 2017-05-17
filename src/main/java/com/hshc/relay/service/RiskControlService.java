@@ -30,7 +30,7 @@ public class RiskControlService extends BaseService<Customer> {
 
                 QimenCloudClient cloudClient = new DefaultQimenCloudClient(getReturnUrl(), getAppKey(), getAppSecret());
                 HshcRiskControlCustomerReturnRequest request = new HshcRiskControlCustomerReturnRequest();
-                request.setConsigneeAddress(customer.getConsigneeAddress());
+                request.setConsigneeAddress(customer.getAddr());
                 request.setIdentityNo(customer.getIdentityNo());
                 request.setMobile(customer.getMobile());
                 request.setName(customer.getName());

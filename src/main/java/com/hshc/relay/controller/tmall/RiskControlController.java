@@ -23,7 +23,9 @@ public class RiskControlController extends BaseController {
     @RequestMapping(value = "/customer")
     @ResponseBody
     @QimenSignAuthentication
-    public BaseQimenResponseVo acceptCustomerInfo(Customer customer){
+    public BaseQimenResponseVo acceptCustomerInfo(Customer customer, @RequestParam("identity_no") String identityNo, @RequestParam("item_id") long itemId){
+        customer.setIdentityNo(identityNo);
+        customer.setItemId(itemId);
         riskControlService.add(customer);
 
         return BaseQimenResponseVo.success();
