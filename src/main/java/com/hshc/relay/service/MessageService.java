@@ -77,6 +77,7 @@ public class MessageService extends BaseService<Message> implements Initializing
             }
         });
         client.connect(getMessageServiceUrl());
+        //Thread.sleep(1000000L);
     }
 
     /**

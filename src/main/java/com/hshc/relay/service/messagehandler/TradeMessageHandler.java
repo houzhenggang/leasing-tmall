@@ -30,10 +30,10 @@ public class TradeMessageHandler extends BaseService<TradeFullinfoGetResponse> i
     @Autowired
     private AuthorizedSessionService authorizedSessionService;
 
-    @Autowired
-    private TradeFullinfoGetService tfgService;
-
     private  TradeFullinfoGetResponse fullinfoGetResponse;
+
+    @Autowired
+    private TradeFullinfoGetService tradeFullinfoGetService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -57,8 +57,8 @@ public class TradeMessageHandler extends BaseService<TradeFullinfoGetResponse> i
 
             fullinfoGetResponse = client.execute(req, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
             //消息可能会是同一条订单的多次发送, 所以先update,如果没有更新，再插入;怎么避免同一条订单被插入多次？
-            if(modify(fullinfoGetResponse) == 0){
-                add(fullinfoGetResponse);
+            if(tradeFullinfoGetService.modify(fullinfoGetResponse) == 0){
+                tradeFullinfoGetService.add(fullinfoGetResponse);
             }
 
             // 通信可能会失败，需要标记这个订单信息到底传成功没有，如果没有，需要换时间再次发送
@@ -67,7 +67,7 @@ public class TradeMessageHandler extends BaseService<TradeFullinfoGetResponse> i
                 public void afterCommit(){
                     try {
                         // 事务提交后再执行（跟租赁系统通信）
-                        HshcRiskcontolOrdersReturnResponse hshcRiskcontolOrdersReturnResponse=tfgService.toErp(fullinfoGetResponse.getTrade());
+                        HshcRiskcontolOrdersReturnResponse hshcRiskcontolOrdersReturnResponse=tradeFullinfoGetService.toErp(fullinfoGetResponse.getTrade());
                     }catch (ApiException e){
                         e.printStackTrace();
                     }
