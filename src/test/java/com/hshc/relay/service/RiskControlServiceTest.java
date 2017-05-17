@@ -1,7 +1,10 @@
 package com.hshc.relay.service;
 
+import com.alibaba.fastjson.JSON;
 import com.hshc.relay.BaseTest;
 import com.hshc.relay.entity.riskcontrol.Customer;
+import com.taobao.api.ApiException;
+import com.taobao.api.response.TmallCarLeaseRiskcallbackResponse;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +31,13 @@ public class RiskControlServiceTest extends BaseTest {
 
         int added = riskControlService.add(customer);
         Assert.assertEquals(added, 1);
+    }
+
+    @Test
+    public void testSendRiskControlResult() throws ApiException {
+        String uuid = "b7708d9f-504e-4a25-92f2-30380a69b05822";
+        TmallCarLeaseRiskcallbackResponse.Result result = riskControlService.sendRiskControlResult(uuid);
+        System.out.println(JSON.toJSONString(result));
+        Assert.assertNotNull(result);
     }
 }
