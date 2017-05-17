@@ -30,8 +30,8 @@ public class CarLeaseTailpaymentbackService extends BaseService<TmallCarLeaseTai
 	
 	public TmallCarLeaseTailpaymentbackResponse leaseTailpaymentback(TmallCarLeaseTailpaymentbackRequest req) throws ApiException {
 		TaobaoClient client = new DefaultTaobaoClient(getTopApi(), getAppKey(), getAppSecret());
-//		TmallCarLeaseTailpaymentbackResponse rsp = client.execute(req, asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
-		TmallCarLeaseTailpaymentbackResponse rsp = (TmallCarLeaseTailpaymentbackResponse)RequestTaobaoClientService.requset(req);
+		TmallCarLeaseTailpaymentbackResponse rsp = client.execute(req, asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
+		//TmallCarLeaseTailpaymentbackResponse rsp = (TmallCarLeaseTailpaymentbackResponse)RequestTaobaoClientService.requset(req);
 		return rsp;
 	}
 

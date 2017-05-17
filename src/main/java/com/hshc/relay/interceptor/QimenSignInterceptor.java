@@ -37,7 +37,6 @@ public class QimenSignInterceptor extends HandlerInterceptorAdapter {
                 QimenSignAuthentication annotation = ((HandlerMethod) handler).getMethodAnnotation(QimenSignAuthentication.class);
                 if (annotation != null) {
                     LOGGER.info("qimen queryString: " + request.getQueryString());
-
                     String appSecret = authorizedSessionService.getAppSecret();
                     if(!SpiUtils.checkSign(request, appSecret).isSuccess()){
                         throw new InvalidQimenSignException();

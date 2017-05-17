@@ -33,9 +33,9 @@ public class CarLeaseReserveService extends BaseService<TmallCarLeaseReserveResp
 			req.setBuyerId((long) 0);
 		}
 		
-//		TaobaoClient client = new DefaultTaobaoClient(asService.getTopApi(), asService.getAppKey(), asService.getAppSecret());
-//		TmallCarLeaseReserveResponse rsp = client.execute(req, asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
-		TmallCarLeaseReserveResponse rsp = (TmallCarLeaseReserveResponse)RequestTaobaoClientService.requset(req);
+		TaobaoClient client = new DefaultTaobaoClient(asService.getTopApi(), asService.getAppKey(), asService.getAppSecret());
+		TmallCarLeaseReserveResponse rsp = client.execute(req, asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
+		//TmallCarLeaseReserveResponse rsp = (TmallCarLeaseReserveResponse)RequestTaobaoClientService.requset(req);
 		return rsp;
 	}
 

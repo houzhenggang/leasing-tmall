@@ -5,6 +5,9 @@ import com.alibaba.fastjson.parser.Feature;
 import com.hshc.relay.entity.taobaomessage.TradeBuyerPayMessage;
 import com.hshc.relay.service.AuthorizedSessionService;
 import com.hshc.relay.service.BaseService;
+import com.hshc.relay.service.SynPlansService;
+import com.hshc.relay.service.TradeFullinfoGetService;
+import com.qimencloud.api.response.HshcRiskcontolOrdersReturnResponse;
 import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
@@ -27,6 +30,11 @@ public class TradeMessageHandler extends BaseService<TradeFullinfoGetResponse> i
     @Autowired
     private AuthorizedSessionService authorizedSessionService;
 
+    @Autowired
+    private TradeFullinfoGetService tfgService;
+
+    private  TradeFullinfoGetResponse fullinfoGetResponse;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void handle(Message message) throws ApiException {
@@ -41,23 +49,28 @@ public class TradeMessageHandler extends BaseService<TradeFullinfoGetResponse> i
 //            total_fee,pay_time,end_time,modified,consign_time,buyer_obtain_point_fee,point_fee,real_point_fee,received_payment,commission_fee,
 //            pic_path,num_iid,num,price,cod_fee,cod_status,shipping_type,receiver_name,receiver_state,receiver_city,receiver_district,
 //            receiver_address,receiver_zip,receiver_mobile,receiver_phone,orders
-            // 订单字段，看需要调整
+            // 订单字段，看需要调整 
+            //"tid,title,type,status,payment,est_con_time,receiver_name,receiver_state,receiver_address,receiver_mobile,receiver_phone,orders,buyer_nick"
             req.setFields("tid,type,status,payment,orders");
             // 订单号
             req.setTid(tradeBuyerPayMessage.getTid());
 
-            TradeFullinfoGetResponse fullinfoGetResponse = client.execute(req, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
-            // TODO 消息可能会是同一条订单的多次发送, 所以先update,如果没有更新，再插入
-            // 怎么避免同一条订单被插入多次？
+            fullinfoGetResponse = client.execute(req, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
+            //消息可能会是同一条订单的多次发送, 所以先update,如果没有更新，再插入;怎么避免同一条订单被插入多次？
             if(modify(fullinfoGetResponse) == 0){
                 add(fullinfoGetResponse);
             }
 
-            // 事务提交后再执行（跟租赁系统通信）
             // 通信可能会失败，需要标记这个订单信息到底传成功没有，如果没有，需要换时间再次发送
             TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
                 @Override
-                public void afterCommit() {
+                public void afterCommit(){
+                    try {
+                        // 事务提交后再执行（跟租赁系统通信）
+                        HshcRiskcontolOrdersReturnResponse hshcRiskcontolOrdersReturnResponse=tfgService.toErp(fullinfoGetResponse.getTrade());
+                    }catch (ApiException e){
+                        e.printStackTrace();
+                    }
                 }
             });
 

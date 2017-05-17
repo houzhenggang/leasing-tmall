@@ -26,7 +26,7 @@ public class Customer extends BaseEntity {
     @JSONField(name = "item_id")
     private long itemId;
 
-    private boolean pass;
+    private Boolean pass;
 
     @JSONField(name = "reject_msg")
     private String rejectMsg;
@@ -76,11 +76,11 @@ public class Customer extends BaseEntity {
         this.consigneeAddress = consigneeAddress;
     }
 
-    public boolean isPass() {
+    public Boolean getPass() {
         return pass;
     }
 
-    public void setPass(boolean pass) {
+    public void setPass(Boolean pass) {
         this.pass = pass;
     }
 

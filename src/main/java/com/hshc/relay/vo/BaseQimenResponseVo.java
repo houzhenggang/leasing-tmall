@@ -19,6 +19,14 @@ public class BaseQimenResponseVo {
         this.message = message;
     }
 
+    public static BaseQimenResponseVo success(){
+        return success("");
+    }
+
+    public static BaseQimenResponseVo success(String message){
+        return new BaseQimenResponseVo(true, message);
+    }
+
     public boolean isSuccess() {
         return success;
     }
