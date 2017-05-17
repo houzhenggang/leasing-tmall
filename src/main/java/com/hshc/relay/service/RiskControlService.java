@@ -1,6 +1,7 @@
 package com.hshc.relay.service;
 
 import com.alibaba.fastjson.JSON;
+import com.google.common.base.Preconditions;
 import com.hshc.relay.dao.CustomerDao;
 import com.hshc.relay.entity.riskcontrol.Customer;
 import com.qimencloud.api.DefaultQimenCloudClient;
@@ -68,13 +69,14 @@ public class RiskControlService extends BaseService<Customer> {
         Customer customer = new Customer();
         customer.setUuid(uuid);
         TmallCarLeaseRiskcallbackRequest.CreditInfoTopDto topDto = customerDao.selectTopDto(customer);
+        Preconditions.checkNotNull(topDto, "no customer matches the given uuid " + uuid);
         topDto.setPass(true);
 
         TaobaoClient client = new DefaultTaobaoClient(getTopApi(), getAppKey(), getAppSecret());
         TmallCarLeaseRiskcallbackRequest req = new TmallCarLeaseRiskcallbackRequest();
         req.setCreditInfo(topDto);
         TmallCarLeaseRiskcallbackResponse.Result result = client.execute(req, authorizedSessionService.getAuthorizedSession("sandbox_taobao1234").getAccessToken()).getResult();
-        logger.info("Risk control callback : request=" + JSON.toJSONString(topDto) + ", resposne=" + JSON.toJSONString(result));
+        logger.info("risk control callback : request=" + JSON.toJSONString(topDto) + ", resposne=" + JSON.toJSONString(result));
         return result;
     }
 }
