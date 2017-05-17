@@ -32,13 +32,8 @@ public class TradeFullinfoGetController extends BaseController{
 	public BaseQimenResponseVo getTradeFullinfo(Long tid){
 		try {
 			//获取单笔交易地详细信息
-			TradeFullinfoGetResponse tradeFullinfo = tfgService.tradeFullinfo(tid);
-			LOGGER.info("tradeFullinfo:"+tradeFullinfo.getBody());
-			//保存订单信息
-			tfgService.addtradeFullinfo(tradeFullinfo.getTrade());
-		    //把数据传给erp
-			HshcRiskcontolOrdersReturnResponse erp = tfgService.toErp(tradeFullinfo.getTrade());
-			erp.getMessage();
+			/*TradeFullinfoGetResponse tradeFullinfo = tfgService.tradeFullinfo(tid);*/
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

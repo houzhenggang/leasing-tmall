@@ -37,6 +37,7 @@ public class SpiUtils {
 		String charset = WebUtils.getResponseCharset(ctype);
 		if (ctype.startsWith(Constants.CTYPE_APP_JSON) || ctype.startsWith(Constants.CTYPE_TEXT_XML) || ctype.startsWith(Constants.CTYPE_TEXT_PLAIN)) {
 			String body = WebUtils.getStreamAsString(request.getInputStream(), charset);
+			log.info("qimen request body: " + body);
 			boolean valid = checkSignInternal(request, null, body, secret, charset);
 			result.setSuccess(valid);
 			result.setRequestBody(body);
@@ -93,17 +94,21 @@ public class SpiUtils {
 		Map<String, String> params = new HashMap<>();
 		// 1. 获取header参数
 		Map<String, String> headerMap = getHeaderMap(request, charset);
+		log.info("qimen headers: " + headerMap);
 		params.putAll(headerMap);
 
 		// 2. 获取url参数
 		Map<String, String> queryMap = getQueryMap(request, charset);
+		log.info("qimen queryParams: " + queryMap);
 		params.putAll(queryMap);
 
 		// 3. 获取form参数
 		if (form == null && body == null) {
 			Map<String, String> formMap = getFormMap(request, queryMap);
+			log.info("qimen params: " + formMap);
 			params.putAll(formMap);
 		} else if (form != null) {
+			log.info("qimen form: " + form);
 			params.putAll(form);
 		}
 

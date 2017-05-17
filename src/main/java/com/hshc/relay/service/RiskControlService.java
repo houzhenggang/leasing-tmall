@@ -1,5 +1,6 @@
 package com.hshc.relay.service;
 
+import com.alibaba.fastjson.JSON;
 import com.hshc.relay.entity.riskcontrol.Customer;
 import com.qimencloud.api.DefaultQimenCloudClient;
 import com.qimencloud.api.QimenCloudClient;
@@ -20,6 +21,7 @@ public class RiskControlService extends BaseService<Customer> {
 
     @Transactional(rollbackFor = Exception.class)
     public int add(final Customer customer){
+        logger.info("risk-control customer :" + JSON.toJSONString(customer));
         int rows = baseDao.insert(customer);
 
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
@@ -32,7 +34,7 @@ public class RiskControlService extends BaseService<Customer> {
                 request.setIdentityNo(customer.getIdentityNo());
                 request.setMobile(customer.getMobile());
                 request.setName(customer.getName());
-                request.setItemId(customer.getItemId());
+//                request.setItemId(customer.getItemId());
                 request.setTargetAppKey(getAppKey());
 
                 try {

@@ -11,4 +11,6 @@ import com.taobao.api.domain.Trade;
 @Repository
 public interface TradeDao extends BaseDao<Trade>{
 
+	int selectInt(Long tid);
+
 }

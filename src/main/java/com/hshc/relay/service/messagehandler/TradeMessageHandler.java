@@ -49,7 +49,8 @@ public class TradeMessageHandler extends BaseService<TradeFullinfoGetResponse> i
 //            total_fee,pay_time,end_time,modified,consign_time,buyer_obtain_point_fee,point_fee,real_point_fee,received_payment,commission_fee,
 //            pic_path,num_iid,num,price,cod_fee,cod_status,shipping_type,receiver_name,receiver_state,receiver_city,receiver_district,
 //            receiver_address,receiver_zip,receiver_mobile,receiver_phone,orders
-            // 订单字段，看需要调整
+            // 订单字段，看需要调整 
+            //"tid,title,type,status,payment,est_con_time,receiver_name,receiver_state,receiver_address,receiver_mobile,receiver_phone,orders,buyer_nick"
             req.setFields("tid,type,status,payment,orders");
             // 订单号
             req.setTid(tradeBuyerPayMessage.getTid());
