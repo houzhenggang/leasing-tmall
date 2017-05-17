@@ -23,7 +23,7 @@ public class RiskControlServiceTest extends BaseTest {
         customer.setName("张三");
         customer.setMobile("13833883388");
         customer.setIdentityNo("110101190001011111");
-        customer.setConsigneeAddress("啊十分士大夫撒地方");
+        customer.setAddr("啊十分士大夫撒地方");
         customer.setUuid(UUID.randomUUID().toString());
 
         int added = riskControlService.add(customer);

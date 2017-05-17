@@ -13,17 +13,14 @@ public class Customer extends BaseEntity {
 
     private String name;
 
-    @JSONField(name = "identity_no")
     private String identityNo;
 
     private String mobile;
 
     private String uuid;
 
-    @JSONField(name = "addr")
-    private String consigneeAddress;
+    private String addr;
 
-    @JSONField(name = "item_id")
     private long itemId;
 
     private Boolean pass;
@@ -68,12 +65,12 @@ public class Customer extends BaseEntity {
         this.uuid = uuid;
     }
 
-    public String getConsigneeAddress() {
-        return consigneeAddress;
+    public String getAddr() {
+        return addr;
     }
 
-    public void setConsigneeAddress(String consigneeAddress) {
-        this.consigneeAddress = consigneeAddress;
+    public void setAddr(String addr) {
+        this.addr = addr;
     }
 
     public Boolean getPass() {

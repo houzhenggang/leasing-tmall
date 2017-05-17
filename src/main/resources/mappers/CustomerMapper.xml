@@ -5,7 +5,7 @@
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.hshc.relay.entity.riskcontrol.Customer">
         insert into rc_customer(id, name, identity_no, mobile, uuid, consignee_address, item_id)
-        values(#{id}, #{name}, #{identityNo}, #{mobile}, #{uuid}, #{consigneeAddress}, #{itemId})
+        values(#{id}, #{name}, #{identityNo}, #{mobile}, #{uuid}, #{addr}, #{itemId})
     </insert>
 
     <update id="update" parameterType="com.hshc.relay.entity.riskcontrol.Customer">
@@ -19,9 +19,6 @@
             </if>
             <if test="returned != null">
                 returned = #{returned},
-            </if>
-            <if test="itemId != null">
-                item_id = #{itemId}
             </if>
         </set>
         where id = #{id}

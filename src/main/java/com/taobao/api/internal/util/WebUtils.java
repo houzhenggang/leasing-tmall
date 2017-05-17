@@ -2,7 +2,6 @@ package com.taobao.api.internal.util;
 
 import com.taobao.api.Constants;
 import com.taobao.api.FileItem;
-import org.apache.commons.io.IOUtils;
 
 import javax.net.ssl.*;
 import java.io.*;

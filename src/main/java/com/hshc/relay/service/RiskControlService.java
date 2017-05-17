@@ -21,7 +21,7 @@ public class RiskControlService extends BaseService<Customer> {
 
     @Transactional(rollbackFor = Exception.class)
     public int add(final Customer customer){
-        logger.info("risk-control customer :" + JSON.toJSONString(customer));
+        logger.debug("risk-control customer :" + JSON.toJSONString(customer));
         int rows = baseDao.insert(customer);
 
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
@@ -30,7 +30,7 @@ public class RiskControlService extends BaseService<Customer> {
 
                 QimenCloudClient cloudClient = new DefaultQimenCloudClient(getReturnUrl(), getAppKey(), getAppSecret());
                 HshcRiskControlCustomerReturnRequest request = new HshcRiskControlCustomerReturnRequest();
-                request.setConsigneeAddress(customer.getConsigneeAddress());
+                request.setConsigneeAddress(customer.getAddr());
                 request.setIdentityNo(customer.getIdentityNo());
                 request.setMobile(customer.getMobile());
                 request.setName(customer.getName());
