@@ -77,6 +77,7 @@ public class MessageService extends BaseService<Message> implements Initializing
             }
         });
         client.connect(getMessageServiceUrl());
+        //Thread.sleep(1000000L);
     }
 
     /**
@@ -87,7 +88,7 @@ public class MessageService extends BaseService<Message> implements Initializing
      */
     private HshcMessageHandler getMessageHandler(String topic) {
         switch (topic){
-            case "taobao_trade_TradeBuyerPay ": return (HshcMessageHandler) SpringUtil.getBeanById("tradeMessageHandler");
+            case "taobao_trade_TradeBuyerPay": return (HshcMessageHandler) SpringUtil.getBeanById("tradeMessageHandler");
             case "taobao_item_ItemUpdate" : return (HshcMessageHandler) SpringUtil.getBeanById("itemUpdateMessageHandler");
         }
 
