@@ -2,6 +2,7 @@ package com.hshc.relay.service;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.hshc.relay.dao.CustomerDao;
 import com.hshc.relay.entity.riskcontrol.Customer;
 import com.qimencloud.api.DefaultQimenCloudClient;
@@ -33,6 +34,7 @@ public class RiskControlService extends BaseService<Customer> {
 
     @Transactional(rollbackFor = Exception.class)
     public int add(final Customer customer){
+        Preconditions.checkNotNull(customer, "accepted customer is null");
         logger.debug("risk-control customer :" + JSON.toJSONString(customer));
         int rows = baseDao.insert(customer);
 
@@ -66,6 +68,7 @@ public class RiskControlService extends BaseService<Customer> {
     }
 
     public TmallCarLeaseRiskcallbackResponse.Result sendRiskControlResult(String uuid) throws ApiException {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(uuid), "the given uuid is null");
         Customer customer = new Customer();
         customer.setUuid(uuid);
         TmallCarLeaseRiskcallbackRequest.CreditInfoTopDto topDto = customerDao.selectTopDto(customer);
