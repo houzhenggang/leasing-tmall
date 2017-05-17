@@ -37,7 +37,7 @@ public class SpiUtils {
 		String charset = WebUtils.getResponseCharset(ctype);
 		if (ctype.startsWith(Constants.CTYPE_APP_JSON) || ctype.startsWith(Constants.CTYPE_TEXT_XML) || ctype.startsWith(Constants.CTYPE_TEXT_PLAIN)) {
 			String body = WebUtils.getStreamAsString(request.getInputStream(), charset);
-			log.info("qimen request: " + body);
+			log.info("qimen request body: " + body);
 			boolean valid = checkSignInternal(request, null, body, secret, charset);
 			result.setSuccess(valid);
 			result.setRequestBody(body);
