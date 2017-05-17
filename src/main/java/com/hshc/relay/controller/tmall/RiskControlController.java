@@ -1,7 +1,7 @@
 package com.hshc.relay.controller.tmall;
 
-import com.alibaba.fastjson.JSON;
-import com.hshc.relay.controller.QimenStreamController;
+import com.hshc.relay.annotation.QimenSignAuthentication;
+import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.entity.riskcontrol.Customer;
 import com.hshc.relay.service.RiskControlService;
 import com.hshc.relay.vo.BaseQimenResponseVo;
@@ -15,15 +15,16 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping("/risk-control")
-public class RiskControlController extends QimenStreamController {
+public class RiskControlController extends BaseController {
 
     @Autowired
     private RiskControlService riskControlService;
 
     @RequestMapping(value = "/customer")
     @ResponseBody
-    public BaseQimenResponseVo acceptCustomerInfo(@ModelAttribute("requestBody") String requestBody){
-        riskControlService.add(JSON.parseObject(requestBody, Customer.class));
+    @QimenSignAuthentication
+    public BaseQimenResponseVo acceptCustomerInfo(Customer customer){
+        riskControlService.add(customer);
 
         return BaseQimenResponseVo.success();
     }
