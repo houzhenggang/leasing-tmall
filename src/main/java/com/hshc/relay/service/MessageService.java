@@ -37,11 +37,11 @@ public class MessageService extends BaseService<Message> implements Initializing
                 topicStr += "," + topics[i];
             }
 
-            TaobaoClient client = new DefaultTaobaoClient(getTopApi(), getAppKey(), getAppSecret());
+            TaobaoClient client = new DefaultTaobaoClient("https://eco.taobao.com/router/rest", "23795481", "2757dd39ca8bda28fdf14f3bafac622d");
             TmcUserPermitRequest req = new TmcUserPermitRequest();
 
             req.setTopics(topicStr);
-            TmcUserPermitResponse rsp = client.execute(req, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
+            TmcUserPermitResponse rsp = client.execute(req, "6202405db9a9fhj3d03f9e039c22ea5e6ff914c23d770243164940675");
             if(!rsp.getIsSuccess()){
                 throw new BaseException(rsp.getSubCode(), rsp.getSubMsg());
             }
@@ -54,7 +54,7 @@ public class MessageService extends BaseService<Message> implements Initializing
     }
 
     public void initClient() throws LinkException {
-        TmcClient client = new TmcClient(getAppKey(), getAppSecret());
+        TmcClient client = new TmcClient("23795481", "2757dd39ca8bda28fdf14f3bafac622d");
         client.setMessageHandler(new MessageHandler() {
 
             @Override
@@ -76,7 +76,13 @@ public class MessageService extends BaseService<Message> implements Initializing
                 }
             }
         });
-        client.connect(getMessageServiceUrl());
+        client.connect("ws://mc.api.taobao.com/");
+        try {
+			Thread.sleep(100000000L);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     /**
