@@ -37,11 +37,11 @@ public class MessageService extends BaseService<Message> implements Initializing
                 topicStr += "," + topics[i];
             }
 
-            TaobaoClient client = new DefaultTaobaoClient("https://eco.taobao.com/router/rest", "23795481", "2757dd39ca8bda28fdf14f3bafac622d");
+            TaobaoClient client = new DefaultTaobaoClient(getTopApi(), getAppKey(), getAppSecret());
             TmcUserPermitRequest req = new TmcUserPermitRequest();
 
             req.setTopics(topicStr);
-            TmcUserPermitResponse rsp = client.execute(req, "6202405db9a9fhj3d03f9e039c22ea5e6ff914c23d770243164940675");
+            TmcUserPermitResponse rsp = client.execute(req, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
             if(!rsp.getIsSuccess()){
                 throw new BaseException(rsp.getSubCode(), rsp.getSubMsg());
             }
@@ -54,7 +54,7 @@ public class MessageService extends BaseService<Message> implements Initializing
     }
 
     public void initClient() throws LinkException {
-        TmcClient client = new TmcClient("23795481", "2757dd39ca8bda28fdf14f3bafac622d");
+        TmcClient client = new TmcClient(getAppKey(), getAppSecret());
         client.setMessageHandler(new MessageHandler() {
 
             @Override
@@ -76,13 +76,7 @@ public class MessageService extends BaseService<Message> implements Initializing
                 }
             }
         });
-        client.connect("ws://mc.api.taobao.com/");
-        try {
-			Thread.sleep(100000000L);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        client.connect(getMessageServiceUrl());
     }
 
     /**
@@ -93,7 +87,7 @@ public class MessageService extends BaseService<Message> implements Initializing
      */
     private HshcMessageHandler getMessageHandler(String topic) {
         switch (topic){
-            case "taobao_trade_TradeBuyerPay ": return (HshcMessageHandler) SpringUtil.getBeanById("tradeMessageHandler");
+            case "taobao_trade_TradeBuyerPay": return (HshcMessageHandler) SpringUtil.getBeanById("tradeMessageHandler");
             case "taobao_item_ItemUpdate" : return (HshcMessageHandler) SpringUtil.getBeanById("itemUpdateMessageHandler");
         }
 

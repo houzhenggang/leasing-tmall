@@ -5,7 +5,7 @@
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.hshc.relay.entity.riskcontrol.Customer">
         insert into rc_customer(id, name, identity_no, mobile, uuid, consignee_address, item_id)
-        values(#{id}, #{name}, #{identityNo}, #{mobile}, #{uuid}, #{consigneeAddress}, #{itemId})
+        values(#{id}, #{name}, #{identityNo}, #{mobile}, #{uuid}, #{addr}, #{itemId})
     </insert>
 
     <update id="update" parameterType="com.hshc.relay.entity.riskcontrol.Customer">
@@ -20,11 +20,14 @@
             <if test="returned != null">
                 returned = #{returned},
             </if>
-            <if test="itemId != null">
-                item_id = #{itemId}
-            </if>
         </set>
         where id = #{id}
     </update>
+
+    <select id="selectTopDto" parameterType="com.hshc.relay.entity.riskcontrol.Customer" resultType="com.taobao.api.request.TmallCarLeaseRiskcallbackRequest$CreditInfoTopDto">
+        select rc.name, rc.identity_no "identityNo", rc.mobile, rc.uuid, rc.consignee_address "addr"
+        from rc_customer rc
+        where rc.uuid = #{uuid}
+    </select>
 
 </mapper>

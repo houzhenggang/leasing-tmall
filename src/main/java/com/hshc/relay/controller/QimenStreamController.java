@@ -1,5 +1,6 @@
 package com.hshc.relay.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.hshc.relay.exception.InvalidQimenSignException;
 import com.hshc.relay.service.AuthorizedSessionService;
 import com.taobao.api.internal.spi.CheckResult;
@@ -23,6 +24,7 @@ public class QimenStreamController extends BaseController{
     public String getRequestBody(HttpServletRequest request) throws IOException {
         String appSecret = authorizedSessionService.getAppSecret();
         CheckResult checkResult = SpiUtils.checkSign(request, appSecret);
+        logger.info("qimen stream checkResult: " + JSON.toJSONString(checkResult));
         if(!checkResult.isSuccess()){
             throw new InvalidQimenSignException();
         }

@@ -30,11 +30,8 @@ public class SynPlansController extends BaseController{
     @ResponseBody
     @QimenSignAuthentication
     public CLSynPlansResponse sysPlans(TmallCarLeaseSynchronizeplansRequest reqSyn)throws ApiException{
-        System.out.println("同步租赁方案信息-项目编号："+reqSyn.getItemId());
-        System.out.println("同步租赁方案信息-方案信息："+reqSyn.getPlans());
         List<TmallCarLeaseSynchronizeplansRequest.CarLeasePlanDo> plans = JSON.parseArray(reqSyn.getPlans(), TmallCarLeaseSynchronizeplansRequest.CarLeasePlanDo.class);
         reqSyn.setPlans(plans);
-        System.out.println("同步租赁方案信息-公司名称："+plans.get(0).getCompanyName());
         return  synPlansService.sysPlans(reqSyn);
     }
 

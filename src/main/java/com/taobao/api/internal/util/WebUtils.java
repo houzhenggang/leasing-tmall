@@ -2,7 +2,6 @@ package com.taobao.api.internal.util;
 
 import com.taobao.api.Constants;
 import com.taobao.api.FileItem;
-import org.apache.commons.io.IOUtils;
 
 import javax.net.ssl.*;
 import java.io.*;
@@ -423,11 +422,8 @@ public abstract class WebUtils {
 	}
 
 	public static String getStreamAsString(InputStream stream, String charset) throws IOException {
-		ByteArrayInputStream byteArrayInputStream = null;
 		try {
-			byte[] bytes = IOUtils.toByteArray(stream);
-			byteArrayInputStream = new ByteArrayInputStream(bytes);
-			Reader reader = new InputStreamReader(byteArrayInputStream, charset);
+			Reader reader = new InputStreamReader(stream, charset);
 			StringBuilder response = new StringBuilder();
 
 			final char[] buff = new char[1024];
@@ -438,8 +434,8 @@ public abstract class WebUtils {
 
 			return response.toString();
 		} finally {
-			if (byteArrayInputStream != null) {
-				byteArrayInputStream.close();
+			if (stream != null) {
+				stream.close();
 			}
 		}
 	}
