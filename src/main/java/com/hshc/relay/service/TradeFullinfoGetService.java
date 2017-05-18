@@ -101,7 +101,7 @@ public class TradeFullinfoGetService extends BaseService<TradeFullinfoGetRespons
 		QimenCloudClient client = new DefaultQimenCloudClient(getReturnUrl(), asService.getAppKey(), asService.getAppSecret());
 		String str=JSON.toJSONStringWithDateFormat(trade, "yyyy-MM-dd HH:mm:ss",SerializerFeature.DisableCircularReferenceDetect);
 		HshcRiskcontolOrdersReturnRequest parseObject = JSON.parseObject(str, HshcRiskcontolOrdersReturnRequest.class, Feature.UseBigDecimal);
-		parseObject.setTargetAppKey("23795481");
+		parseObject.setTargetAppKey(asService.getAppKey());
 		HshcRiskcontolOrdersReturnResponse rsp = client.execute(parseObject);
 		LOGGER.info("rsp:"+rsp.getBody());
 		
