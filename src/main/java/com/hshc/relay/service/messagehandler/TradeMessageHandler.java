@@ -77,13 +77,13 @@ public class TradeMessageHandler extends BaseService<TradeFullinfoGetResponse> i
                         // 事务提交后再执行（跟租赁系统通信）
                         HshcRiskcontolOrdersReturnResponse hshcRiskcontolOrdersReturnResponse=tradeFullinfoGetService.toErp(fullinfoGetResponse.getTrade());
                         // 发送成功后更新成功发送的标记
+                        Map<String,String> resultMap=new HashMap<String, String>();
+                        resultMap.put("tId",tId);
                         if(hshcRiskcontolOrdersReturnResponse.getSuccess() != null && hshcRiskcontolOrdersReturnResponse.getSuccess()){
-                            Map<String,String> resultMap=new HashMap<String, String>();
-                            resultMap.put("tId",tId);
-                            resultMap.put("isSend",hshcRiskcontolOrdersReturnResponse.getSuccess().toString());
-                            resultMap.put("log",JSON.toJSONString(hshcRiskcontolOrdersReturnResponse));
-                            tradeDao.updateSendStatu(resultMap);
+                            resultMap.put("isSend","true");
                         }
+                        resultMap.put("log",JSON.toJSONString(hshcRiskcontolOrdersReturnResponse));
+                        tradeDao.updateSendStatu(resultMap);
                     }catch (ApiException e){
                         e.printStackTrace();
                     }

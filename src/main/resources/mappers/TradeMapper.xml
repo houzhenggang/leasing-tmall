@@ -61,7 +61,9 @@ select count(*) from orders_main where tid = #{tid}
 
   <update id="updateSendStatu" parameterType="map">
     update orders_main set
-          is_send=#{isSend}
+          <if test="isSend != null ">
+            is_send=#{isSend}
+          </if>
           <if test="log !=null ">
             ,log=#{log}
           </if>
