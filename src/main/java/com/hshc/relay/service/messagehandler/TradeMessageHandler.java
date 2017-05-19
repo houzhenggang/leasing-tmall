@@ -61,7 +61,7 @@ public class TradeMessageHandler extends BaseService<TradeFullinfoGetResponse> i
             req.setFields("tid,title,type,status,payment,est_con_time,receiver_name,receiver_state,receiver_address,receiver_mobile,receiver_phone,orders,buyer_nick,buyer_message");
             // 订单号
             req.setTid(tradeBuyerPayMessage.getTid());
-            final String tId=tradeBuyerPayMessage.getTid().toString();
+            final String tid=tradeBuyerPayMessage.getTid().toString();
 
             fullinfoGetResponse = client.execute(req, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
             //消息可能会是同一条订单的多次发送, 所以先update,如果没有更新，再插入;怎么避免同一条订单被插入多次？
@@ -78,7 +78,7 @@ public class TradeMessageHandler extends BaseService<TradeFullinfoGetResponse> i
                         HshcRiskcontolOrdersReturnResponse hshcRiskcontolOrdersReturnResponse=tradeFullinfoGetService.toErp(fullinfoGetResponse.getTrade());
                         // 发送成功后更新成功发送的标记
                         Map<String,String> resultMap=new HashMap<String, String>();
-                        resultMap.put("tId",tId);
+                        resultMap.put("tid",tid);
                         if(hshcRiskcontolOrdersReturnResponse.getSuccess() != null && hshcRiskcontolOrdersReturnResponse.getSuccess()){
                             resultMap.put("isSend","true");
                         }

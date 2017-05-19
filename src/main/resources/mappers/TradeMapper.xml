@@ -61,12 +61,13 @@ select count(*) from orders_main where tid = #{tid}
 
   <update id="updateSendStatu" parameterType="map">
     update orders_main set
+          updatetime=now()
           <if test="isSend != null ">
-            is_send=#{isSend}
+            ,is_send=#{isSend}
           </if>
           <if test="log !=null ">
             ,log=#{log}
           </if>
-    where  tid={tId}
+    where  tid={tid}
   </update>
 </mapper>
