@@ -12,6 +12,7 @@ import com.taobao.api.ApiRuleException;
 import com.taobao.api.internal.util.TaobaoHashMap;
 import com.taobao.api.internal.util.json.JSONWriter;
 import com.taobao.api.response.TmallCarLeaseSynchronizeplansResponse;
+import org.springframework.stereotype.Repository;
 
 /**
  * TOP API: tmall.car.lease.synchronizeplans request

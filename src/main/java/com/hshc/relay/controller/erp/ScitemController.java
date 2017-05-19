@@ -5,6 +5,8 @@ import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.entity.ISGetResponse;
 import com.hshc.relay.entity.ScAddResponse;
 import com.hshc.relay.entity.ScMapAddResponse;
+import com.hshc.relay.service.ItemSellerService;
+import com.hshc.relay.service.ScitemMapService;
 import com.hshc.relay.service.ScitemService;
 import com.hshc.relay.vo.BaseQimenResponseVo;
 import com.taobao.api.ApiException;
@@ -37,31 +39,31 @@ public class ScitemController extends BaseController{
     @Autowired
     private ScitemService scitemService;
 
+    @Autowired
+    private ScitemMapService scitemMapService;
+
+    @Autowired
+    private ItemSellerService itemSellerService;
+
     @RequestMapping("/add-scitem")
     @ResponseBody
     @QimenSignAuthentication
     public ScAddResponse addScitem(ScitemAddRequest scitemAddRequest)throws ApiException{
-        ScAddResponse response=new ScAddResponse();
-        response=scitemService.addScitem(scitemAddRequest);
-        return response;
+        return scitemService.addScitem(scitemAddRequest);
     }
 
     @RequestMapping("/get-seller")
     @ResponseBody
     @QimenSignAuthentication
     public ISGetResponse getItemSeller(ItemSellerGetRequest reqSc) throws ApiException{
-        ISGetResponse response=new ISGetResponse();
-        response=scitemService.getItemSeller(reqSc);
-        return response;
+        return itemSellerService.getItemSeller(reqSc);
     }
 
     @RequestMapping("/add-scitemmap")
     @ResponseBody
     @QimenSignAuthentication
     public ScMapAddResponse addScitemMap(ScitemMapAddRequest reqSc)throws ApiException{
-        ScMapAddResponse response=new ScMapAddResponse();
-        response=scitemService.addScitemMap(reqSc);
-        return response;
+        return scitemMapService.addScitemMap(reqSc);
     }
 
 

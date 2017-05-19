@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.hshc.relay.dao.ItemSellerGetRequestDao">
+    <insert id="insert" parameterType="com.taobao.api.request.ItemSellerGetRequest">
+          insert into fenxiao_product (item_id,fields,creattime)values(#{numIid,jdbcType=BIGINT},#{fields,jdbcType=VARCHAR},now())
+    </insert>
+
+    <update id="update" parameterType="com.taobao.api.request.ItemSellerGetRequest">
+        update fenxiao_product set
+          creattime=now(),
+          <if test="fields != null">
+              fields=#{fields}
+          </if>
+        where item_id=#{numIid}
+    </update>
+
+</mapper>
