@@ -24,4 +24,10 @@
         where id = #{id}
     </update>
 
+    <select id="selectTopDto" parameterType="com.hshc.relay.entity.riskcontrol.Customer" resultType="com.taobao.api.request.TmallCarLeaseRiskcallbackRequest$CreditInfoTopDto">
+        select rc.name, rc.identity_no "identityNo", rc.mobile, rc.uuid, rc.consignee_address "addr"
+        from rc_customer rc
+        where rc.uuid = #{uuid}
+    </select>
+
 </mapper>
