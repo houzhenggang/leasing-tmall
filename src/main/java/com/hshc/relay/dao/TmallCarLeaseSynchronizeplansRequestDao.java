@@ -1,6 +1,7 @@
 package com.hshc.relay.dao;
 
 import com.taobao.api.request.TmallCarLeaseSynchronizeplansRequest;
+import org.springframework.stereotype.Repository;
 
 /**
  * 租赁方案同步请求对象
