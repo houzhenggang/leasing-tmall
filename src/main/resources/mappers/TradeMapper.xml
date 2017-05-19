@@ -58,4 +58,13 @@ update orders_main set
 <select id="selectInt" parameterType="_long" resultType="int">
 select count(*) from orders_main where tid = #{tid}
 </select>
+
+  <update id="updateSendStatu" parameterType="map">
+    update orders_main set
+          is_send=#{isSend}
+          <if test="log !=null ">
+            ,log=#{log}
+          </if>
+    where  tid={tId}
+  </update>
 </mapper>

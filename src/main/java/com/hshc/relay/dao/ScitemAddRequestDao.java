@@ -1,6 +1,5 @@
 package com.hshc.relay.dao;
 
-import com.sun.org.apache.xpath.internal.operations.String;
 import com.taobao.api.request.ScitemAddRequest;
 import org.springframework.stereotype.Repository;
 

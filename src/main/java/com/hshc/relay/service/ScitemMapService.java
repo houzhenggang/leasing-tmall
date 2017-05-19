@@ -3,6 +3,7 @@ package com.hshc.relay.service;
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
+import com.hshc.relay.dao.ScitemMapAddRequestDao;
 import com.hshc.relay.entity.ScMapAddResponse;
 import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
@@ -18,6 +19,9 @@ import org.springframework.transaction.support.TransactionSynchronizationAdapter
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.lang.Exception;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * IC商品与后端货品映射
  * @author 王华英
@@ -27,6 +31,9 @@ import java.lang.Exception;
 public class ScitemMapService extends BaseService<ScitemMapAddRequest> {
     @Autowired
     private AuthorizedSessionService authorizedSessionService;
+
+    @Autowired
+    private ScitemMapAddRequestDao scitemMapAddRequestDao;
 
     //创建IC商品与后端商品的映射关系
     @Transactional(rollbackFor = Exception.class)
@@ -52,10 +59,14 @@ public class ScitemMapService extends BaseService<ScitemMapAddRequest> {
                     rep.setRepMsg("一级错误提示语：:"+repSc.getMsg()+";二级错误提示语："+repSc.getSubMsg());
 
                     // 发送成功后更新成功发送的标记
-                    /*if(repSc.getSuccess() != null && repSc.getSuccess()){
-                        customer.setReturned(true);
-                        modify(customer);
-                    }*/
+                    Map<String,String> param=new HashMap<String, String>();
+                    //Map<String,String> param=new HashMap<String, String>();
+                    param.put("icItemId",reqSc.getItemId().toString());
+                    if(repSc.getBody()!=null && repSc.getOuterCode()!= null){
+                        param.put("isSend","true");
+                    }
+                    param.put("log",JSON.toJSONString(repSc));
+                    scitemMapAddRequestDao.updateSendStatu(param);
 
                     // 回调日志记录
                     logger.info("add scitem map callback : request=" + JSON.toJSONString(reqSc) + ", resposne=" + JSON.toJSONString(repSc));

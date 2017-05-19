@@ -1,6 +1,7 @@
 package com.hshc.relay.service;
 
 import com.alibaba.fastjson.JSON;
+import com.hshc.relay.dao.TmallCarLeaseSynchronizeplansRequestDao;
 import com.hshc.relay.dao.TmallCarLeaseSynchronizeplansResponseDao;
 import com.hshc.relay.entity.CLSynPlansResponse;
 import com.qimencloud.api.response.HshcRiskcontolOrdersReturnResponse;
@@ -15,7 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationAdapter;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 方案同步
@@ -27,6 +30,9 @@ public class SynPlansService extends BaseService<TmallCarLeaseSynchronizeplansRe
 
     @Autowired
     private AuthorizedSessionService authorizedSessionService;
+
+    @Autowired
+    private TmallCarLeaseSynchronizeplansRequestDao tmallCarLeaseSynchronizeplansRequestDao;
 
     @Transactional(rollbackFor = Exception.class)
     public CLSynPlansResponse sysPlans(final TmallCarLeaseSynchronizeplansRequest tmallCarLeaseSynchronizeplansRequest) throws ApiException{
@@ -49,10 +55,13 @@ public class SynPlansService extends BaseService<TmallCarLeaseSynchronizeplansRe
                     rep.setRepMsg("一级错误提示语:"+tmallCarLeaseSynchronizeplansResponse.getMsg()+";二级错误提示语："+tmallCarLeaseSynchronizeplansResponse.getSubMsg());
 
                     // 发送成功后更新成功发送的标记
-                    /*if(repSc.getSuccess() != null && repSc.getSuccess()){
-                        customer.setReturned(true);
-                        modify(customer);
-                    }*/
+                    Map<String,String> param=new HashMap<String, String>();
+                    param.put("itemId",tmallCarLeaseSynchronizeplansRequest.getItemId().toString());
+                    if(tmallCarLeaseSynchronizeplansResponse.getResult()!=null && tmallCarLeaseSynchronizeplansResponse.getResult().getSuccess()==true){
+                        param.put("isSend","true");
+                    }
+                    param.put("log",JSON.toJSONString(tmallCarLeaseSynchronizeplansResponse));
+                    tmallCarLeaseSynchronizeplansRequestDao.updateSendStatu(param);
 
                     // 回调日志记录
                     logger.info("syn plans  callback : request=" + JSON.toJSONString(tmallCarLeaseSynchronizeplansRequest) + ", resposne=" + JSON.toJSONString(tmallCarLeaseSynchronizeplansResponse));

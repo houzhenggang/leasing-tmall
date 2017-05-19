@@ -18,4 +18,15 @@
          where   item_id=#{itemId}
     </update>
 
+    <update id="updateSendStatu" parameterType="map">
+        update fenxiao_scheme_detail set
+        updatetime=now()
+        <if test="isSend != null">
+            ,is_send=#{isSend}
+        </if>
+        <if test="log != null">
+            ,log=#{log}
+        </if>
+        where   item_id=#{itemId}
+    </update>
 </mapper>

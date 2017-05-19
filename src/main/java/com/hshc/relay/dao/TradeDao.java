@@ -3,6 +3,9 @@ package com.hshc.relay.dao;
 import org.springframework.stereotype.Repository;
 
 import com.taobao.api.domain.Trade;
+
+import java.util.Map;
+
 /**
  * 主订单
  * @author 史珂
@@ -13,4 +16,5 @@ public interface TradeDao extends BaseDao<Trade>{
 
 	int selectInt(Long tid);
 
+	int updateSendStatu(Map<String,String> param);
 }

@@ -57,16 +57,18 @@ public class ScitemService extends BaseService<ScitemAddRequest>{
                     rep.setScItem(repSc.getScItem());
                     rep.setRepCode("一级错误码:"+repSc.getErrorCode()+";二级错误码:"+repSc.getSubCode());
                     rep.setRepMsg("一级错误提示语：:"+repSc.getMsg()+";二级错误提示语："+repSc.getSubMsg());
+
                     // 发送成功后更新成功发送的标记
-                    /*if(repSc.getSuccess() != null && repSc.getSuccess()){
-                        customer.setReturned(true);
-                        modify(customer);
-                    }*/
-                    /*Map<String,String> param=new HashMap<>();
-                    param.put("isSend","1");
-                    param.put("outerCode","");
-                    scitemAddRequestDao.updateSendStatu(param);*/
-                    logger.info("scitem Add callback : request=" + JSON.toJSONString(reqSc) + ", resposne=" + JSON.toJSONString(rep));
+                    Map<String,String> param=new HashMap<String, String>();
+                    //Map<String,String> param=new HashMap<String, String>();
+                    param.put("outerCode",repSc.getScItem().getOuterCode());
+                    if(repSc.getScItem()!=null && repSc.getScItem().getItemId()!= null){
+                        param.put("isSend","true");
+                    }
+                    param.put("log",JSON.toJSONString(repSc));
+                    scitemAddRequestDao.updateSendStatu(param);
+
+                    logger.info("scitem Add callback : request=" + JSON.toJSONString(reqSc) + ", resposne=" + JSON.toJSONString(repSc));
                 }catch (Exception e){
                     logger.error(""+e);
                 }

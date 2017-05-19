@@ -2,6 +2,7 @@ package com.hshc.relay.service.messagehandler;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.Feature;
+import com.hshc.relay.dao.TradeDao;
 import com.hshc.relay.entity.taobaomessage.TradeBuyerPayMessage;
 import com.hshc.relay.service.AuthorizedSessionService;
 import com.hshc.relay.service.BaseService;
@@ -20,6 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationAdapter;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author 钟林俊
  * @version V1.0 2017-05-09 14:54
@@ -34,6 +38,9 @@ public class TradeMessageHandler extends BaseService<TradeFullinfoGetResponse> i
 
     @Autowired
     private TradeFullinfoGetService tradeFullinfoGetService;
+
+    @Autowired
+    private TradeDao tradeDao;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -54,6 +61,7 @@ public class TradeMessageHandler extends BaseService<TradeFullinfoGetResponse> i
             req.setFields("tid,title,type,status,payment,est_con_time,receiver_name,receiver_state,receiver_address,receiver_mobile,receiver_phone,orders,buyer_nick,buyer_message");
             // 订单号
             req.setTid(tradeBuyerPayMessage.getTid());
+            final String tId=tradeBuyerPayMessage.getTid().toString();
 
             fullinfoGetResponse = client.execute(req, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
             //消息可能会是同一条订单的多次发送, 所以先update,如果没有更新，再插入;怎么避免同一条订单被插入多次？
@@ -68,6 +76,14 @@ public class TradeMessageHandler extends BaseService<TradeFullinfoGetResponse> i
                     try {
                         // 事务提交后再执行（跟租赁系统通信）
                         HshcRiskcontolOrdersReturnResponse hshcRiskcontolOrdersReturnResponse=tradeFullinfoGetService.toErp(fullinfoGetResponse.getTrade());
+                        // 发送成功后更新成功发送的标记
+                        if(hshcRiskcontolOrdersReturnResponse.getSuccess() != null && hshcRiskcontolOrdersReturnResponse.getSuccess()){
+                            Map<String,String> resultMap=new HashMap<String, String>();
+                            resultMap.put("tId",tId);
+                            resultMap.put("isSend",hshcRiskcontolOrdersReturnResponse.getSuccess().toString());
+                            resultMap.put("log",JSON.toJSONString(hshcRiskcontolOrdersReturnResponse));
+                            tradeDao.updateSendStatu(resultMap);
+                        }
                     }catch (ApiException e){
                         e.printStackTrace();
                     }

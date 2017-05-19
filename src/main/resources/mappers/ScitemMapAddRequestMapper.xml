@@ -10,13 +10,26 @@
 
     <update id="update" parameterType="com.taobao.api.request.ScitemMapAddRequest">
         update fenxiao_product_map set
+            updatetime=now()
             <if test="outerCode != null">
-                outer_code=#{outerCode},
+                ,outer_code=#{outerCode}
             </if>
             <if test="skuId">
-                sku_id=#{skuId}
+                ,sku_id=#{skuId}
             </if>
         where ic_item_id=#{itemId}
     </update>
 
+    <update id="updateSendStatu" parameterType="map">
+        update fenxiao_product_map set
+            updatetime=now()
+            <if test="log != null">
+                ,log=#{log}
+            </if>
+            <if test="isSend">
+                ,isSend=#{isSend}
+            </if>
+        where ic_item_id=#{icItemId}
+
+    </update>
 </mapper>

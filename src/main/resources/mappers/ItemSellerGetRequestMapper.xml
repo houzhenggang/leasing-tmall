@@ -3,16 +3,27 @@
 
 <mapper namespace="com.hshc.relay.dao.ItemSellerGetRequestDao">
     <insert id="insert" parameterType="com.taobao.api.request.ItemSellerGetRequest">
-          insert into fenxiao_product (item_id,fields,creattime)values(#{numIid,jdbcType=BIGINT},#{fields,jdbcType=VARCHAR},now())
+          insert into fenxiao_product (item_id,fields,creattime,is_send)values(#{numIid,jdbcType=BIGINT},#{fields,jdbcType=VARCHAR},now(),#{isSend,jdbcType=VARCHAR})
     </insert>
 
     <update id="update" parameterType="com.taobao.api.request.ItemSellerGetRequest">
         update fenxiao_product set
-          creattime=now(),
+          updatetime=now()
           <if test="fields != null">
-              fields=#{fields}
+              ,fields=#{fields}
           </if>
         where item_id=#{numIid}
     </update>
 
+    <update id="updateSendStatu" parameterType="map">
+        update fenxiao_product set
+        updatetime=now()
+        <if test="isSend != null">
+            ,is_send=#{isSend}
+        </if>
+        <if test="log != null">
+            ,log=#{log}
+        </if>
+        where item_id=#{numIid}
+    </update>
 </mapper>

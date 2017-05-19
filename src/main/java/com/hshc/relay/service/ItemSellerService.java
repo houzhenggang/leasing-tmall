@@ -1,6 +1,7 @@
 package com.hshc.relay.service;
 
 import com.alibaba.fastjson.JSON;
+import com.hshc.relay.dao.ItemSellerGetRequestDao;
 import com.hshc.relay.entity.ISGetResponse;
 import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
@@ -13,6 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationAdapter;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 获取商品信息.
  * @author 王华英
@@ -22,6 +26,9 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 public class ItemSellerService extends BaseService<ItemSellerGetRequest> {
     @Autowired
     private AuthorizedSessionService authorizedSessionService;
+
+    @Autowired
+    private ItemSellerGetRequestDao itemSellerGetRequestDao;
 
     //获取单个商品详细信息
     @Transactional(rollbackFor = Exception.class)
@@ -41,11 +48,17 @@ public class ItemSellerService extends BaseService<ItemSellerGetRequest> {
                     rep.setItem(repSc.getItem());
                     rep.setRepCode("一级错误码:"+repSc.getErrorCode()+";二级错误码:"+repSc.getSubCode());
                     rep.setRepMsg("一级错误提示语：:"+repSc.getMsg()+";二级错误提示语："+repSc.getSubMsg());
+
                     // 发送成功后更新成功发送的标记
-                   /* if(repSc.getSuccess() != null && repSc.getSuccess()){
-                        customer.setReturned(true);
-                        modify(customer);
-                    }*/
+                    Map<String,String> param=new HashMap<String, String>();
+                    //Map<String,String> param=new HashMap<String, String>();
+                    param.put("numIid",reqSc.getNumIid().toString());
+                    if(repSc.getItem()!=null && repSc.getItem().getOuterId()!= null){
+                        param.put("isSend","true");
+                    }
+                    param.put("log",JSON.toJSONString(repSc));
+                    itemSellerGetRequestDao.updateSendStatu(param);
+
                     // 回调日志记录
                     logger.info("item seller get callback : request=" + JSON.toJSONString(reqSc) + ", resposne=" + JSON.toJSONString(rep));
                 }catch (Exception e){
