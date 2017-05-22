@@ -68,6 +68,6 @@ select count(*) from orders_main where tid = #{tid}
           <if test="log !=null ">
             ,log=#{log}
           </if>
-    where  tid={tid}
+    where  tid=#{tid}
   </update>
 </mapper>
