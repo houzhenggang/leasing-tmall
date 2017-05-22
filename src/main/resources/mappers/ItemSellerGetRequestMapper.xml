@@ -3,7 +3,7 @@
 
 <mapper namespace="com.hshc.relay.dao.ItemSellerGetRequestDao">
     <insert id="insert" parameterType="com.taobao.api.request.ItemSellerGetRequest">
-          insert into fenxiao_product (item_id,fields,creattime,is_send)values(#{numIid,jdbcType=BIGINT},#{fields,jdbcType=VARCHAR},now(),#{isSend,jdbcType=VARCHAR})
+          insert into fenxiao_product (item_id,fields,creattime,is_send)values(#{numIid,jdbcType=BIGINT},#{fields,jdbcType=VARCHAR},now(),'false')
     </insert>
 
     <update id="update" parameterType="com.taobao.api.request.ItemSellerGetRequest">
