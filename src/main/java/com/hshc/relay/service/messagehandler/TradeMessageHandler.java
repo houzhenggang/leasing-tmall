@@ -79,6 +79,7 @@ public class TradeMessageHandler extends BaseService<TradeFullinfoGetResponse> i
                         // 发送成功后更新成功发送的标记
                         Map<String,String> resultMap=new HashMap<String, String>();
                         resultMap.put("tid",tid);
+                        resultMap.put("isSend","false");
                         if(hshcRiskcontolOrdersReturnResponse.getSuccess() != null && hshcRiskcontolOrdersReturnResponse.getSuccess()){
                             resultMap.put("isSend","true");
                         }

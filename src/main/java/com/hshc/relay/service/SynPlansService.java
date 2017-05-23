@@ -57,6 +57,7 @@ public class SynPlansService extends BaseService<TmallCarLeaseSynchronizeplansRe
                     // 发送成功后更新成功发送的标记
                     Map<String,String> param=new HashMap<String, String>();
                     param.put("itemId",tmallCarLeaseSynchronizeplansRequest.getItemId().toString());
+                    param.put("isSend","false");
                     if(tmallCarLeaseSynchronizeplansResponse.getResult()!=null && tmallCarLeaseSynchronizeplansResponse.getResult().getSuccess()==true){
                         param.put("isSend","true");
                     }

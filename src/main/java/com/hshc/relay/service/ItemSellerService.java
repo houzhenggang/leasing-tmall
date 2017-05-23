@@ -53,6 +53,7 @@ public class ItemSellerService extends BaseService<ItemSellerGetRequest> {
                     Map<String,String> param=new HashMap<String, String>();
                     //Map<String,String> param=new HashMap<String, String>();
                     param.put("numIid",reqSc.getNumIid().toString());
+                    param.put("isSend","false");
                     if(repSc.getItem()!=null && repSc.getItem().getOuterId()!= null){
                         param.put("isSend","true");
                     }

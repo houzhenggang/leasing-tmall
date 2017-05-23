@@ -62,6 +62,7 @@ public class ScitemMapService extends BaseService<ScitemMapAddRequest> {
                     Map<String,String> param=new HashMap<String, String>();
                     //Map<String,String> param=new HashMap<String, String>();
                     param.put("icItemId",reqSc.getItemId().toString());
+                    param.put("isSend","false");
                     if(repSc.getBody()!=null && repSc.getOuterCode()!= null){
                         param.put("isSend","true");
                     }
