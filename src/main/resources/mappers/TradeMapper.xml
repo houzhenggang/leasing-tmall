@@ -62,10 +62,10 @@ select count(*) from orders_main where tid = #{tid}
   <update id="updateSendStatu" parameterType="map">
     update orders_main set
           updatetime=now()
-          <if test="isSend != null ">
+          <if test="isSend != null and isSend != '' ">
             ,is_send=#{isSend}
           </if>
-          <if test="log !=null ">
+          <if test="log !=null and log !='' ">
             ,log=#{log}
           </if>
     where  tid=#{tid}

@@ -19,10 +19,10 @@
     <update id="updateSendStatu" parameterType="map">
         update fenxiao_product_sc set
           updatetime=now()
-        <if test="log != null ">
+        <if test="log != null and  log != ''">
             ,log=#{log}
         </if>
-        <if test="isSend != null">
+        <if test="isSend != null and isSend != ''">
             ,is_send=#{isSend}
         </if>
         where  outer_code=#{outerCode}
