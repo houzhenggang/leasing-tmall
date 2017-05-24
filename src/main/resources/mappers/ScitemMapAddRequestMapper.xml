@@ -27,7 +27,7 @@
                 ,log=#{log}
             </if>
             <if test="isSend">
-                ,isSend=#{isSend}
+                ,is_send=#{isSend}
             </if>
         where ic_item_id=#{icItemId}
 
