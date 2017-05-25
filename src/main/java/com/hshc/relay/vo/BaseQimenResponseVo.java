@@ -8,15 +8,15 @@ import com.qimencloud.api.QimenCloudResponse;
  */
 public class BaseQimenResponseVo extends QimenCloudResponse{
 
-    private String success;
+    private boolean success;
 
     public BaseQimenResponseVo(){}
 
     public BaseQimenResponseVo(String message){
-        this("true", message);
+        this(true, message);
     }
 
-    public BaseQimenResponseVo(String success, String message){
+    public BaseQimenResponseVo(boolean success, String message){
         this.success = success;
         setMessage(message);
     }
@@ -26,14 +26,14 @@ public class BaseQimenResponseVo extends QimenCloudResponse{
     }
 
     public static BaseQimenResponseVo success(String message){
-        return new BaseQimenResponseVo("true", message);
+        return new BaseQimenResponseVo(true, message);
     }
 
-    public String getSuccess() {
+    public boolean isSuccess() {
         return success;
     }
 
-    public void setSuccess(String success) {
+    public void setSuccess(boolean success) {
         this.success = success;
     }
 

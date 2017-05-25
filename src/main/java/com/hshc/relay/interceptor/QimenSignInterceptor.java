@@ -5,7 +5,6 @@ import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.exception.InvalidQimenSignException;
 import com.hshc.relay.service.AuthorizedSessionService;
 import com.hshc.relay.vo.BaseQimenResponseVo;
-import com.qimencloud.api.QimenCloudResponse;
 import com.taobao.api.internal.spi.SpiUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,13 +47,13 @@ public class QimenSignInterceptor extends HandlerInterceptorAdapter {
             LOGGER.error("", e);
 
             BaseQimenResponseVo qimenCloudResponse = new BaseQimenResponseVo();
-            qimenCloudResponse.setSuccess("false");
             qimenCloudResponse.setFlag("failure");
             qimenCloudResponse.setSubCode("sign-check-failure");
             qimenCloudResponse.setSubMessage("Illegal request");
 
 //            Map<String, Object> ret = new HashMap<>();
 //            ret.put("response", qimenCloudResponse);
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.setContentType("application/json;charset=utf-8");
             response.getWriter().write(JSON.toJSONString(qimenCloudResponse));
 
