@@ -46,13 +46,18 @@ public class QimenSignInterceptor extends HandlerInterceptorAdapter {
         }catch (Exception e){
             LOGGER.error("", e);
 
+            String subCode = e.getClass().getSimpleName();
+            String subMessage = e.getMessage();
+
+            if(e instanceof InvalidQimenSignException){
+                subCode = ((InvalidQimenSignException)e).getCode();
+            }
+
             BaseQimenResponseVo qimenCloudResponse = new BaseQimenResponseVo();
             qimenCloudResponse.setFlag("failure");
-            qimenCloudResponse.setSubCode("sign-check-failure");
-            qimenCloudResponse.setSubMessage("Illegal request");
+            qimenCloudResponse.setSubCode(subCode);
+            qimenCloudResponse.setSubMessage(subMessage);
 
-//            Map<String, Object> ret = new HashMap<>();
-//            ret.put("response", qimenCloudResponse);
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.setContentType("application/json;charset=utf-8");
             response.getWriter().write(JSON.toJSONString(qimenCloudResponse));
