@@ -44,13 +44,12 @@ public class LocationRelationEditService extends BaseService<LocationRelationEdi
 		List<LocationRelationDto> lo = locationRealtionEditDao.selectList(0, 500,null);
 		
         TaobaoClient client = new DefaultTaobaoClient(asService.getTopApi(), asService.getAppKey(), asService.getAppSecret());
+        List<LocationRelationDto> loc = new  ArrayList<LocationRelationDto>();
         for(int i =0 ;i<lo.size();i++){
         	LocationRelationDto lr=  lo.get(i);
-        	List<LocationRelationDto> loc = new  ArrayList<LocationRelationDto>();
         	loc.add(lr);
-        	locationRelationQueryRequest.setLocationRelation(new JSONWriter(false,true).write(loc));
-	        
         }
+    	locationRelationQueryRequest.setLocationRelation(new JSONWriter(false,true).write(loc));
         LocationRelationQueryResponse rsp = client.execute(locationRelationQueryRequest,asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
         
         return rsp;
