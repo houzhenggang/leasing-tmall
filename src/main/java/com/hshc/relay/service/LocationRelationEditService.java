@@ -54,7 +54,7 @@ public class LocationRelationEditService extends BaseService<LocationRelationEdi
         for(int i =0 ;i<lo.size();i++){
         	LocationRelationDto lr=  lo.get(i);
         	loc.add(lr);
-        	if(((i+1)/20)==0){
+        	if(((i+1)/18)==0){
         		locationRelationQueryRequest.setLocationRelation(new JSONWriter(false,true).write(loc));
                 rsp = client.execute(locationRelationQueryRequest,asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
                 loc = new  ArrayList<LocationRelationDto>();
