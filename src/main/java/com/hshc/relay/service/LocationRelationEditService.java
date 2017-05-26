@@ -28,13 +28,12 @@ public class LocationRelationEditService extends BaseService<LocationRelationEdi
 		List<LocationRelationDto> lo = locationRealtionEditDao.selectList(0, 500,null);
 		
         TaobaoClient client = new DefaultTaobaoClient(asService.getTopApi(), asService.getAppKey(), asService.getAppSecret());
-        for(int i =0 ;i<lo.size();i++){
-        	LocationRelationDto lr=  lo.get(i);
-        	List<LocationRelationDto> loc = new  ArrayList<LocationRelationDto>();
-        	loc.add(lr);
-        	locationRelationEditRequest.setLocationRelationList(new JSONWriter(false,true).write(loc));
-	        
-        }
+//        List<LocationRelationDto> loc = new  ArrayList<LocationRelationDto>();
+//        for(int i =0 ;i<lo.size();i++){
+//        	LocationRelationDto lr=  lo.get(i);
+//        	loc.add(lr);
+//        }
+    	locationRelationEditRequest.setLocationRelationList(new JSONWriter(false,true).write(lo));
         LocationRelationEditResponse rsp = client.execute(locationRelationEditRequest,asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
         
         return rsp;
@@ -44,12 +43,12 @@ public class LocationRelationEditService extends BaseService<LocationRelationEdi
 		List<LocationRelationDto> lo = locationRealtionEditDao.selectList(0, 500,null);
 		
         TaobaoClient client = new DefaultTaobaoClient(asService.getTopApi(), asService.getAppKey(), asService.getAppSecret());
-        List<LocationRelationDto> loc = new  ArrayList<LocationRelationDto>();
-        for(int i =0 ;i<lo.size();i++){
-        	LocationRelationDto lr=  lo.get(i);
-        	loc.add(lr);
-        }
-    	locationRelationQueryRequest.setLocationRelation(new JSONWriter(false,true).write(loc));
+//        List<LocationRelationDto> loc = new  ArrayList<LocationRelationDto>();
+//        for(int i =0 ;i<lo.size();i++){
+//        	LocationRelationDto lr=  lo.get(i);
+//        	loc.add(lr);
+//        }
+    	locationRelationQueryRequest.setLocationRelation(new JSONWriter(false,true).write(lo));
         LocationRelationQueryResponse rsp = client.execute(locationRelationQueryRequest,asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
         
         return rsp;
