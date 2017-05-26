@@ -28,11 +28,10 @@ public class TradeFullinfoGetController extends BaseController{
 	
 	@RequestMapping("/lease-trade")
 	@ResponseBody
-	@QimenSignAuthentication
 	public BaseQimenResponseVo getTradeFullinfo(Long tid){
 		try {
 			//获取单笔交易地详细信息
-			/*TradeFullinfoGetResponse tradeFullinfo = tfgService.tradeFullinfo(tid);*/
+			TradeFullinfoGetResponse tradeFullinfo = tfgService.tradeFullinfo(tid);
 			
 		} catch (Exception e) {
 			// TODO: handle exception
