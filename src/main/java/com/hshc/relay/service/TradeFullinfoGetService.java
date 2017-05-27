@@ -49,6 +49,7 @@ public class TradeFullinfoGetService extends BaseService<TradeFullinfoGetRespons
 		TaobaoClient client = new DefaultTaobaoClient(getTopApi(), asService.getAppKey(), asService.getAppSecret());
 		TradeFullinfoGetResponse rsp = client.execute(req, asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
 	    //TradeFullinfoGetResponse rsp = (TradeFullinfoGetResponse)RequestTaobaoClientService.requset(req);
+		LOGGER.info("订单详情==="+JSON.toJSONString(rsp.getBody()));
 		Trade trade = rsp.getTrade();
 		if(trade!=null){
 		   //保存订单信息
