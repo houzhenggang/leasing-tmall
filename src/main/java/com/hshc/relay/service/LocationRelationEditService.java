@@ -30,17 +30,32 @@ public class LocationRelationEditService extends BaseService<LocationRelationEdi
 	private LocationRealtionEditDao  locationRealtionEditDao;
 	public LocationRelationEditResponse locationRelationEdit() throws ApiException{
 		LocationRelationEditRequest locationRelationEditRequest = new LocationRelationEditRequest();
+		LocationRelationEditResponse rsp = new LocationRelationEditResponse();
 		List<LocationRelationDto> lo = locationRealtionEditDao.selectList(0, 500,null);
 		
         TaobaoClient client = new DefaultTaobaoClient(asService.getTopApi(), asService.getAppKey(), asService.getAppSecret());
-//        List<LocationRelationDto> loc = new  ArrayList<LocationRelationDto>();
-//        for(int i =0 ;i<lo.size();i++){
-//        	LocationRelationDto lr=  lo.get(i);
-//        	loc.add(lr);
-//        }
-    	locationRelationEditRequest.setLocationRelationList(new JSONWriter(false,true).write(lo));
-        LocationRelationEditResponse rsp = client.execute(locationRelationEditRequest,asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
         
+        for(int i =0 ;i<lo.size();i++){
+        	LocationRelationDto lr=  lo.get(i);
+        	List<LocationRelationDto> loc = new  ArrayList<LocationRelationDto>();
+        	loc.add(lr);
+        	locationRelationEditRequest.setLocationRelationList(new JSONWriter(false,true).write(loc));
+            rsp = client.execute(locationRelationEditRequest,asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
+            LOGGER.info("getBody:"+JSON.toJSONString(rsp));
+//        	if(((i+1)/20)==0){
+//        		locationRelationEditRequest.setLocationRelationList(new JSONWriter(false,true).write(loc));
+//                rsp = client.execute(locationRelationEditRequest,asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
+//                loc = new  ArrayList<LocationRelationDto>();
+//                LOGGER.info("getBody:"+JSON.toJSONString(rsp));
+//        	}
+//        	if((i+1)==lo.size()){
+//        		locationRelationEditRequest.setLocationRelationList(new JSONWriter(false,true).write(loc));
+//                rsp = client.execute(locationRelationEditRequest,asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
+//                loc = new  ArrayList<LocationRelationDto>();
+//                LOGGER.info("getBody:"+JSON.toJSONString(rsp));
+//        	}
+        	
+       }
         return rsp;
 	}
 	public LocationRelationQueryResponse locationRelationQuery() throws ApiException{
@@ -49,25 +64,15 @@ public class LocationRelationEditService extends BaseService<LocationRelationEdi
 		List<LocationRelationDto> lo = locationRealtionEditDao.selectList(0, 500,null);
 		
         TaobaoClient client = new DefaultTaobaoClient(asService.getTopApi(), asService.getAppKey(), asService.getAppSecret());
-        List<LocationRelationDto> loc = new  ArrayList<LocationRelationDto>();
         
         for(int i =0 ;i<lo.size();i++){
         	LocationRelationDto lr=  lo.get(i);
-        	loc.add(lr);
-        	if(((i+1)/18)==0){
-        		locationRelationQueryRequest.setLocationRelation(new JSONWriter(false,true).write(loc));
-                rsp = client.execute(locationRelationQueryRequest,asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
-                loc = new  ArrayList<LocationRelationDto>();
-                LOGGER.info("getBody:"+JSON.toJSONString(rsp));
-        	}
-        	if((i+1)==lo.size()){
-        		locationRelationQueryRequest.setLocationRelation(new JSONWriter(false,true).write(loc));
-                rsp = client.execute(locationRelationQueryRequest,asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
-                loc = new  ArrayList<LocationRelationDto>();
-                LOGGER.info("getBody:"+JSON.toJSONString(rsp));
+//        	List<LocationRelationDto> loc = new  ArrayList<LocationRelationDto>();
+//        	loc.add(lr);
+    		locationRelationQueryRequest.setLocationRelation(new JSONWriter(false,true).write(lr));
+            rsp = client.execute(locationRelationQueryRequest,asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
+            LOGGER.info("getBody:"+JSON.toJSONString(rsp));
 
-        	}
-        	
         }
     	       
         return rsp;
