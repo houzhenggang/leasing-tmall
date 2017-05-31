@@ -9,6 +9,7 @@ import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.request.InventoryStoreQueryRequest;
 import com.taobao.api.response.InventoryStoreQueryResponse;
+
 /**
  * 查询仓库信息
  * @author 史珂
@@ -19,15 +20,12 @@ public class StoreQueryService extends BaseService<InventoryStoreQueryResponse> 
 
 	@Autowired
 	private AuthorizedSessionService asService;
-	@Autowired
-	private StoreManageDao smDao;
-	
+
 	public InventoryStoreQueryResponse storeQuery(String storeCode) throws ApiException {
 		InventoryStoreQueryRequest req = new InventoryStoreQueryRequest();
 		req.setStoreCode(storeCode);
-		TaobaoClient client = new DefaultTaobaoClient("http://gw.api.taobao.com/router/rest", asService.getAppKey(), asService.getAppSecret());
-		InventoryStoreQueryResponse rsp = client.execute(req, asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
-		return rsp;
+		TaobaoClient client = new DefaultTaobaoClient(getTopApi(), getAppKey(), getAppSecret());
+		return client.execute(req, asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
 	}
 
 	

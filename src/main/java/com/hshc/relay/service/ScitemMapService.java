@@ -29,6 +29,7 @@ import java.util.Map;
  */
 @Service
 public class ScitemMapService extends BaseService<ScitemMapAddRequest> {
+
     @Autowired
     private AuthorizedSessionService authorizedSessionService;
 
@@ -79,7 +80,6 @@ public class ScitemMapService extends BaseService<ScitemMapAddRequest> {
         });
         return rep;
     }
-
 
     //查询IC商品与后端商品的映射关系
     public ScitemMapQueryResponse queryScitemMap(ScitemMapQueryRequest reqSc) throws ApiException{

@@ -50,7 +50,7 @@ public class MessageService extends BaseService<Message> implements Initializing
 
     @Override
     public void afterPropertiesSet() throws LinkException {
-        initClient();
+//        initClient();
     }
 
     public void initClient() throws LinkException {

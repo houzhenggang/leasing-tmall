@@ -58,7 +58,7 @@ public class SynPlansService extends BaseService<TmallCarLeaseSynchronizeplansRe
                     Map<String,String> param=new HashMap<String, String>();
                     param.put("itemId",tmallCarLeaseSynchronizeplansRequest.getItemId().toString());
                     param.put("isSend","false");
-                    if(tmallCarLeaseSynchronizeplansResponse.getResult()!=null && tmallCarLeaseSynchronizeplansResponse.getResult().getSuccess()==true){
+                    if(tmallCarLeaseSynchronizeplansResponse.getResult() != null && tmallCarLeaseSynchronizeplansResponse.getResult().getSuccess()){
                         param.put("isSend","true");
                     }
                     param.put("log",JSON.toJSONString(tmallCarLeaseSynchronizeplansResponse));

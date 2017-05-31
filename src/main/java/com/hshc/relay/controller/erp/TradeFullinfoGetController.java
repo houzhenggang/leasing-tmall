@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.service.TradeFullinfoGetService;
-import com.hshc.relay.vo.BaseQimenResponseVo;
-import com.qimencloud.api.response.HshcRiskcontolOrdersReturnResponse;
-import com.taobao.api.response.TradeFullinfoGetResponse;
+import com.hshc.relay.vo.BaseResponseVo;
+
 /**
  * 获取单笔交易的详细信息
  * @author 史珂
@@ -29,7 +28,7 @@ public class TradeFullinfoGetController extends BaseController{
 	@RequestMapping("/lease-trade")
 	@ResponseBody
 	@QimenSignAuthentication
-	public BaseQimenResponseVo getTradeFullinfo(Long tid){
+	public BaseResponseVo getTradeFullinfo(Long tid){
 		try {
 			//获取单笔交易地详细信息
 			/*TradeFullinfoGetResponse tradeFullinfo = tfgService.tradeFullinfo(tid);*/
@@ -37,7 +36,7 @@ public class TradeFullinfoGetController extends BaseController{
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return new BaseQimenResponseVo("获取单笔交易的详细信息成功");
+		return new BaseResponseVo("获取单笔交易的详细信息成功");
 	}
 
 }

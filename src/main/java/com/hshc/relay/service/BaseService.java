@@ -1,9 +1,12 @@
 package com.hshc.relay.service;
 
 import com.hshc.relay.dao.BaseDao;
+import com.hshc.relay.dto.Page;
+import com.hshc.relay.interceptor.PageInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -111,5 +114,13 @@ public class BaseService<T>{
     @Transactional(rollbackFor = Exception.class)
     public int remove(Integer id){
         return baseDao.delete(id);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+    public Page<T> getPage(Page<T> page){
+        PageInterceptor.init(page);
+        baseDao.selectList((T) page.getQueryObject());
+        return PageInterceptor.getPage();
     }
 }

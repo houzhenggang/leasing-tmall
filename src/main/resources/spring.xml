@@ -9,11 +9,13 @@
 
     <context:component-scan base-package="com.hshc.relay"/>
 
-
     <context:property-placeholder location="classpath:lt.properties"/>
 
     <bean id="log4jFiler" class="com.alibaba.druid.filter.logging.Log4jFilter">
         <property name="statementExecutableSqlLogEnable" value="true"/>
+        <property name="statementExecuteQueryAfterLogEnabled" value="false"/>
+        <property name="statementExecuteBatchAfterLogEnabled" value="false"/>
+        <property name="statementExecuteUpdateAfterLogEnabled" value="false"/>
         <property name="statementParameterClearLogEnable" value="false"/>
         <property name="statementParameterSetLogEnabled" value="false"/>
         <property name="statementPrepareCallAfterLogEnabled" value="false"/>

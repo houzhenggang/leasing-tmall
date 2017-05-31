@@ -1,6 +1,6 @@
 package com.hshc.relay.interceptor;
 
-import com.hshc.relay.vo.Page;
+import com.hshc.relay.dto.Page;
 import org.apache.ibatis.executor.parameter.ParameterHandler;
 import org.apache.ibatis.executor.resultset.ResultSetHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
@@ -23,7 +23,7 @@ import java.util.Properties;
  * @author 钟林俊
  * @version V1.0 2016-08-19 11:38
  */
-@Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class}),
+@Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class}),
         @Signature(type = ResultSetHandler.class, method = "handleResultSets", args = {Statement.class})})
 public class PageInterceptor implements Interceptor {
 
@@ -33,11 +33,10 @@ public class PageInterceptor implements Interceptor {
     /**
      * 开始分页
      *
-     * @param pageNum 页码
-     * @param pageSize 页容
+     * @param page 分页对象
      */
-    public static void init(int pageNum, int pageSize) {
-        localPage.set(new Page(pageNum, pageSize));
+    public static <T> void init(Page<T> page) {
+        localPage.set(page);
     }
 
     /**
@@ -125,7 +124,7 @@ public class PageInterceptor implements Interceptor {
      * @return 分页sql语句
      */
     private String buildPageSql(String sql, Page page) {
-        return sql + " limit " + page.getStartRow() + ", " + page.getPageSize();
+        return sql + " limit " + page.getStartRow() + ", " + page.getSize();
     }
 
     /**
@@ -157,7 +156,7 @@ public class PageInterceptor implements Interceptor {
                 totalRecords = rs.getInt(1);
             }
             page.setTotalRecords(totalRecords);
-            int totalPages = (totalRecords + page.getPageSize() - 1) / page.getPageSize();
+            int totalPages = (totalRecords + page.getSize() - 1) / page.getSize();
             page.setTotalPages(totalPages);
         } catch (SQLException e) {
             logger.error("Ignore this exception", e);

@@ -1,9 +1,11 @@
-package com.hshc.relay.vo;
+package com.hshc.relay.dto;
+
+import org.apache.poi.ss.formula.functions.T;
 
 import java.util.List;
 
 /**
- * TODO
+ * 分页
  *
  * @author 钟林俊
  * @version V1.0 2016-08-19 11:38
@@ -12,7 +14,7 @@ public class Page<E> {
     // 当前页
     private int pageNum;
     // 页容量
-    private int pageSize;
+    private int size;
     // 分页起始行数
     private int startRow;
     // 分页终止行数
@@ -24,11 +26,15 @@ public class Page<E> {
     // 数据集合
     private List<E> data;
 
-    public Page(int pageNum, int pageSize) {
+    private T queryObject;
+
+    public Page(){}
+
+    public Page(int pageNum, int size) {
         this.pageNum = pageNum;
-        this.pageSize = pageSize;
-        this.startRow = pageNum > 0 ? (pageNum - 1) * pageSize : 0;
-        this.endRow = pageNum * pageSize;
+        this.size = size;
+        this.startRow = pageNum > 0 ? (pageNum - 1) * size : 0;
+        this.endRow = pageNum * size;
     }
 
     public List<E> getData() {
@@ -63,12 +69,12 @@ public class Page<E> {
         this.pageNum = pageNum;
     }
 
-    public int getPageSize() {
-        return pageSize;
+    public int getSize() {
+        return size;
     }
 
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
+    public void setSize(int size) {
+        this.size = size;
     }
 
     public int getStartRow() {
@@ -87,4 +93,11 @@ public class Page<E> {
         this.totalRecords = totalRecords;
     }
 
+    public T getQueryObject() {
+        return queryObject;
+    }
+
+    public void setQueryObject(T queryObject) {
+        this.queryObject = queryObject;
+    }
 }

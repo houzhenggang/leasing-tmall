@@ -4,7 +4,7 @@ import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.entity.riskcontrol.Customer;
 import com.hshc.relay.service.RiskControlService;
-import com.hshc.relay.vo.BaseQimenResponseVo;
+import com.hshc.relay.vo.BaseResponseVo;
 import com.taobao.api.ApiException;
 import com.taobao.api.response.TmallCarLeaseRiskcallbackResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +23,12 @@ public class RiskControlController extends BaseController {
 
     @RequestMapping(value = "/customer")
     @QimenSignAuthentication
-    public BaseQimenResponseVo acceptCustomerInfo(Customer customer, @RequestParam("identity_no") String identityNo, @RequestParam("item_id") long itemId){
+    public BaseResponseVo acceptCustomerInfo(Customer customer, @RequestParam("identity_no") String identityNo, @RequestParam("item_id") long itemId){
         customer.setIdentityNo(identityNo);
         customer.setItemId(itemId);
         riskControlService.add(customer);
 
-        return BaseQimenResponseVo.success();
+        return BaseResponseVo.success();
     }
 
     @RequestMapping(value = "/return-top/{uuid}", method = RequestMethod.POST)

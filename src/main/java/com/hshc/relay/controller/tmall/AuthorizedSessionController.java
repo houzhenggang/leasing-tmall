@@ -60,7 +60,7 @@ public class AuthorizedSessionController extends BaseController {
                 authorizedSessionService.add(authorizedSession);
             }
 
-            return new BaseResponseVo();
+            return BaseResponseVo.success();
         }
     }
 

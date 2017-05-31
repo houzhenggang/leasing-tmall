@@ -85,12 +85,12 @@ public class TradeFullinfoGetService extends BaseService<TradeFullinfoGetRespons
 		Long tid = trade.getTid();
 		int i = 0;
 		//添加主订单信息
-		i+= tDao.insert(trade);
+		i += tDao.insert(trade);
 		List<Order> orders = trade.getOrders();
 		for (Order order : orders) {
-			order.setTid((long) tid);
+			order.setTid(tid);
 			//保存子订单
-			i+=oDao.insert(order);
+			i += oDao.insert(order);
 		}
 		return i;
 	}

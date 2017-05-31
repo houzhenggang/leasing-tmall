@@ -1,7 +1,5 @@
 package com.hshc.relay.dao;
 
-import java.util.Map;
-
 import org.springframework.stereotype.Repository;
 
 import com.taobao.api.response.TmallCarLeaseConsumeResponse;
@@ -11,8 +9,6 @@ import com.taobao.api.response.TmallCarLeaseConsumeResponse;
  * 2017年5月10日下午1:50:46
  */
 @Repository
-public interface CarLeaseConsumeDao extends BaseDao<TmallCarLeaseConsumeResponse>{
-
-	int insertMap(Map<String, Object> mapResult);
+public interface CarLeaseConsumeDao extends BaseDao<TmallCarLeaseConsumeResponse.Result>{
 
 }

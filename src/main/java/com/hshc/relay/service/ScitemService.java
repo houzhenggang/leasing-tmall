@@ -27,6 +27,7 @@ import java.util.Map;
  */
 @Service
 public class ScitemService extends BaseService<ScitemAddRequest>{
+
     @Autowired
     private AuthorizedSessionService authorizedSessionService;
     @Autowired

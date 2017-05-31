@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.exception.InvalidQimenSignException;
 import com.hshc.relay.service.AuthorizedSessionService;
-import com.hshc.relay.vo.BaseQimenResponseVo;
+import com.hshc.relay.vo.BaseResponseVo;
 import com.taobao.api.internal.spi.SpiUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +53,7 @@ public class QimenSignInterceptor extends HandlerInterceptorAdapter {
                 subCode = ((InvalidQimenSignException)e).getCode();
             }
 
-            BaseQimenResponseVo qimenCloudResponse = new BaseQimenResponseVo();
+            BaseResponseVo qimenCloudResponse = new BaseResponseVo();
             qimenCloudResponse.setFlag("failure");
             qimenCloudResponse.setSubCode(subCode);
             qimenCloudResponse.setSubMessage(subMessage);

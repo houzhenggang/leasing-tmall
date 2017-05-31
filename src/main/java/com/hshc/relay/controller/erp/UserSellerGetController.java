@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Created by wanghuaying on 2017/5/12.
+ * 商品库存信息
+ * @author  王华英
+ * @version  v1.0 2017年5月12日14:50:49
  */
 @Controller
 public class UserSellerGetController extends BaseController{
@@ -23,7 +25,5 @@ public class UserSellerGetController extends BaseController{
     public void getUserSeller(UserSellerGetRequest reqSc)throws ApiException{
         userSellerGetService.getUserSeller(reqSc);
     }
-
-
 
 }

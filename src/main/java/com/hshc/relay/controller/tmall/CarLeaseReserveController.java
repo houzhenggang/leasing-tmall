@@ -1,6 +1,7 @@
 package com.hshc.relay.controller.tmall;
 
 
+import com.taobao.api.ApiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.controller.erp.ScitemController;
 import com.hshc.relay.service.CarLeaseReserveService;
-import com.hshc.relay.vo.BaseQimenResponseVo;
+import com.hshc.relay.vo.BaseResponseVo;
 import com.taobao.api.request.TmallCarLeaseReserveRequest;
 import com.taobao.api.response.TmallCarLeaseReserveResponse;
 /**
@@ -23,7 +24,6 @@ import com.taobao.api.response.TmallCarLeaseReserveResponse;
  */
 @Controller
 public class CarLeaseReserveController extends BaseController {
-    private static Logger LOGGER = LoggerFactory.getLogger(ScitemController.class);
 
     @Autowired
     private CarLeaseReserveService clrService;
@@ -31,18 +31,16 @@ public class CarLeaseReserveController extends BaseController {
 	@RequestMapping("/lease-reserve")
 	@ResponseBody
 	@QimenSignAuthentication
-	public BaseQimenResponseVo leaseReserve(TmallCarLeaseReserveRequest req){
-		TmallCarLeaseReserveResponse rsp = new TmallCarLeaseReserveResponse();
-		try {
-			//获取返回参数
-			LOGGER.info("nic="+req.getBuyerNick());
-			rsp = clrService.leaseReserve(req);
-			LOGGER.info("getBody:"+JSON.toJSONString(rsp));
-			//保存返回的数据
-			clrService.addLeaseReserve(rsp);
-		} catch (Exception e) {
-			new BaseQimenResponseVo(false,JSON.toJSONString(rsp));
-		}
-		return new BaseQimenResponseVo(true,JSON.toJSONString(rsp));
+	public BaseResponseVo leaseReserve(TmallCarLeaseReserveRequest req) throws ApiException {
+		logger.info("nic=" + req.getBuyerNick());
+
+		//获取返回参数
+		TmallCarLeaseReserveResponse rsp = clrService.leaseReserve(req);
+		logger.info("getBody:" + JSON.toJSONString(rsp));
+
+		//保存返回的数据
+		clrService.add(rsp.getResult());
+
+		return new BaseResponseVo(true,JSON.toJSONString(rsp));
 	}
 }

@@ -1,34 +1,40 @@
 package com.hshc.relay.vo;
 
-import java.util.Map;
+import com.qimencloud.api.QimenCloudResponse;
 
-public class BaseResponseVo
-{
-    private String code;
-    private String message;
-    private Map<String, Object> attrs;
+/**
+ * @author 钟林俊
+ * @version V1.0 2017-05-06 11:05
+ */
+public class BaseResponseVo extends QimenCloudResponse{
 
-    public String getCode() {
-        return code;
+    private boolean success;
+
+    public BaseResponseVo(){}
+
+    public BaseResponseVo(String message){
+        this(true, message);
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public BaseResponseVo(boolean success, String message){
+        this.success = success;
+        setMessage(message);
     }
 
-    public String getMessage() {
-        return message;
+    public static BaseResponseVo success(){
+        return success("");
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public static BaseResponseVo success(String message){
+        return new BaseResponseVo(true, message);
     }
 
-    public Map<String, Object> getAttrs() {
-        return attrs;
+    public boolean isSuccess() {
+        return success;
     }
 
-    public void setAttrs(Map<String, Object> attrs) {
-        this.attrs = attrs;
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
+
 }

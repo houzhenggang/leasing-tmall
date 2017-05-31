@@ -1,11 +1,12 @@
 package com.hshc.relay.controller;
 
+import com.hshc.relay.dto.Page;
 import com.hshc.relay.entity.User;
 import com.hshc.relay.exception.BaseException;
 import com.hshc.relay.service.UserService;
 import com.hshc.relay.vo.BaseResponseVo;
+import com.hshc.relay.vo.PageVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -14,11 +15,18 @@ import javax.validation.Valid;
  * @author 钟林俊
  * @version V1.0 2017-05-01 15:34
  */
-@Controller
+@RestController
 public class UserController extends BaseController {
 
     @Autowired
     private UserService userService;
+
+
+    @RequestMapping(value = "/users", method = RequestMethod.POST)
+    public PageVo getUserPage(@RequestBody Page<User> page){
+        Page<User> userPage = userService.getPage(page);
+        return PageVo.success(userPage);
+    }
 
     /**
      * form表单提交的参数 格式param1=value1&param2=value2
@@ -27,13 +35,9 @@ public class UserController extends BaseController {
      * @return json格式响应字符串 @ResponseBody 使用FastJson将对象转换为json格式的字符串
      */
     @RequestMapping(value = "/user", method = RequestMethod.POST)
-    @ResponseBody
     public BaseResponseVo addUser(@Valid User user){
         userService.add(user);
-        BaseResponseVo responseVo = new BaseResponseVo();
-        responseVo.setCode("200");
-        responseVo.setMessage("新增成功！");
-        return responseVo;
+        return BaseResponseVo.success();
     }
 
     /**
@@ -43,7 +47,6 @@ public class UserController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-    @ResponseBody
     public User getUser(@PathVariable Integer id){
         User user = new User();
         user.setId(id);
@@ -57,7 +60,6 @@ public class UserController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/user", method = RequestMethod.PUT)
-    @ResponseBody
     public BaseResponseVo modUser(@RequestBody User user){
         if(userService.modify(user) > 0){
             BaseResponseVo responseVo = new BaseResponseVo();
@@ -69,7 +71,6 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
     public BaseResponseVo delUser(@PathVariable Integer id){
         userService.remove(id);
         BaseResponseVo responseVo = new BaseResponseVo();

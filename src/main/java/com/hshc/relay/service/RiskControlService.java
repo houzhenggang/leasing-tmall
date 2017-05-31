@@ -43,7 +43,7 @@ public class RiskControlService extends BaseService<Customer> {
         // 客户对象不能为空
         Preconditions.checkNotNull(customer, "accepted customer is null");
         // debug日志
-        logger.debug("risk-control customer :" + JSON.toJSONString(customer));
+        logger.info("risk-control customer :" + JSON.toJSONString(customer));
         // 持久化
         int rows = baseDao.insert(customer);
 

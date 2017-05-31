@@ -1,12 +1,10 @@
 package com.hshc.relay.controller.tmall;
 
-import javax.validation.Valid;
-
+import com.taobao.api.ApiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -15,10 +13,8 @@ import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.controller.erp.StoreManageController;
 import com.hshc.relay.service.CarLeaseConsumeService;
-import com.hshc.relay.vo.BaseQimenResponseVo;
+import com.hshc.relay.vo.BaseResponseVo;
 import com.taobao.api.request.TmallCarLeaseConsumeRequest;
-import com.taobao.api.request.TmallCarLeaseConsumeRequest.CosumeCodeReqDto;
-import com.taobao.api.request.TmallCarLeaseTailpaymentbackRequest.TailPaymentDto;
 import com.taobao.api.response.TmallCarLeaseConsumeResponse;
 /**
  * 汽车租赁核销
@@ -28,29 +24,22 @@ import com.taobao.api.response.TmallCarLeaseConsumeResponse;
 @Controller
 public class CarLeaseConsumeController extends BaseController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(StoreManageController.class); 
-	
 	@Autowired
-	CarLeaseConsumeService clcService;
-	
-	
+	private CarLeaseConsumeService clcService;
+
 	@RequestMapping("/lease-consume")
 	@ResponseBody
 	@QimenSignAuthentication
-	public BaseQimenResponseVo leaseConsume(TmallCarLeaseConsumeRequest res){
-		TmallCarLeaseConsumeResponse rsp = new TmallCarLeaseConsumeResponse();
-		try {
-			//获取返回参数
-			LOGGER.info("111:"+res.getCosumeCodeReqDTO());
-			rsp = clcService.leaseConsume(res);
-			LOGGER.info("leaseConsume:"+rsp.getBody());
-		    //保存核销返回信息
-			
-			clcService.addleaseConsume(rsp.getResult());
-		} catch (Exception e) {
-			new BaseQimenResponseVo(false,JSON.toJSONString(rsp));
-		}
-		return 	new BaseQimenResponseVo(true,JSON.toJSONString(rsp));
+	public BaseResponseVo leaseConsume(TmallCarLeaseConsumeRequest res) throws ApiException {
+		logger.info("111:" + res.getCosumeCodeReqDTO());
 
+		//获取返回参数
+		TmallCarLeaseConsumeResponse rsp = clcService.leaseConsume(res);
+		logger.info("leaseConsume:" + rsp.getBody());
+
+		//保存核销返回信息
+		clcService.add(rsp.getResult());
+
+		return 	new BaseResponseVo(true,JSON.toJSONString(rsp));
 	}
 }

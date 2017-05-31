@@ -24,6 +24,7 @@ import java.util.Map;
  */
 @Service
 public class ItemSellerService extends BaseService<ItemSellerGetRequest> {
+
     @Autowired
     private AuthorizedSessionService authorizedSessionService;
 
@@ -50,8 +51,8 @@ public class ItemSellerService extends BaseService<ItemSellerGetRequest> {
                     rep.setRepMsg("一级错误提示语：:"+repSc.getMsg()+";二级错误提示语："+repSc.getSubMsg());
 
                     // 发送成功后更新成功发送的标记
-                    Map<String,String> param=new HashMap<String, String>();
-                    //Map<String,String> param=new HashMap<String, String>();
+                    Map<String,String> param=new HashMap<>();
+
                     param.put("numIid",reqSc.getNumIid().toString());
                     param.put("isSend","false");
                     if(repSc.getItem()!=null && repSc.getItem().getOuterId()!= null){
