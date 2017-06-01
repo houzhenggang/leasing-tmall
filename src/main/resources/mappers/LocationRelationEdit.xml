@@ -11,6 +11,7 @@
 </sql>
 <select id="selectList"  resultType="com.taobao.api.request.LocationRelationEditRequest$LocationRelationDto">
     select <include refid="columns"/> from  shop_store_relation
+       where is_release=0
 </select>
 
 </mapper> 
