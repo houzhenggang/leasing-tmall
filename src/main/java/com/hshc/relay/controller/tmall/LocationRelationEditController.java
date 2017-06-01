@@ -3,6 +3,7 @@ package com.hshc.relay.controller.tmall;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.hshc.relay.vo.BaseResponseVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,7 @@ import com.alibaba.fastjson.JSON;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.controller.erp.ScitemController;
 import com.hshc.relay.service.LocationRelationEditService;
-import com.hshc.relay.vo.BaseQimenResponseVo;
 import com.taobao.api.ApiException;
-import com.taobao.api.request.LocationRelationEditRequest;
 import com.taobao.api.response.LocationRelationEditResponse;
 
 
@@ -29,15 +28,15 @@ public class LocationRelationEditController extends BaseController{
 
 	@RequestMapping(value="/realtion-edit")
 	@ResponseBody
-	public BaseQimenResponseVo locationRelationEdit()throws ApiException{
+	public BaseResponseVo locationRelationEdit()throws ApiException{
 		LocationRelationEditResponse rsp =  new LocationRelationEditResponse();
 		try{
 	    rsp = locationRelationEditService.locationRelationEdit();
 		LOGGER.info("getBody:"+JSON.toJSONString(rsp));
 	} catch (Exception e) {
-		new BaseQimenResponseVo(false,JSON.toJSONString(rsp));
+		new BaseResponseVo(false,JSON.toJSONString(rsp));
 	}
-	return new BaseQimenResponseVo(true,JSON.toJSONString(rsp));
+	return new BaseResponseVo(true,JSON.toJSONString(rsp));
 	}
 	
 }
