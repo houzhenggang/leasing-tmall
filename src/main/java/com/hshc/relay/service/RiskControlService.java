@@ -15,10 +15,14 @@ import com.taobao.api.TaobaoClient;
 import com.taobao.api.request.TmallCarLeaseRiskcallbackRequest;
 import com.taobao.api.response.TmallCarLeaseRiskcallbackResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationAdapter;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
+
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author 钟林俊
@@ -84,7 +88,8 @@ public class RiskControlService extends BaseService<Customer> {
      * @return 天猫响应结果
      * @throws ApiException
      */
-    public TmallCarLeaseRiskcallbackResponse.Result sendRiskControlResult(String uuid) throws ApiException {
+    @Async
+    public TmallCarLeaseRiskcallbackResponse.Result sendRiskControlResult(String uuid) throws ApiException, InterruptedException {
         // uuid必须有值
         Preconditions.checkArgument(!Strings.isNullOrEmpty(uuid), "the given uuid is null");
         Customer customer = new Customer();
@@ -96,6 +101,9 @@ public class RiskControlService extends BaseService<Customer> {
         // 客户风控默认通过
         topDto.setPass(true);
 
+        Random random = new Random();
+
+        TimeUnit.SECONDS.sleep(256 + random.nextInt(305));
         // 发送天猫
         TaobaoClient client = new DefaultTaobaoClient(getTopApi(), getAppKey(), getAppSecret());
         TmallCarLeaseRiskcallbackRequest req = new TmallCarLeaseRiskcallbackRequest();

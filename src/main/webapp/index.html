@@ -6,23 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>花生好车天猫旗舰店后台系统</title>
     <link href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.css" rel="stylesheet"/>
-    <link href="/css/index.css" rel="stylesheet"/>
+    <link href="css/index.css" rel="stylesheet"/>
     <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.js"></script>
+    <script src="js/ui-bootstrap-tpls-2.5.0.min.js"></script>
     <script src="http://apps.bdimg.com/libs/angular.js/1.5.0-beta.0/angular-route.js"></script>
     <script src="http://apps.bdimg.com/libs/angular.js/1.5.0-beta.0/angular-touch.js"></script>
     <script src="http://apps.bdimg.com/libs/angular.js/1.5.0-beta.0/angular-animate.js"></script>
     <script>
-        var root = angular.module('relay', ['ngRoute'])
+        var root = angular.module('relay', ['ngRoute', 'ui.bootstrap'])
                 .controller('userController', function($scope){
                     $scope.user = '张三';
                 });
 
         root.config(['$routeProvider', function($routeProvider){
             $routeProvider.when('/users', {
-                templateUrl : "/html/user-list.html",
+                templateUrl : "html/user-list.html",
                 controller : "userController"
             }).otherwise({
-                redirectTo: '/index.html'
+                redirectTo: 'index.html'
             })
         }]);
     </script>

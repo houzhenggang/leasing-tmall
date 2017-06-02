@@ -1,6 +1,7 @@
 package com.hshc.relay.controller;
 
 import com.hshc.relay.exception.BaseException;
+import com.hshc.relay.vo.BaseResponseVo;
 import com.qimencloud.api.QimenCloudResponse;
 import com.taobao.api.ApiException;
 import org.slf4j.Logger;
@@ -24,7 +25,7 @@ public abstract class BaseController
     public QimenCloudResponse errorResponse(Exception e, HttpServletResponse response) {
         logger.error("", e);
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        QimenCloudResponse qimenCloudResponse = new QimenCloudResponse();
+        BaseResponseVo qimenCloudResponse = new BaseResponseVo();
         String code = e.getClass().getSimpleName();
         String message = e.getMessage();
         if(e instanceof BindException){
