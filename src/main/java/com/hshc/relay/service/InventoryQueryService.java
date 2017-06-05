@@ -16,12 +16,13 @@ import com.taobao.api.response.InventoryQueryResponse;
  */
 @Service
 public class InventoryQueryService extends BaseService<InventoryQueryRequest> {
+
 	@Autowired
 	private AuthorizedSessionService authorizedSessionService;
 	
 	public InventoryQueryResponse inventoryQuery(InventoryQueryRequest inventoryQueryRequest) throws ApiException {
 
-        TaobaoClient client = new DefaultTaobaoClient(inventoryQueryRequest.getApiMethodName(), authorizedSessionService.getAppKey(), authorizedSessionService.getAppSecret());
+        TaobaoClient client = new DefaultTaobaoClient(inventoryQueryRequest.getApiMethodName(), getAppKey(), getAppSecret());
 
         return client.execute(inventoryQueryRequest, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
     }

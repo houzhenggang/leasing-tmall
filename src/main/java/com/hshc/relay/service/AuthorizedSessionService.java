@@ -28,7 +28,7 @@ public class AuthorizedSessionService extends BaseService<AuthorizedSession> {
         // 当前没有可用的授权或者授权过期,抛出异常需要用户重新授权
         if(authorizedSession == null || authorizedSession.getExpireTime().compareTo(new Date()) <= 0){
             throw new NoAuthorizedSessionAcquiredException(getAuthUrl() + "?response_type=code&client_id=" + getAppKey()
-                    + "&redirect_uri=" + getRedirectUri() + "/session-auth" + "&view=web");
+                    + "&redirect_uri=" + getRedirectUri() + "/session-auth&view=web");
         }
         return authorizedSession;
     }

@@ -32,8 +32,7 @@ import com.taobao.api.response.TradeFullinfoGetResponse;
  */
 @Service
 public class TradeFullinfoGetService extends BaseService<TradeFullinfoGetResponse>{
-	public static final Logger LOGGER = LoggerFactory.getLogger(StoreManageController.class); 
-	
+
 	@Autowired
 	private AuthorizedSessionService asService;
 	@Autowired
@@ -49,7 +48,7 @@ public class TradeFullinfoGetService extends BaseService<TradeFullinfoGetRespons
 		TaobaoClient client = new DefaultTaobaoClient(getTopApi(), asService.getAppKey(), asService.getAppSecret());
 		TradeFullinfoGetResponse rsp = client.execute(req, asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
 	    //TradeFullinfoGetResponse rsp = (TradeFullinfoGetResponse)RequestTaobaoClientService.requset(req);
-		LOGGER.info("订单详情==="+JSON.toJSONString(rsp.getBody()));
+		logger.info("订单详情==="+JSON.toJSONString(rsp.getBody()));
 		Trade trade = rsp.getTrade();
 		if(trade!=null){
 		   //保存订单信息
@@ -106,7 +105,7 @@ public class TradeFullinfoGetService extends BaseService<TradeFullinfoGetRespons
 		HshcRiskcontolOrdersReturnRequest parseObject = JSON.parseObject(str, HshcRiskcontolOrdersReturnRequest.class, Feature.UseBigDecimal);
 		parseObject.setTargetAppKey(asService.getAppKey());
 		HshcRiskcontolOrdersReturnResponse rsp = client.execute(parseObject);
-		LOGGER.info("rsp:"+rsp.getBody());
+		logger.info("rsp:"+rsp.getBody());
 		
 		//HshcRiskcontolOrdersReturnResponse res= (HshcRiskcontolOrdersReturnResponse)RequestQimenCloudClientService.client().execute(parseObject);
 		return rsp;
