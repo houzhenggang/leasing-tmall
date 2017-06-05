@@ -10,6 +10,8 @@ import com.taobao.api.response.TmallCarLeaseRiskcallbackResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.concurrent.ExecutionException;
+
 /**
  * @author 钟林俊
  * @version V1.0 2017-05-07 16:49
@@ -32,7 +34,7 @@ public class RiskControlController extends BaseController {
     }
 
     @RequestMapping(value = "/return-top/{uuid}", method = RequestMethod.POST)
-    public TmallCarLeaseRiskcallbackResponse.Result sendRiskControlResult(@PathVariable String uuid) throws ApiException, InterruptedException {
-        return riskControlService.sendRiskControlResult(uuid);
+    public TmallCarLeaseRiskcallbackResponse.Result sendRiskControlResult(@PathVariable String uuid) throws ApiException, InterruptedException, ExecutionException {
+        return riskControlService.sendRiskControlResult(uuid).get();
     }
 }
