@@ -111,7 +111,7 @@ public class RiskControlService extends BaseService<Customer> {
         TmallCarLeaseRiskcallbackRequest req = new TmallCarLeaseRiskcallbackRequest();
         req.setCreditInfo(topDto);
 
-        TmallCarLeaseRiskcallbackResponse.Result result = client.execute(req, authorizedSessionService.getAuthorizedSession("sandbox_taobao1234").getAccessToken()).getResult();
+        TmallCarLeaseRiskcallbackResponse.Result result = client.execute(req, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken()).getResult();
         // 回调日志记录
         logger.info("risk control callback : request=" + JSON.toJSONString(topDto) + ", resposne=" + JSON.toJSONString(result));
         return new AsyncResult<>(result);
