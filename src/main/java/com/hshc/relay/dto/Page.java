@@ -1,7 +1,5 @@
 package com.hshc.relay.dto;
 
-import org.apache.poi.ss.formula.functions.T;
-
 import java.util.List;
 
 /**
@@ -26,7 +24,7 @@ public class Page<E> {
     // 数据集合
     private List<E> data;
 
-    private T queryObject;
+    private E queryObject;
 
     public Page(){}
 
@@ -93,11 +91,11 @@ public class Page<E> {
         this.totalRecords = totalRecords;
     }
 
-    public T getQueryObject() {
+    public E getQueryObject() {
         return queryObject;
     }
 
-    public void setQueryObject(T queryObject) {
+    public void setQueryObject(E queryObject) {
         this.queryObject = queryObject;
     }
 }

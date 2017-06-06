@@ -233,18 +233,6 @@
                 </filters>
             </build>
         </profile>
-        <profile>
-            <!-- 沙箱环境 -->
-            <id>sandbox</id>
-            <properties>
-                <profiles.active>sandbox</profiles.active>
-            </properties>
-            <build>
-                <filters>
-                    <filter>src/main/resources/lt-sandbox.properties</filter>
-                </filters>
-            </build>
-        </profile>
     </profiles>
 
     <build>

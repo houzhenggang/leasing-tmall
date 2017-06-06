@@ -6,7 +6,6 @@ import com.hshc.relay.interceptor.PageInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,37 +53,8 @@ public class BaseService<T>{
     @Value("${qimen.returnUrl}")
     private String returnUrl;
 
-    public String getAppKey() {
-        return appKey;
-    }
-
-    public String getAppSecret() {
-        return appSecret;
-    }
-
-    public String getRedirectUri() {
-        return redirectUri;
-    }
-
-    public String getAuthUrl() {
-        return authUrl;
-    }
-
-    public String getTokenUrl() {
-        return tokenUrl;
-    }
-
-    public String getTopApi() {
-        return topApi;
-    }
-
-    public String getMessageServiceUrl() {
-        return messageServiceUrl;
-    }
-
-    public String getReturnUrl() {
-        return returnUrl;
-    }
+    @Value("${taobao.initMessageService}")
+    private boolean initMessageService;
 
     @Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
     public T getOne(T t){
@@ -120,7 +90,43 @@ public class BaseService<T>{
     @Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
     public Page<T> getPage(Page<T> page){
         PageInterceptor.init(page);
-        baseDao.selectList((T) page.getQueryObject());
+        baseDao.selectList(page.getQueryObject());
         return PageInterceptor.getPage();
+    }
+
+    public String getAppKey() {
+        return appKey;
+    }
+
+    public String getAppSecret() {
+        return appSecret;
+    }
+
+    public String getRedirectUri() {
+        return redirectUri;
+    }
+
+    public String getAuthUrl() {
+        return authUrl;
+    }
+
+    public String getTokenUrl() {
+        return tokenUrl;
+    }
+
+    public String getTopApi() {
+        return topApi;
+    }
+
+    public String getMessageServiceUrl() {
+        return messageServiceUrl;
+    }
+
+    public String getReturnUrl() {
+        return returnUrl;
+    }
+
+    public boolean isInitMessageService() {
+        return initMessageService;
     }
 }
