@@ -14,6 +14,7 @@ import com.taobao.api.internal.toplink.LinkException;
 import com.taobao.api.request.TmcUserPermitRequest;
 import com.taobao.api.response.TmcUserPermitResponse;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,31 +30,46 @@ public class MessageService extends BaseService<Message> implements Initializing
     @Autowired
     private AuthorizedSessionService authorizedSessionService;
 
+    /**
+     * 订阅消息的用户授权，默认用户-花生好车旗舰店
+     *
+     * @param topics 消息主题
+     * @throws ApiException
+     */
     public void permitUser(String ... topics) throws ApiException {
+        logger.info("message sub auth invoke time:", DateFormatUtils.format(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss"));
 
+        String topicStr = "";
         if(!ArrayUtils.isEmpty(topics)){
-            String topicStr = topics[0];
+            topicStr += topics[0];
             for(int i = 1; i < topics.length; i++){
                 topicStr += "," + topics[i];
             }
+        }
 
-            TaobaoClient client = new DefaultTaobaoClient(getTopApi(), getAppKey(), getAppSecret());
-            TmcUserPermitRequest req = new TmcUserPermitRequest();
+        TaobaoClient client = new DefaultTaobaoClient(getTopApi(), getAppKey(), getAppSecret());
+        TmcUserPermitRequest req = new TmcUserPermitRequest();
 
-            req.setTopics(topicStr);
-            TmcUserPermitResponse rsp = client.execute(req, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
-            if(!rsp.getIsSuccess()){
-                throw new BaseException(rsp.getSubCode(), rsp.getSubMsg());
-            }
+        req.setTopics(topicStr);
+        TmcUserPermitResponse rsp = client.execute(req, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
+        if(!rsp.getIsSuccess()){
+            throw new BaseException(rsp.getSubCode(), rsp.getSubMsg());
         }
     }
 
     @Override
     public void afterPropertiesSet() throws LinkException {
-        initClient();
+        if(isInitMessageService()){
+            initClient();
+        }
     }
 
-    public void initClient() throws LinkException {
+    /**
+     * 初始化消息服务客户端
+     *
+     * @throws LinkException
+     */
+    private void initClient() throws LinkException {
         TmcClient client = new TmcClient(getAppKey(), getAppSecret());
         client.setMessageHandler(new MessageHandler() {
 

@@ -27,6 +27,7 @@ import java.util.Map;
  */
 @Service
 public class ScitemService extends BaseService<ScitemAddRequest>{
+
     @Autowired
     private AuthorizedSessionService authorizedSessionService;
     @Autowired
@@ -52,26 +53,26 @@ public class ScitemService extends BaseService<ScitemAddRequest>{
             public void afterCommit() {
                 try {
                     //请求后端商品
-                    TaobaoClient client = new DefaultTaobaoClient("https://eco.taobao.com/router/rest", authorizedSessionService.getAppKey(), authorizedSessionService.getAppSecret());
-                    ScitemAddResponse repSc=client.execute(reqSc, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
+                    TaobaoClient client = new DefaultTaobaoClient(getTopApi(), getAppKey(), getAppSecret());
+                    ScitemAddResponse repSc = client.execute(reqSc, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
                     rep.setScItem(repSc.getScItem());
-                    rep.setRepCode("一级错误码:"+repSc.getErrorCode()+";二级错误码:"+repSc.getSubCode());
-                    rep.setRepMsg("一级错误提示语：:"+repSc.getMsg()+";二级错误提示语："+repSc.getSubMsg());
+                    rep.setRepCode("一级错误码:" + repSc.getErrorCode() + ";二级错误码:" + repSc.getSubCode());
+                    rep.setRepMsg("一级错误提示语：:" + repSc.getMsg() + ";二级错误提示语：" + repSc.getSubMsg());
 
                     // 发送成功后更新成功发送的标记
-                    Map<String,String> param=new HashMap<String, String>();
+                    Map<String,String> param = new HashMap<>();
                     //Map<String,String> param=new HashMap<String, String>();
-                    param.put("outerCode",repSc.getScItem().getOuterCode());
-                    param.put("isSend","false");
-                    if(repSc.getScItem()!=null && repSc.getScItem().getItemId()!= null){
-                        param.put("isSend","true");
+                    param.put("outerCode", repSc.getScItem().getOuterCode());
+                    param.put("isSend", "false");
+                    if(repSc.getScItem() != null && repSc.getScItem().getItemId() != null){
+                        param.put("isSend", "true");
                     }
-                    param.put("log",JSON.toJSONString(repSc));
+                    param.put("log", JSON.toJSONString(repSc));
                     scitemAddRequestDao.updateSendStatu(param);
 
                     logger.info("scitem Add callback : request=" + JSON.toJSONString(reqSc) + ", resposne=" + JSON.toJSONString(repSc));
                 }catch (Exception e){
-                    logger.error(""+e);
+                    logger.error("", e);
                 }
             }
         });
@@ -81,22 +82,18 @@ public class ScitemService extends BaseService<ScitemAddRequest>{
 
     //查询根据后端商品id查询后端商品信息
     public ScitemGetResponse getScitem(ScitemGetRequest reqSc) throws ApiException{
-        TaobaoClient client = new DefaultTaobaoClient("https://eco.taobao.com/router/rest", authorizedSessionService.getAppKey(), authorizedSessionService.getAppSecret());
-        ScitemGetResponse repSc=client.execute(reqSc, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
+        TaobaoClient client = new DefaultTaobaoClient(getTopApi(), getAppKey(), getAppSecret());
         //持久化后端商品
         //scitemGetResponseDao.insert(repSc);
-        System.out.print("查询后端商品:"+repSc.getBody());
-        return repSc;
+        return client.execute(reqSc, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
     }
 
     //查询后端所有商品信息
     public ScitemQueryResponse queryScitem(ScitemQueryRequest reqSc) throws ApiException{
-        TaobaoClient client = new DefaultTaobaoClient("https://eco.taobao.com/router/rest", authorizedSessionService.getAppKey(), authorizedSessionService.getAppSecret());
-        ScitemQueryResponse repSc=client.execute(reqSc, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
+        TaobaoClient client = new DefaultTaobaoClient(getTopApi(), getAppKey(), getAppSecret());
         //持久化后端商品
         //scitemGetResponseDao.insert(repSc);
-        System.out.print("查询后端商品:"+repSc.getBody());
-        return repSc;
+        return client.execute(reqSc, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
     }
 
 }

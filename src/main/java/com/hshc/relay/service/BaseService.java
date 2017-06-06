@@ -1,6 +1,8 @@
 package com.hshc.relay.service;
 
 import com.hshc.relay.dao.BaseDao;
+import com.hshc.relay.dto.Page;
+import com.hshc.relay.interceptor.PageInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +53,47 @@ public class BaseService<T>{
     @Value("${qimen.returnUrl}")
     private String returnUrl;
 
+    @Value("${taobao.initMessageService}")
+    private boolean initMessageService;
+
+    @Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+    public T getOne(T t){
+        return baseDao.selectOne(t);
+    }
+
+    @Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+    public List<T> getList(T t){
+        return baseDao.selectList(t);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public int add(T t){
+        return baseDao.insert(t);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public int batchAdd(List<T> tList){
+        return baseDao.batchInsert(tList);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public int modify(T t){
+        return baseDao.update(t);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public int remove(Integer id){
+        return baseDao.delete(id);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+    public Page<T> getPage(Page<T> page){
+        PageInterceptor.init(page);
+        baseDao.selectList(page.getQueryObject());
+        return PageInterceptor.getPage();
+    }
+
     public String getAppKey() {
         return appKey;
     }
@@ -83,33 +126,7 @@ public class BaseService<T>{
         return returnUrl;
     }
 
-    @Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
-    public T getOne(T t){
-        return baseDao.selectOne(t);
-    }
-
-    @Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
-    public List<T> getList(T t){
-        return baseDao.selectList(t);
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    public int add(T t){
-        return baseDao.insert(t);
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    public int batchAdd(List<T> tList){
-        return baseDao.batchInsert(tList);
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    public int modify(T t){
-        return baseDao.update(t);
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    public int remove(Integer id){
-        return baseDao.delete(id);
+    public boolean isInitMessageService() {
+        return initMessageService;
     }
 }

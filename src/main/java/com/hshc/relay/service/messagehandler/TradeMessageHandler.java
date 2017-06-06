@@ -34,8 +34,6 @@ public class TradeMessageHandler extends BaseService<TradeFullinfoGetResponse> i
     @Autowired
     private AuthorizedSessionService authorizedSessionService;
 
-    private  TradeFullinfoGetResponse fullinfoGetResponse;
-
     @Autowired
     private TradeFullinfoGetService tradeFullinfoGetService;
 
@@ -61,9 +59,9 @@ public class TradeMessageHandler extends BaseService<TradeFullinfoGetResponse> i
             req.setFields("tid,title,type,status,payment,est_con_time,receiver_name,receiver_state,receiver_address,receiver_mobile,receiver_phone,orders,buyer_nick,buyer_message");
             // 订单号
             req.setTid(tradeBuyerPayMessage.getTid());
-            final String tid=tradeBuyerPayMessage.getTid().toString();
+            final String tid = tradeBuyerPayMessage.getTid().toString();
 
-            fullinfoGetResponse = client.execute(req, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
+            final TradeFullinfoGetResponse fullinfoGetResponse = client.execute(req, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
             //消息可能会是同一条订单的多次发送, 所以先update,如果没有更新，再插入;怎么避免同一条订单被插入多次？
             if(tradeFullinfoGetService.modify(fullinfoGetResponse) == 0){
                 tradeFullinfoGetService.add(fullinfoGetResponse);
@@ -75,18 +73,18 @@ public class TradeMessageHandler extends BaseService<TradeFullinfoGetResponse> i
                 public void afterCommit(){
                     try {
                         // 事务提交后再执行（跟租赁系统通信）
-                        HshcRiskcontolOrdersReturnResponse hshcRiskcontolOrdersReturnResponse=tradeFullinfoGetService.toErp(fullinfoGetResponse.getTrade());
+                        HshcRiskcontolOrdersReturnResponse hshcRiskcontolOrdersReturnResponse = tradeFullinfoGetService.toErp(fullinfoGetResponse.getTrade());
                         // 发送成功后更新成功发送的标记
-                        Map<String,String> resultMap=new HashMap<String, String>();
-                        resultMap.put("tid",tid);
-                        resultMap.put("isSend","false");
+                        Map<String,String> resultMap = new HashMap<>();
+                        resultMap.put("tid", tid);
+                        resultMap.put("isSend", "false");
                         if(hshcRiskcontolOrdersReturnResponse.getSuccess() != null && hshcRiskcontolOrdersReturnResponse.getSuccess()){
-                            resultMap.put("isSend","true");
+                            resultMap.put("isSend", "true");
                         }
-                        resultMap.put("log",JSON.toJSONString(hshcRiskcontolOrdersReturnResponse));
+                        resultMap.put("log", JSON.toJSONString(hshcRiskcontolOrdersReturnResponse));
                         tradeDao.updateSendStatu(resultMap);
                     }catch (ApiException e){
-                        e.printStackTrace();
+                        logger.error("", e);
                     }
                 }
             });

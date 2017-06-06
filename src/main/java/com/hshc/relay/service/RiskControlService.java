@@ -15,10 +15,16 @@ import com.taobao.api.TaobaoClient;
 import com.taobao.api.request.TmallCarLeaseRiskcallbackRequest;
 import com.taobao.api.response.TmallCarLeaseRiskcallbackResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationAdapter;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
+
+import java.util.Random;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author 钟林俊
@@ -43,7 +49,7 @@ public class RiskControlService extends BaseService<Customer> {
         // 客户对象不能为空
         Preconditions.checkNotNull(customer, "accepted customer is null");
         // debug日志
-        logger.debug("risk-control customer :" + JSON.toJSONString(customer));
+        logger.info("risk-control customer :" + JSON.toJSONString(customer));
         // 持久化
         int rows = baseDao.insert(customer);
 
@@ -84,7 +90,8 @@ public class RiskControlService extends BaseService<Customer> {
      * @return 天猫响应结果
      * @throws ApiException
      */
-    public TmallCarLeaseRiskcallbackResponse.Result sendRiskControlResult(String uuid) throws ApiException {
+    @Async
+    public Future<TmallCarLeaseRiskcallbackResponse.Result> sendRiskControlResult(String uuid) throws ApiException, InterruptedException {
         // uuid必须有值
         Preconditions.checkArgument(!Strings.isNullOrEmpty(uuid), "the given uuid is null");
         Customer customer = new Customer();
@@ -96,13 +103,17 @@ public class RiskControlService extends BaseService<Customer> {
         // 客户风控默认通过
         topDto.setPass(true);
 
+        Random random = new Random();
+        TimeUnit.SECONDS.sleep(256 + random.nextInt(305));
+
         // 发送天猫
         TaobaoClient client = new DefaultTaobaoClient(getTopApi(), getAppKey(), getAppSecret());
         TmallCarLeaseRiskcallbackRequest req = new TmallCarLeaseRiskcallbackRequest();
         req.setCreditInfo(topDto);
-        TmallCarLeaseRiskcallbackResponse.Result result = client.execute(req, authorizedSessionService.getAuthorizedSession("sandbox_taobao1234").getAccessToken()).getResult();
+
+        TmallCarLeaseRiskcallbackResponse.Result result = client.execute(req, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken()).getResult();
         // 回调日志记录
         logger.info("risk control callback : request=" + JSON.toJSONString(topDto) + ", resposne=" + JSON.toJSONString(result));
-        return result;
+        return new AsyncResult<>(result);
     }
 }

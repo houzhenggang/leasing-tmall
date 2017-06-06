@@ -9,6 +9,7 @@ import java.util.List;
  * Created by wanghuaying on 2017/5/16.
  */
 public class TradeFullinfoGetResponseService extends BaseService<TradeFullinfoGetResponse> {
+
     @Override
     public int modify(TradeFullinfoGetResponse tradeFullinfoGetResponse) {
         return baseDao.update(tradeFullinfoGetResponse);

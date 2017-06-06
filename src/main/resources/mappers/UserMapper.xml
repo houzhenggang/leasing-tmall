@@ -44,4 +44,9 @@
         where id = #{id}
     </update>
 
+    <select id="selectList" parameterType="com.hshc.relay.entity.User" resultType="com.hshc.relay.entity.User">
+        select <include refid="columns"/>, u.creator_id "creator.id", u.modifier_id "modifier.id"
+        from t_user u
+    </select>
+
 </mapper>

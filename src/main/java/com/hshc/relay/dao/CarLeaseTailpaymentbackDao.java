@@ -1,10 +1,9 @@
 package com.hshc.relay.dao;
 
-import java.util.Map;
-
 import org.springframework.stereotype.Repository;
 
 import com.taobao.api.response.TmallCarLeaseTailpaymentbackResponse;
+
 /**
  * 尾款处置方案回传
  * @author 史珂
@@ -12,7 +11,5 @@ import com.taobao.api.response.TmallCarLeaseTailpaymentbackResponse;
  */
 @Repository
 public interface CarLeaseTailpaymentbackDao extends BaseDao<TmallCarLeaseTailpaymentbackResponse>{
-
-	int insertMap(Map<String, Object> map);
 
 }

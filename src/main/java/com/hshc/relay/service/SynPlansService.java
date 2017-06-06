@@ -36,7 +36,7 @@ public class SynPlansService extends BaseService<TmallCarLeaseSynchronizeplansRe
 
     @Transactional(rollbackFor = Exception.class)
     public CLSynPlansResponse sysPlans(final TmallCarLeaseSynchronizeplansRequest tmallCarLeaseSynchronizeplansRequest) throws ApiException{
-        final  CLSynPlansResponse rep=new CLSynPlansResponse();
+        final  CLSynPlansResponse rep = new CLSynPlansResponse();
         //方案可能是同一个方案多次发送, 所以先update，再add
         if(modify(tmallCarLeaseSynchronizeplansRequest)==0){
             //持久化租赁方案
@@ -48,26 +48,27 @@ public class SynPlansService extends BaseService<TmallCarLeaseSynchronizeplansRe
             public void afterCommit(){
                 try {
                     // 事务提交后再执行（跟租赁系统通信）
-                    TaobaoClient client = new DefaultTaobaoClient("https://eco.taobao.com/router/rest", authorizedSessionService.getAppKey(), authorizedSessionService.getAppSecret());
-                    TmallCarLeaseSynchronizeplansResponse tmallCarLeaseSynchronizeplansResponse=client.execute(tmallCarLeaseSynchronizeplansRequest, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
+                    TaobaoClient client = new DefaultTaobaoClient(getTopApi(), getAppKey(), getAppSecret());
+                    TmallCarLeaseSynchronizeplansResponse tmallCarLeaseSynchronizeplansResponse =
+                            client.execute(tmallCarLeaseSynchronizeplansRequest, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
                     rep.setResult(tmallCarLeaseSynchronizeplansResponse.getResult());
-                    rep.setRepCode("一级错误码:"+tmallCarLeaseSynchronizeplansResponse.getErrorCode()+";二级错误码:"+tmallCarLeaseSynchronizeplansResponse.getSubCode());
-                    rep.setRepMsg("一级错误提示语:"+tmallCarLeaseSynchronizeplansResponse.getMsg()+";二级错误提示语："+tmallCarLeaseSynchronizeplansResponse.getSubMsg());
+                    rep.setRepCode("一级错误码:"+tmallCarLeaseSynchronizeplansResponse.getErrorCode() + ";二级错误码:" + tmallCarLeaseSynchronizeplansResponse.getSubCode());
+                    rep.setRepMsg("一级错误提示语:"+tmallCarLeaseSynchronizeplansResponse.getMsg() + ";二级错误提示语：" + tmallCarLeaseSynchronizeplansResponse.getSubMsg());
 
                     // 发送成功后更新成功发送的标记
-                    Map<String,String> param=new HashMap<String, String>();
+                    Map<String,String> param=new HashMap<>();
                     param.put("itemId",tmallCarLeaseSynchronizeplansRequest.getItemId().toString());
                     param.put("isSend","false");
-                    if(tmallCarLeaseSynchronizeplansResponse.getResult()!=null && tmallCarLeaseSynchronizeplansResponse.getResult().getSuccess()==true){
+                    if(tmallCarLeaseSynchronizeplansResponse.getResult() != null && tmallCarLeaseSynchronizeplansResponse.getResult().getSuccess()){
                         param.put("isSend","true");
                     }
-                    param.put("log",JSON.toJSONString(tmallCarLeaseSynchronizeplansResponse));
+                    param.put("log", JSON.toJSONString(tmallCarLeaseSynchronizeplansResponse));
                     tmallCarLeaseSynchronizeplansRequestDao.updateSendStatu(param);
 
                     // 回调日志记录
                     logger.info("syn plans  callback : request=" + JSON.toJSONString(tmallCarLeaseSynchronizeplansRequest) + ", resposne=" + JSON.toJSONString(tmallCarLeaseSynchronizeplansResponse));
                 }catch (ApiException e){
-                    logger.error(""+e);
+                    logger.error("", e);
                 }
             }
         });

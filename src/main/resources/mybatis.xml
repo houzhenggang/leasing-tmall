@@ -38,4 +38,8 @@
         <setting name="lazyLoadingEnabled" value="true"/>
         <setting name="aggressiveLazyLoading" value="false"/>
     </settings>
+
+    <plugins>
+        <plugin interceptor="com.hshc.relay.interceptor.PageInterceptor"/>
+    </plugins>
 </configuration>

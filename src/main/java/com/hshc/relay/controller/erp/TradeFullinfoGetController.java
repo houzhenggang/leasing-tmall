@@ -1,5 +1,6 @@
 package com.hshc.relay.controller.erp;
 
+import com.hshc.relay.vo.BaseResponseVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.service.TradeFullinfoGetService;
-import com.hshc.relay.vo.BaseQimenResponseVo;
-import com.qimencloud.api.response.HshcRiskcontolOrdersReturnResponse;
 import com.taobao.api.response.TradeFullinfoGetResponse;
 /**
  * 获取单笔交易的详细信息
@@ -28,7 +26,7 @@ public class TradeFullinfoGetController extends BaseController{
 	
 	@RequestMapping("/lease-trade")
 	@ResponseBody
-	public BaseQimenResponseVo getTradeFullinfo(Long tid){
+	public BaseResponseVo getTradeFullinfo(Long tid){
 		try {
 			//获取单笔交易地详细信息
 			TradeFullinfoGetResponse tradeFullinfo = tfgService.tradeFullinfo(tid);
@@ -36,7 +34,7 @@ public class TradeFullinfoGetController extends BaseController{
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return new BaseQimenResponseVo("获取单笔交易的详细信息成功");
+		return new BaseResponseVo("获取单笔交易的详细信息成功");
 	}
 
 }

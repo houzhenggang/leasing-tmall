@@ -13,10 +13,10 @@ public class BaseEntity implements Serializable{
 
     private Integer id;
 
-    @JSONField(name = "create_time", format = "yyyy-MM-dd HH:mm:ss")
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Timestamp createTime;
 
-    @JSONField(name = "modify_time", format = "yyyy-MM-dd HH:mm:ss")
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Timestamp modifyTime;
 
     private User creator;
