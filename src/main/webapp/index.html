@@ -32,7 +32,8 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <button type="button" class="navbar-toggle collapsed" ng-click="navCollapsed = !navCollapsed"
+                        data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -40,7 +41,7 @@
                 </button>
                 <a class="navbar-brand" href="#">花生好车天猫后台系统</a>
             </div>
-            <div id="navbar" class="navbar-collapse collapse">
+            <div id="navbar" class="navbar-collapse collapse" uib-collapse="navCollapsed">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">我的任务</a></li>
                     <li><a href="#">系统设置</a></li>
@@ -59,29 +60,19 @@
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
                     <li class="active"><a href="#">概览 <span class="sr-only">(current)</span></a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <li class="">
+                        <a href="#" class="" ng-click="userCollapsed = !userCollapsed" data-toggle="collapse" data-target="#userMenu">
                             用户管理 <span class="caret"></span>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#/users">用户列表</a></li>
-                        </ul>
+                        <div id="userMenu" class="nav-collapse collapse" uib-collapse="userCollapsed">
+                            <ul class="nav nav-sidebar">
+                                <li><a href="#/users">用户列表</a></li>
+                            </ul>
+                        </div>
                     </li>
                     <li><a href="#">商品管理</a></li>
                     <li><a href="#">门店管理</a></li>
                 </ul>
-                <!--<ul class="nav nav-sidebar">-->
-                    <!--<li><a href="">Nav item</a></li>-->
-                    <!--<li><a href="">Nav item again</a></li>-->
-                    <!--<li><a href="">One more nav</a></li>-->
-                    <!--<li><a href="">Another nav item</a></li>-->
-                    <!--<li><a href="">More navigation</a></li>-->
-                <!--</ul>-->
-                <!--<ul class="nav nav-sidebar">-->
-                    <!--<li><a href="">Nav item again</a></li>-->
-                    <!--<li><a href="">One more nav</a></li>-->
-                    <!--<li><a href="">Another nav item</a></li>-->
-                <!--</ul>-->
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-view>
             </div>

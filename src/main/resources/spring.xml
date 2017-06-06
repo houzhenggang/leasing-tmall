@@ -87,6 +87,7 @@
 
     <bean class="util.SpringUtil"/>
 
-    <task:executor id="threadPoolTaskExecutor" pool-size="5"/>
+    <task:executor id="threadPoolTaskExecutor" pool-size="10-100" queue-capacity="1024" keep-alive="15"/>
+    <!-- 默认的异常处理org.springframework.aop.interceptor.SimpleAsyncUncaughtExceptionHandler -->
     <task:annotation-driven executor="threadPoolTaskExecutor"/>
 </beans>
