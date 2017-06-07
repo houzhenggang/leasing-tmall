@@ -40,8 +40,10 @@ public class CarLeaseTailpaymentbackController extends BaseController {
 		logger.info("leaseTailpaymentback:"+rsp.getBody());
 
 		//保存返回的信息
-		cltService.add(rsp.getResult());
+		if(rsp.isSuccess()){
+		   cltService.add(rsp.getResult());
+		}
 
-		return new BaseResponseVo(true, JSON.toJSONString(rsp));
+		return new BaseResponseVo(rsp.isSuccess(), JSON.toJSONString(rsp.getMsg()));
 	}
 }

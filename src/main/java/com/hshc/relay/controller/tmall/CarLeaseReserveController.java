@@ -39,8 +39,10 @@ public class CarLeaseReserveController extends BaseController {
 		logger.info("getBody:" + JSON.toJSONString(rsp));
 
 		//保存返回的数据
-		clrService.add(rsp.getResult());
+		if(rsp.isSuccess()){
+		   clrService.add(rsp.getResult());
+		}
 
-		return new BaseResponseVo(true,JSON.toJSONString(rsp));
+		return new BaseResponseVo(rsp.isSuccess(),JSON.toJSONString(rsp.getMsg()));
 	}
 }
