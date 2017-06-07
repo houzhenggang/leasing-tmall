@@ -3,7 +3,7 @@
 
 <mapper namespace="com.hshc.relay.dao.CarLeaseReserveDao">
 
-    <insert id="insertMap" parameterType="com.taobao.api.response.TmallCarLeaseReserveResponse$Result">
+    <insert id="insert" parameterType="com.taobao.api.response.TmallCarLeaseReserveResponse$Result">
         insert into tmall_lease_result(
             cost_time,
             error_code,

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hshc.relay.dao.CarLeaseTailpaymentbackDao">
 
-    <insert id="insertMap" parameterType="com.taobao.api.response.TmallCarLeaseTailpaymentbackResponse$Result">
+    <insert id="insert" parameterType="com.taobao.api.response.TmallCarLeaseTailpaymentbackResponse$Result">
         insert into tmall_lease_result(
             cost_time,
             error_code,
