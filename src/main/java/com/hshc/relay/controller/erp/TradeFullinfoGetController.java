@@ -1,5 +1,6 @@
 package com.hshc.relay.controller.erp;
 
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +27,15 @@ public class TradeFullinfoGetController extends BaseController{
 	@Autowired
 	private TradeFullinfoGetService tfgService;
 	
-	@RequestMapping("/lease-trade")
+	/*@RequestMapping("/lease-trade")
 	@ResponseBody
-	@QimenSignAuthentication
+	@QimenSignAuthentication*/
+	@Test
 	public BaseQimenResponseVo getTradeFullinfo(Long tid){
+		tid = 20595649387495296L;
 		try {
 			//获取单笔交易地详细信息
-			/*TradeFullinfoGetResponse tradeFullinfo = tfgService.tradeFullinfo(tid);*/
+			TradeFullinfoGetResponse tradeFullinfo = tfgService.tradeFullinfo(tid);
 			
 		} catch (Exception e) {
 			// TODO: handle exception
