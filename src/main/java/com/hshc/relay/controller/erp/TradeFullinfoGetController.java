@@ -1,14 +1,9 @@
 package com.hshc.relay.controller.erp;
 
-
-import org.junit.Test;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.service.TradeFullinfoGetService;
@@ -21,17 +16,13 @@ import com.taobao.api.response.TradeFullinfoGetResponse;
  */
 @Controller
 public class TradeFullinfoGetController extends BaseController{
-	
-	public static final Logger LOGGER = LoggerFactory.getLogger(StoreManageController.class); 
-	
+
 	@Autowired
 	private TradeFullinfoGetService tfgService;
 	
 	/*@RequestMapping("/lease-trade")
 	@ResponseBody
-<<<<<<< HEAD
 	@QimenSignAuthentication*/
-	@Test
 	public BaseResponseVo getTradeFullinfo(Long tid){
 		try {
 			//获取单笔交易地详细信息
