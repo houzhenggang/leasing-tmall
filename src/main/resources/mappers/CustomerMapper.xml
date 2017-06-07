@@ -4,8 +4,8 @@
 <mapper namespace="com.hshc.relay.dao.CustomerDao">
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.hshc.relay.entity.riskcontrol.Customer">
-        insert into rc_customer(id, name, identity_no, mobile, uuid, consignee_address, item_id)
-        values(#{id}, #{name}, #{identityNo}, #{mobile}, #{uuid}, #{addr}, #{itemId})
+        insert into rc_customer(id, name, identity_no, mobile, uuid, consignee_address, item_id, create_time)
+        values(#{id}, #{name}, #{identityNo}, #{mobile}, #{uuid}, #{addr}, #{itemId}, now())
     </insert>
 
     <update id="update" parameterType="com.hshc.relay.entity.riskcontrol.Customer">
@@ -23,5 +23,11 @@
         </set>
         where id = #{id}
     </update>
+
+    <select id="selectTopDto" parameterType="com.hshc.relay.entity.riskcontrol.Customer" resultType="com.taobao.api.request.TmallCarLeaseRiskcallbackRequest$CreditInfoTopDto">
+        select rc.name, rc.identity_no "identityNo", rc.mobile, rc.uuid, rc.consignee_address "addr"
+        from rc_customer rc
+        where rc.uuid = #{uuid}
+    </select>
 
 </mapper>

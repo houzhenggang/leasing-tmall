@@ -1,5 +1,6 @@
 package com.hshc.relay.controller.tmall;
 
+import com.taobao.api.ApiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,10 @@ import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.controller.erp.StoreManageController;
 import com.hshc.relay.service.CarLeaseTailpaymentbackService;
-import com.hshc.relay.vo.BaseQimenResponseVo;
+import com.hshc.relay.vo.BaseResponseVo;
 import com.taobao.api.request.TmallCarLeaseTailpaymentbackRequest;
 import com.taobao.api.response.TmallCarLeaseTailpaymentbackResponse;
+
 /**
  * 尾款处置方案回传
  * @author 史珂
@@ -23,26 +25,23 @@ import com.taobao.api.response.TmallCarLeaseTailpaymentbackResponse;
 @Controller
 public class CarLeaseTailpaymentbackController extends BaseController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(StoreManageController.class); 
-
 	@Autowired
 	private CarLeaseTailpaymentbackService cltService;
 	
 	@RequestMapping("/lease-tailpaymentback")
 	@ResponseBody
 	@QimenSignAuthentication
-	public BaseQimenResponseVo leaseTailpaymentback(TmallCarLeaseTailpaymentbackRequest req){
-		TmallCarLeaseTailpaymentbackResponse rsp = new TmallCarLeaseTailpaymentbackResponse();
-		try {
-			LOGGER.info("leaseTailpaymentback:"+req.getTailPaymentDTO());
-			//获取返回值
-			rsp = cltService.leaseTailpaymentback(req);
-			LOGGER.info("leaseTailpaymentback:"+rsp.getBody());
-			//保存返回的信息
-			cltService.addleaseTailpaymentback(rsp.getResult());
-		} catch (Exception e) {
-			return new BaseQimenResponseVo(false,JSON.toJSONString(rsp));
-		}
-		return new BaseQimenResponseVo(true,JSON.toJSONString(rsp));
+	public BaseResponseVo leaseTailpaymentback(TmallCarLeaseTailpaymentbackRequest req) throws ApiException {
+
+		logger.info("leaseTailpaymentback:"+req.getTailPaymentDTO());
+
+		//获取返回值
+		TmallCarLeaseTailpaymentbackResponse rsp = cltService.leaseTailpaymentback(req);
+		logger.info("leaseTailpaymentback:"+rsp.getBody());
+
+		//保存返回的信息
+		cltService.add(rsp.getResult());
+
+		return new BaseResponseVo(true, JSON.toJSONString(rsp));
 	}
 }

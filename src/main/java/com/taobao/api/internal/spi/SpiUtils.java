@@ -1,5 +1,6 @@
 package com.taobao.api.internal.spi;
 
+import com.google.common.base.Strings;
 import com.taobao.api.Constants;
 import com.taobao.api.internal.util.StringUtils;
 import com.taobao.api.internal.util.TaobaoUtils;
@@ -35,13 +36,13 @@ public class SpiUtils {
 		String ctype = request.getContentType();
 		log.debug("ctype: " + ctype);
 		String charset = WebUtils.getResponseCharset(ctype);
-		if (ctype.startsWith(Constants.CTYPE_APP_JSON) || ctype.startsWith(Constants.CTYPE_TEXT_XML) || ctype.startsWith(Constants.CTYPE_TEXT_PLAIN)) {
+		if (!Strings.isNullOrEmpty(ctype) && (ctype.startsWith(Constants.CTYPE_APP_JSON) || ctype.startsWith(Constants.CTYPE_TEXT_XML) || ctype.startsWith(Constants.CTYPE_TEXT_PLAIN))) {
 			String body = WebUtils.getStreamAsString(request.getInputStream(), charset);
 			log.debug("qimen request body: " + body);
 			boolean valid = checkSignInternal(request, null, body, secret, charset);
 			result.setSuccess(valid);
 			result.setRequestBody(body);
-		} else if (ctype.startsWith(Constants.CTYPE_FORM_DATA)) {
+		} else if (Strings.isNullOrEmpty(ctype) || ctype.startsWith(Constants.CTYPE_FORM_DATA)) {
 			boolean valid = checkSignInternal(request, null, null, secret, charset);
 			result.setSuccess(valid);
 		} else {

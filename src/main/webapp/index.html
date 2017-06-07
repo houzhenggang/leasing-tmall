@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>花生好车天猫旗舰店后台系统</title>
+    <link href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.css" rel="stylesheet"/>
+    <link href="css/index.css" rel="stylesheet"/>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.js"></script>
+    <script src="js/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.5.0-beta.0/angular-route.js"></script>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.5.0-beta.0/angular-touch.js"></script>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.5.0-beta.0/angular-animate.js"></script>
+    <script>
+        var root = angular.module('relay', ['ngRoute', 'ui.bootstrap'])
+                .controller('userController', function($scope){
+                    $scope.user = '张三';
+                });
+
+        root.config(['$routeProvider', function($routeProvider){
+            $routeProvider.when('/users', {
+                templateUrl : "html/user-list.html",
+                controller : "userController"
+            }).otherwise({
+                redirectTo: 'index.html'
+            })
+        }]);
+    </script>
+</head>
+<body ng-app="relay">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" ng-click="navCollapsed = !navCollapsed"
+                        data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">花生好车天猫后台系统</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse" uib-collapse="navCollapsed">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">我的任务</a></li>
+                    <li><a href="#">系统设置</a></li>
+                    <li><a href="#">个人资料</a></li>
+                    <li><a href="#">登出</a></li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" placeholder="搜索...">
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li class="active"><a href="#">概览 <span class="sr-only">(current)</span></a></li>
+                    <li class="">
+                        <a href="#" class="" ng-click="userCollapsed = !userCollapsed" data-toggle="collapse" data-target="#userMenu">
+                            用户管理 <span class="caret"></span>
+                        </a>
+                        <div id="userMenu" class="nav-collapse collapse" uib-collapse="userCollapsed">
+                            <ul class="nav nav-sidebar">
+                                <li><a href="#/users">用户列表</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="#">商品管理</a></li>
+                    <li><a href="#">门店管理</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-view>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

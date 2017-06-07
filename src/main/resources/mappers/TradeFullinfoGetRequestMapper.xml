@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.hshc.relay.dao.TradeFullinfoGetRequestDao">
+
     <insert id="insert" parameterType="com.taobao.api.request.TradeFullinfoGetRequest">
         insert into FENXIAO_SCHEME_DETAIL fsd(
             fsd.`SC_ITEM_ID`,fsd.`SKU_ID`,fsd.`TMALLMODEL`,fsd.`BRAND`,fsd.`LINE`,fsd.`MODEL`,fsd.`COMPANY_NAME`,fsd.`SCHEME_CODE`,fsd.`SCHEME_NAME`,fsd.`INITIAL_PAYMENT_AMOUNT`,
@@ -15,7 +16,5 @@
             #{CarLeasePlanDo.year,jdbcType=VARCHAR},#{now(),jdbcType=VARCHAR},#{now(),jdbcType=VARCHAR},#{isSuccess,jdbcType=VARCHAR}
         )
     </insert>
-
-
 
 </mapper>

@@ -32,8 +32,7 @@ import com.taobao.api.response.TradeFullinfoGetResponse;
  */
 @Service
 public class TradeFullinfoGetService extends BaseService<TradeFullinfoGetResponse>{
-	public static final Logger LOGGER = LoggerFactory.getLogger(StoreManageController.class); 
-	
+
 	@Autowired
 	private AuthorizedSessionService asService;
 	@Autowired
@@ -41,8 +40,10 @@ public class TradeFullinfoGetService extends BaseService<TradeFullinfoGetRespons
 	@Autowired
 	private OrderDao oDao;
 	
-	
-	public TradeFullinfoGetResponse tradeFullinfo(Long tid){
+
+	@Transactional(rollbackFor = Exception.class)
+	public TradeFullinfoGetResponse tradeFullinfo(Long tid) throws ApiException {
+
 		TradeFullinfoGetRequest req = new TradeFullinfoGetRequest();
 		req.setFields("tid,title,type,status,payment,est_con_time,receiver_name,receiver_state,receiver_address,receiver_mobile,receiver_phone,orders,buyer_nick");
 		req.setTid(tid);
@@ -57,13 +58,19 @@ public class TradeFullinfoGetService extends BaseService<TradeFullinfoGetRespons
 			e.printStackTrace();
 		}
 	    //TradeFullinfoGetResponse rsp = (TradeFullinfoGetResponse)RequestTaobaoClientService.requset(req);
+
 		/*if(trade!=null){
+		logger.info("订单详情==="+JSON.toJSONString(rsp.getBody()));
+		Trade trade = rsp.getTrade();
 		   //保存订单信息
-		   addtradeFullinfo(trade);
-		   //把数据传给erp
+		    if(modify(rsp)==0){
+		    	add(rsp);
+		    }
+		    //把数据传给erp
 		   HshcRiskcontolOrdersReturnResponse erp = toErp(trade);
+
 	   }*/
-		return null;
+		return null;		
 	}
 
 	
@@ -92,12 +99,12 @@ public class TradeFullinfoGetService extends BaseService<TradeFullinfoGetRespons
 		Long tid = trade.getTid();
 		int i = 0;
 		//添加主订单信息
-		i+= tDao.insert(trade);
+		i += tDao.insert(trade);
 		List<Order> orders = trade.getOrders();
 		for (Order order : orders) {
-			order.setTid((long) tid);
+			order.setTid(tid);
 			//保存子订单
-			i+=oDao.insert(order);
+			i += oDao.insert(order);
 		}
 		return i;
 	}
@@ -108,9 +115,9 @@ public class TradeFullinfoGetService extends BaseService<TradeFullinfoGetRespons
 		QimenCloudClient client = new DefaultQimenCloudClient(getReturnUrl(), asService.getAppKey(), asService.getAppSecret());
 		String str=JSON.toJSONStringWithDateFormat(trade, "yyyy-MM-dd HH:mm:ss",SerializerFeature.DisableCircularReferenceDetect);
 		HshcRiskcontolOrdersReturnRequest parseObject = JSON.parseObject(str, HshcRiskcontolOrdersReturnRequest.class, Feature.UseBigDecimal);
-		parseObject.setTargetAppKey("23795481");
+		parseObject.setTargetAppKey(asService.getAppKey());
 		HshcRiskcontolOrdersReturnResponse rsp = client.execute(parseObject);
-		LOGGER.info("rsp:"+rsp.getBody());
+		logger.info("rsp:"+rsp.getBody());
 		
 		//HshcRiskcontolOrdersReturnResponse res= (HshcRiskcontolOrdersReturnResponse)RequestQimenCloudClientService.client().execute(parseObject);
 		return rsp;

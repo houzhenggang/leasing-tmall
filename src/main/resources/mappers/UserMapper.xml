@@ -3,7 +3,6 @@
 
 <mapper namespace="com.hshc.relay.dao.UserDao">
 
-
     <sql id="columns">
         u.id, u.name, u.password, u.id_number, u.mobile, u.create_time, u.is_del
     </sql>
@@ -43,5 +42,10 @@
         set is_del = 1
         where id = #{id}
     </update>
+
+    <select id="selectList" parameterType="com.hshc.relay.entity.User" resultType="com.hshc.relay.entity.User">
+        select <include refid="columns"/>, u.creator_id "creator.id", u.modifier_id "modifier.id"
+        from t_user u
+    </select>
 
 </mapper>

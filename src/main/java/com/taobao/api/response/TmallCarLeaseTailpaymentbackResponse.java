@@ -30,16 +30,16 @@ public class TmallCarLeaseTailpaymentbackResponse extends TaobaoResponse {
 	}
 	
 	/**
- * result
- *
- * @author top auto create
- * @since 1.0, null
- */
-public static class Result extends TaobaoObject {
+	* result
+	*
+	* @author top auto create
+	* @since 1.0, null
+	*/
+	public static class Result extends TaobaoObject {
 
-	private static final long serialVersionUID = 5388494527937367236L;
+		private static final long serialVersionUID = 5388494527937367236L;
 
-	/**
+		/**
 		 * costTime
 		 */
 		@ApiField("cost_time")
@@ -79,9 +79,10 @@ public static class Result extends TaobaoObject {
 		 */
 		@ApiField("success")
 		private Boolean success;
-	
 
-	public Long getCostTime() {
+		private String leaseType;
+
+		public Long getCostTime() {
 			return this.costTime;
 		}
 		public void setCostTime(Long costTime) {
@@ -130,7 +131,14 @@ public static class Result extends TaobaoObject {
 			this.success = success;
 		}
 
-}
+		public String getLeaseType() {
+			return leaseType;
+		}
+
+		public void setLeaseType(String leaseType) {
+			this.leaseType = leaseType;
+		}
+	}
 
 
 

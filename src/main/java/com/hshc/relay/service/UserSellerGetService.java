@@ -20,10 +20,7 @@ public class UserSellerGetService extends BaseService<UserSellerGetResponse>{
 
     public UserSellerGetResponse getUserSeller(UserSellerGetRequest reqSc)throws ApiException{
         //请求后端商品
-        TaobaoClient client = new DefaultTaobaoClient("https://eco.taobao.com/router/rest", authorizedSessionService.getAppKey(), authorizedSessionService.getAppSecret());
-        UserSellerGetResponse repSc=client.execute(reqSc, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
-        return repSc;
+        TaobaoClient client = new DefaultTaobaoClient(getTopApi(), getAppKey(), getAppSecret());
+        return client.execute(reqSc, authorizedSessionService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
     }
-
-
 }

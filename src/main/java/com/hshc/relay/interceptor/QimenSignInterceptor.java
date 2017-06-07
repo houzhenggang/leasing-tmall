@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.exception.InvalidQimenSignException;
 import com.hshc.relay.service.AuthorizedSessionService;
-import com.qimencloud.api.QimenCloudResponse;
+import com.hshc.relay.vo.BaseResponseVo;
 import com.taobao.api.internal.spi.SpiUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,13 +46,18 @@ public class QimenSignInterceptor extends HandlerInterceptorAdapter {
         }catch (Exception e){
             LOGGER.error("", e);
 
-            QimenCloudResponse qimenCloudResponse = new QimenCloudResponse();
-            qimenCloudResponse.setFlag("failure");
-            qimenCloudResponse.setSubCode("sign-check-failure");
-            qimenCloudResponse.setSubMessage("Illegal request");
+            String subCode = e.getClass().getSimpleName();
+            String subMessage = e.getMessage();
 
-//            Map<String, Object> ret = new HashMap<>();
-//            ret.put("response", qimenCloudResponse);
+            if(e instanceof InvalidQimenSignException){
+                subCode = ((InvalidQimenSignException)e).getCode();
+            }
+
+            BaseResponseVo qimenCloudResponse = new BaseResponseVo();
+            qimenCloudResponse.setFlag("failure");
+            qimenCloudResponse.setSubCode(subCode);
+            qimenCloudResponse.setSubMessage(subMessage);
+
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.setContentType("application/json;charset=utf-8");
             response.getWriter().write(JSON.toJSONString(qimenCloudResponse));

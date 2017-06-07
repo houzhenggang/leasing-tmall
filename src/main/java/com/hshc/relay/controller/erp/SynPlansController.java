@@ -32,7 +32,7 @@ public class SynPlansController extends BaseController{
     public CLSynPlansResponse sysPlans(TmallCarLeaseSynchronizeplansRequest reqSyn)throws ApiException{
         List<TmallCarLeaseSynchronizeplansRequest.CarLeasePlanDo> plans = JSON.parseArray(reqSyn.getPlans(), TmallCarLeaseSynchronizeplansRequest.CarLeasePlanDo.class);
         reqSyn.setPlans(plans);
-        return  synPlansService.sysPlans(reqSyn);
+        return synPlansService.sysPlans(reqSyn);
     }
 
 }
