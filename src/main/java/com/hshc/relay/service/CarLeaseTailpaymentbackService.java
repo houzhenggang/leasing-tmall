@@ -29,7 +29,7 @@ public class CarLeaseTailpaymentbackService extends BaseService<TmallCarLeaseTai
 
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int add(Result result) {
+	public int add(TmallCarLeaseTailpaymentbackResponse.Result result) {
 		result.setLeaseType("尾款处置方案回传");
 		return baseDao.insert(result);
 	}
