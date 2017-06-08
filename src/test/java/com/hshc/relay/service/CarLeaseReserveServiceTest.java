@@ -2,6 +2,7 @@ package com.hshc.relay.service;
 
 import com.hshc.relay.BaseTest;
 import com.taobao.api.response.TmallCarLeaseReserveResponse;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,7 +24,7 @@ public class CarLeaseReserveServiceTest extends BaseTest {
         result.setErrorMessage("错误信息");
         result.setMsgCode("10000");
         result.setMsgInfo("错误信息");
-        carLeaseReserveService.add(result);
+        Assert.assertEquals(1, carLeaseReserveService.add(result));
     }
 
 }
