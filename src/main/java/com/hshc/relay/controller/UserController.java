@@ -21,7 +21,6 @@ public class UserController extends BaseController {
     @Autowired
     private UserService userService;
 
-
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public PageVo getUserPage(@RequestBody Page<User> page){
         Page<User> userPage = userService.getPage(page);

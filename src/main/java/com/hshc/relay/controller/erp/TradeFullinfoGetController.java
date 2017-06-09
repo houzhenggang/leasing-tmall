@@ -1,5 +1,6 @@
 package com.hshc.relay.controller.erp;
 
+import com.hshc.relay.annotation.QimenSignAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -7,6 +8,9 @@ import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.service.TradeFullinfoGetService;
 import com.hshc.relay.vo.BaseResponseVo;
 import com.taobao.api.response.TradeFullinfoGetResponse;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 /**
  * 获取单笔交易的详细信息
  * @author 史珂
@@ -18,9 +22,9 @@ public class TradeFullinfoGetController extends BaseController{
 	@Autowired
 	private TradeFullinfoGetService tfgService;
 	
-	/*@RequestMapping("/lease-trade")
+	@RequestMapping("/lease-trade")
 	@ResponseBody
-	@QimenSignAuthentication*/
+	@QimenSignAuthentication
 	public BaseResponseVo getTradeFullinfo(Long tid){
 		try {
 			//获取单笔交易地详细信息

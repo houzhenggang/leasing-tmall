@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>花生好车天猫旗舰店后台系统</title>
+    <link href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.css" rel="stylesheet"/>
+    <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.css" rel="stylesheet"/>
+    <link href="/css/main.css" rel="stylesheet"/>
+    <script src="http://apps.bdimg.com/libs/require.js/2.1.11/require.js" data-main="js/main.js"></script>
+</head>
+<body ng-controller="navController">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" ng-click="navCollapsed = !navCollapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" ng-click="menuCollapsed = !menuCollapsed" data-toggle="collapse" data-target="#menu">花生好车天猫后台系统</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse" uib-collapse="navCollapsed">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#/my-jobs">我的任务</a></li>
+                <li><a href="#/system-settings">系统设置</a></li>
+                <li><a href="#/my-profile">个人资料</a></li>
+                <li><a href="#/logout">登出</a></li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" placeholder="搜索...">
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar" id="menu" uib-collapse="menuCollapsed">
+            <ul class="nav nav-sidebar">
+                <li ng-repeat="menu in menus" class="sidebar-1">
+                    <a ng-if="!menu.subMenus" href="#{{menu.href}}">{{menu.name}}</a>
+                    <a ng-if="menu.subMenus" ng-click="menu.collapsed = !menu.collapsed" data-toggle="collapse" data-target="#{{menu.id}}">{{menu.name}}</a>
+                    <div ng-if="menu.subMenus" id="{{menu.id}}" class="nav-collapse collapse" uib-collapse="menu.collapsed">
+                        <ul class="nav nav-sidebar">
+                            <li ng-repeat="subMenu in menu.subMenus" class="sidebar-2"><a href="#{{subMenu.href}}">{{subMenu.name}}</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-view>
+        </div>
+    </div>
+</div>
+</body>
+</html>

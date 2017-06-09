@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.hshc.relay.dao.MenuDao">
+
+    <resultMap id="menuMap" type="com.hshc.relay.entity.Menu">
+        <!--<id column="ID" property="id" jdbcType=""/>-->
+        <!--<result column="" property="" jdbcType=""/>-->
+        <!--<collection columnPrefix="S_" property="subMenus">-->
+            <!--<id column="ID" property="id" jdbcType=""/>-->
+            <!--<result column="" property="" jdbcType=""/>-->
+        <!--</collection>-->
+    </resultMap>
+
+    <select id="selectList" parameterType="com.hshc.relay.entity.Menu" resultMap="menuMap">
+
+    </select>
+
+</mapper>
