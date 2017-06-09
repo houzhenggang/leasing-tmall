@@ -38,8 +38,10 @@ public class CarLeaseConsumeController extends BaseController {
 		logger.info("leaseConsume:" + rsp.getBody());
 
 		//保存核销返回信息
-		clcService.add(rsp.getResult());
-
-		return 	new BaseResponseVo(true,JSON.toJSONString(rsp));
+	    if(rsp.isSuccess()){
+			clcService.add(rsp.getResult());
+		}
+		
+		return 	new BaseResponseVo(rsp.isSuccess(),JSON.toJSONString(rsp.getMsg()));
 	}
 }

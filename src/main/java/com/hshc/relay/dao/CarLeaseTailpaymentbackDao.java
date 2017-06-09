@@ -10,6 +10,6 @@ import com.taobao.api.response.TmallCarLeaseTailpaymentbackResponse;
  * 2017年5月10日下午3:28:04
  */
 @Repository
-public interface CarLeaseTailpaymentbackDao extends BaseDao<TmallCarLeaseTailpaymentbackResponse>{
+public interface CarLeaseTailpaymentbackDao extends BaseDao<TmallCarLeaseTailpaymentbackResponse.Result>{
 
 }
