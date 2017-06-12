@@ -2,6 +2,8 @@ package com.hshc.relay.controller.erp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.service.TradeFullinfoGetService;
@@ -18,9 +20,8 @@ public class TradeFullinfoGetController extends BaseController{
 	@Autowired
 	private TradeFullinfoGetService tfgService;
 	
-	/*@RequestMapping("/lease-trade")
+	@RequestMapping("/lease-trade")
 	@ResponseBody
-	@QimenSignAuthentication*/
 	public BaseResponseVo getTradeFullinfo(Long tid){
 		try {
 			//获取单笔交易地详细信息

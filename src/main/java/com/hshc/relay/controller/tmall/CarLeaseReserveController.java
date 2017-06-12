@@ -43,6 +43,6 @@ public class CarLeaseReserveController extends BaseController {
 		   clrService.add(rsp.getResult());
 		}
 
-		return new BaseResponseVo(rsp.isSuccess(),JSON.toJSONString(rsp.getMsg()));
+		return new BaseResponseVo(rsp.isSuccess(),JSON.toJSONString(rsp.getBody()));
 	}
 }
