@@ -1,6 +1,7 @@
 package com.hshc.relay.controller;
 
 import com.hshc.relay.dto.Page;
+import com.hshc.relay.dto.PageRequest;
 import com.hshc.relay.entity.User;
 import com.hshc.relay.exception.BaseException;
 import com.hshc.relay.service.UserService;
@@ -22,8 +23,8 @@ public class UserController extends BaseController {
     private UserService userService;
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public PageVo getUserPage(@RequestBody Page<User> page){
-        Page<User> userPage = userService.getPage(page);
+    public PageVo getUserPage(@RequestBody PageRequest<User> pageRequest){
+        Page<User> userPage = userService.getPage(pageRequest);
         return PageVo.success(userPage);
     }
 

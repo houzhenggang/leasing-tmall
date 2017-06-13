@@ -1,17 +1,17 @@
-<div class="container-fluid" ng-controller="userController">
+<div class="container-fluid" ng-controller="customerController">
     <div class="row">
         <h4>查询条件</h4>
         <div class="form-group">
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                 <label for="queryName">姓名</label>
-                <input id="queryName" class="form-control" type="text" ng-model="queryUser.name"/>
+                <input id="queryName" class="form-control" type="text" ng-model="queryCustomer.name"/>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                 <p class="input-group">
                     <label for="queryCreateTime">创建时间</label>
-                    <input id="queryCreateTime" type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd HH:mm:ss" ng-model="queryUser.createTime"
-                           is-open="createTime.opened" datepicker-options="dateOptions" ng-required="true"
-                           close-text="Close" alt-input-formats="altInputFormats" />
+                    <input id="queryCreateTime" type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="queryCustomer.createTime"
+                           is-open="createTime.opened" datepicker-options="dateOptions" ng-required="true" clear-text="清除" current-text="今天"
+                           close-text="关闭" alt-input-formats="altInputFormats"/>
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="openCreateTime()"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
@@ -25,13 +25,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-6 cl-sm-4 col-md-1 col-lg-1">
-            <button class="btn btn-primary btn-large" ng-click="toAddUser()">新增用户</button>
-        </div>
     </div>
-    <div class="row grid" ui-grid="gridOptions" ui-grid-pagination ng-if="state == 'list'">
-
-    </div>
+    <div class="row grid" ui-grid="gridOptions" ui-grid-pagination ui-grid-selection ui-grid-exporter></div>
     <script type="text/ng-template" id="myModalContent.html">
         <div class="modal-header">
             <h3 class="modal-title" id="modal-title">{{modalOp.title}}</h3>

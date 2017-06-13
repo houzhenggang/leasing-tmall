@@ -33,9 +33,11 @@ public class PageInterceptor implements Interceptor {
     /**
      * 开始分页
      *
-     * @param page 分页对象
+     * @param pageNum 页码
+     * @param pageSize 页容
      */
-    public static <T> void init(Page<T> page) {
+    public static void init(Integer pageNum, Integer pageSize) {
+        Page page = new Page<>(pageNum, pageSize);
         localPage.set(page);
     }
 

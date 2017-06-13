@@ -2,6 +2,7 @@ package com.hshc.relay.service;
 
 import com.hshc.relay.dao.BaseDao;
 import com.hshc.relay.dto.Page;
+import com.hshc.relay.dto.PageRequest;
 import com.hshc.relay.interceptor.PageInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -88,9 +89,9 @@ public class BaseService<T>{
 
     @SuppressWarnings("unchecked")
     @Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
-    public Page<T> getPage(Page<T> page){
-        PageInterceptor.init(page);
-        baseDao.selectList(page.getQueryObject());
+    public Page<T> getPage(PageRequest<T> pageRequest){
+        PageInterceptor.init(pageRequest.getPageNum(), pageRequest.getPageSize());
+        baseDao.selectList(pageRequest.getQueryObj());
         return PageInterceptor.getPage();
     }
 

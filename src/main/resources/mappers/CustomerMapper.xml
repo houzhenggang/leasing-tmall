@@ -30,4 +30,10 @@
         where rc.uuid = #{uuid}
     </select>
 
+    <!--<select id="selectCustomers" parameterType="com.hshc.relay.qo.riskcontrol.CustomerQo" resultType="">-->
+        <!--select-->
+        <!--from rc_customer rc-->
+        <!--left outer join-->
+    <!--</select>-->
+
 </mapper>

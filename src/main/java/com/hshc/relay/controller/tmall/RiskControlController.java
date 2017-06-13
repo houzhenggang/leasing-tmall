@@ -2,9 +2,11 @@ package com.hshc.relay.controller.tmall;
 
 import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
+import com.hshc.relay.dto.PageRequest;
 import com.hshc.relay.entity.riskcontrol.Customer;
 import com.hshc.relay.service.RiskControlService;
 import com.hshc.relay.vo.BaseResponseVo;
+import com.hshc.relay.vo.PageVo;
 import com.taobao.api.ApiException;
 import com.taobao.api.response.TmallCarLeaseRiskcallbackResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,4 +39,10 @@ public class RiskControlController extends BaseController {
     public TmallCarLeaseRiskcallbackResponse.Result sendRiskControlResult(@PathVariable String uuid) throws ApiException, InterruptedException, ExecutionException {
         return riskControlService.sendRiskControlResult(uuid).get();
     }
+
+    @RequestMapping(value = "/customers")
+    public PageVo getCustomers(@RequestBody PageRequest<Customer> pageRequest){
+        return PageVo.success(riskControlService.getPage(pageRequest));
+    }
+
 }

@@ -24,8 +24,6 @@ public class Page<E> {
     // 数据集合
     private List<E> data;
 
-    private E queryObject;
-
     public Page(){}
 
     public Page(int pageNum, int size) {
@@ -49,6 +47,8 @@ public class Page<E> {
 
     public void setTotalPages(int totalPages) {
         this.totalPages = totalPages;
+
+        pageNum = pageNum > totalPages ? totalPages : pageNum;
     }
 
     public int getEndRow() {
@@ -64,7 +64,7 @@ public class Page<E> {
     }
 
     public void setPageNum(int pageNum) {
-        this.pageNum = pageNum;
+        this.pageNum = pageNum <= 0 ? 1: pageNum;
     }
 
     public int getSize() {
@@ -91,11 +91,4 @@ public class Page<E> {
         this.totalRecords = totalRecords;
     }
 
-    public E getQueryObject() {
-        return queryObject;
-    }
-
-    public void setQueryObject(E queryObject) {
-        this.queryObject = queryObject;
-    }
 }

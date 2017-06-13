@@ -1,6 +1,6 @@
-define(['angular', 'ui.bootstrap', 'ui.grid'], function(){
-    return function($scope, $http){
-        $scope.state = 'list';
+define(['app'], function(app){
+    return function($scope, $http, i18nService){
+        i18nService.setCurrentLang("zh-cn");
 
         $scope.queryUser = {};
 
@@ -15,7 +15,7 @@ define(['angular', 'ui.bootstrap', 'ui.grid'], function(){
         var paginationOptions = {
             queryObject: $scope.queryUser,
             pageNum: 1,
-            size: 20
+            pageSize: 20
         };
 
         $scope.openCreateTime = function(){
@@ -36,7 +36,7 @@ define(['angular', 'ui.bootstrap', 'ui.grid'], function(){
                 {name:'手机号', field:'mobile'},
                 {name:'创建人', field:'creator.name'},
                 {name:'创建时间', field:'createTime'},
-                {name:'是否删除', field:'isDel'}
+                {name:'是否删除', field:'isDel', cellTemplate: '<span>{{grid.appScope.transfer(grid, row)}}</span>'}
             ],
             onRegisterApi: function(gridApi) {
                 $scope.gridApi = gridApi;
@@ -64,6 +64,10 @@ define(['angular', 'ui.bootstrap', 'ui.grid'], function(){
                         $scope.gridOptions.data = resp.page.data;
                     }
                 });
+        };
+
+        $scope.transfer = function(grid, row){
+            return row.isDel ? "是" : "否";
         };
 
         //$scope.getPage();
