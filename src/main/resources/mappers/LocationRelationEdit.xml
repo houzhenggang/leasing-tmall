@@ -3,16 +3,19 @@
 
 <mapper namespace="com.hshc.relay.dao.LocationRealtionEditDao">
 
-   <sql id="columns">
-      status,
-      target_inv_store_type,
-      target_store_code,
-      source_inv_store_type,
-      source_store_code
-   </sql>
+<sql id="columns">
+   status,
+   target_inv_store_type,
+   target_store_code,
+   source_inv_store_type,
+   source_store_code
+</sql>
+<select id="selectList"  resultType="com.taobao.api.request.LocationRelationEditRequest$LocationRelationDto">
+    select <include refid="columns"/> from  shop_store_relation
+       where is_release=0
+</select>
 
-   <select id="selectList"  resultType="com.taobao.api.request.LocationRelationEditRequest$LocationRelationDto">
-       select <include refid="columns"/> from  shop_store_relation
-   </select>
+
+
 
 </mapper> 
