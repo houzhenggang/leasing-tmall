@@ -2,8 +2,6 @@ package com.hshc.relay.service;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.Feature;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.hshc.relay.controller.erp.StoreManageController;
 import com.hshc.relay.dao.OrderDao;
 import com.hshc.relay.dao.TradeDao;
 import com.qimencloud.api.DefaultQimenCloudClient;
@@ -25,6 +22,7 @@ import com.taobao.api.domain.Order;
 import com.taobao.api.domain.Trade;
 import com.taobao.api.request.TradeFullinfoGetRequest;
 import com.taobao.api.response.TradeFullinfoGetResponse;
+
 /**
  * 获取单笔交易的详细信息
  * @author 史珂
@@ -39,29 +37,29 @@ public class TradeFullinfoGetService extends BaseService<TradeFullinfoGetRespons
 	private TradeDao tDao;
 	@Autowired
 	private OrderDao oDao;
-	
 
 	@Transactional(rollbackFor = Exception.class)
 	public TradeFullinfoGetResponse tradeFullinfo(Long tid) throws ApiException {
+
 		TradeFullinfoGetRequest req = new TradeFullinfoGetRequest();
 		req.setFields("tid,title,type,status,payment,est_con_time,receiver_name,receiver_state,receiver_address,receiver_mobile,receiver_phone,orders,buyer_nick");
 		req.setTid(tid);
+
 		TaobaoClient client = new DefaultTaobaoClient(getTopApi(), asService.getAppKey(), asService.getAppSecret());
 		TradeFullinfoGetResponse rsp = client.execute(req, asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
 		logger.info("订单详情===" + JSON.toJSONString(rsp.getBody()));
+
 		Trade trade = rsp.getTrade();
-		if(trade!=null){
+		if(trade != null){
 		   //保存订单信息
 		    if(modify(rsp)==0){
 		    	add(rsp);
 		    }
 		    //把数据传给erp
 		   HshcRiskcontolOrdersReturnResponse erp = toErp(trade);
-	   }
+	   	}
 		return rsp;
 	}
-
-	
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
@@ -70,12 +68,12 @@ public class TradeFullinfoGetService extends BaseService<TradeFullinfoGetRespons
 		Long tid = trade.getTid();
 		int i = 0;
 		//修改主表信息
-		i+= tDao.update(trade);
+		i += tDao.update(trade);
 		List<Order> orders = trade.getOrders();
 		for (Order order : orders) {
-			order.setTid((long) tid);
+			order.setTid(tid);
 			//修改子订单
-		    i+= oDao.update(order);
+		    i += oDao.update(order);
 		}
 		return i;
 	}
@@ -101,16 +99,14 @@ public class TradeFullinfoGetService extends BaseService<TradeFullinfoGetRespons
 		//trade.setOrders(null);
 		//实体转化json
 		QimenCloudClient client = new DefaultQimenCloudClient(getReturnUrl(), asService.getAppKey(), asService.getAppSecret());
-		String str=JSON.toJSONStringWithDateFormat(trade, "yyyy-MM-dd HH:mm:ss",SerializerFeature.DisableCircularReferenceDetect);
+		String str=JSON.toJSONStringWithDateFormat(trade, "yyyy-MM-dd HH:mm:ss", SerializerFeature.DisableCircularReferenceDetect);
 		HshcRiskcontolOrdersReturnRequest parseObject = JSON.parseObject(str, HshcRiskcontolOrdersReturnRequest.class, Feature.UseBigDecimal);
 		parseObject.setTargetAppKey(asService.getAppKey());
 		HshcRiskcontolOrdersReturnResponse rsp = client.execute(parseObject);
-		logger.info("rsp:"+rsp.getBody());
+		logger.info("rsp:" + rsp.getBody());
 		
 		//HshcRiskcontolOrdersReturnResponse res= (HshcRiskcontolOrdersReturnResponse)RequestQimenCloudClientService.client().execute(parseObject);
 		return rsp;
 	}
 
-
-	
 }
