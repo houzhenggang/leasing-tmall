@@ -43,34 +43,22 @@ public class TradeFullinfoGetService extends BaseService<TradeFullinfoGetRespons
 
 	@Transactional(rollbackFor = Exception.class)
 	public TradeFullinfoGetResponse tradeFullinfo(Long tid) throws ApiException {
-
 		TradeFullinfoGetRequest req = new TradeFullinfoGetRequest();
 		req.setFields("tid,title,type,status,payment,est_con_time,receiver_name,receiver_state,receiver_address,receiver_mobile,receiver_phone,orders,buyer_nick");
 		req.setTid(tid);
 		TaobaoClient client = new DefaultTaobaoClient(getTopApi(), asService.getAppKey(), asService.getAppSecret());
-		TradeFullinfoGetResponse rsp;
-		try {
-			rsp = client.execute(req, asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
-			Trade trade = rsp.getTrade();
-			return rsp;		
-		} catch (ApiException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    //TradeFullinfoGetResponse rsp = (TradeFullinfoGetResponse)RequestTaobaoClientService.requset(req);
-
-		/*if(trade!=null){
-		logger.info("订单详情==="+JSON.toJSONString(rsp.getBody()));
+		TradeFullinfoGetResponse rsp = client.execute(req, asService.getAuthorizedSession("花生好车旗舰店").getAccessToken());
+		logger.info("订单详情===" + JSON.toJSONString(rsp.getBody()));
 		Trade trade = rsp.getTrade();
+		if(trade!=null){
 		   //保存订单信息
 		    if(modify(rsp)==0){
 		    	add(rsp);
 		    }
 		    //把数据传给erp
 		   HshcRiskcontolOrdersReturnResponse erp = toErp(trade);
-
-	   }*/
-		return null;		
+	   }
+		return rsp;
 	}
 
 	

@@ -44,6 +44,6 @@ public class CarLeaseTailpaymentbackController extends BaseController {
 		   cltService.add(rsp.getResult());
 		}
 
-		return new BaseResponseVo(rsp.isSuccess(), JSON.toJSONString(rsp.getMsg()));
+		return new BaseResponseVo(rsp.isSuccess(), rsp.getBody());
 	}
 }

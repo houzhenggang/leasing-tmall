@@ -24,7 +24,6 @@ public class TradeFullinfoGetController extends BaseController{
 	
 	@RequestMapping("/lease-trade")
 	@ResponseBody
-	@QimenSignAuthentication
 	public BaseResponseVo getTradeFullinfo(Long tid){
 		try {
 			//获取单笔交易地详细信息
