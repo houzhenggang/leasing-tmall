@@ -1,31 +1,41 @@
 <div class="container-fluid" ng-controller="customerController">
-    <div class="row">
-        <h4>查询条件</h4>
+    <div class="row query">
         <div class="form-group">
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                 <!--<label for="queryName">姓名</label>-->
                 <input id="queryName" class="form-control" type="text" ng-model="queryObj.name" placeholder="客户姓名"/>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <input id="queryIdentityNo" class="form-control" type="text" ng-model="queryObj.identityNo" placeholder="身份证号"/>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <input id="queryMobile" class="form-control" type="text" ng-model="queryObj.mobile" placeholder="手机号"/>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                 <p class="input-group">
                     <!--<label for="queryCreateTime">创建时间</label>-->
-                    <input id="queryCreateTimeFrom" type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="queryObj.createTimeFrom"
+                    <input id="queryCreateTimeFrom" type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd HH:mm:ss" ng-model="queryObj.createTimeFrom"
                            is-open="createTimeFrom.opened" datepicker-options="dateOptions" ng-required="true" clear-text="清除" current-text="今天"
                            close-text="关闭" alt-input-formats="altInputFormats" placeholder="创建时间始于"/>
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="openCreateTime()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="openCreateTimeFrom()"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </p>
                 -
                 <p class="input-group">
                     <!--<label for="queryCreateTime">创建时间</label>-->
-                    <input id="queryCreateTimeTo" type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="queryObj.createTimeTo"
+                    <input id="queryCreateTimeTo" type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd HH:mm:ss" ng-model="queryObj.createTimeTo"
                            is-open="createTimeTo.opened" datepicker-options="dateOptions" ng-required="true" clear-text="清除" current-text="今天"
                            close-text="关闭" alt-input-formats="altInputFormats" placeholder="创建时间止于"/>
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="openCreateTime()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="openCreateTimeTo()"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <input id="queryItemName" class="form-control" type="text" ng-model="queryObj.itemName" placeholder="车型"/>
             </div>
         </div>
         <div class="form-group">
@@ -35,33 +45,4 @@
         </div>
     </div>
     <div class="row grid" ui-grid="gridOptions" ui-grid-pagination ui-grid-selection ui-grid-exporter></div>
-    <script type="text/ng-template" id="myModalContent.html">
-        <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">{{modalOp.title}}</h3>
-        </div>
-        <div class="modal-body" id="modal-body">
-            <div class="form-group">
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    <label for="name">姓名</label>
-                    <input id="name" class="form-control" type="text" ng-model="user.name"/>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    <p class="input-group">
-                        <label for="createTime">创建时间</label>
-                        <input id="createTime" type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd HH:mm:ss" ng-model="user.createTime"
-                               is-open="createTime.opened" datepicker-options="dateOptions" ng-required="true"
-                               close-text="Close" alt-input-formats="altInputFormats" />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="openCreateTime()"><i class="glyphicon glyphicon-calendar"></i></button>
-                    </span>
-                    </p>
-                </div>
-            </div>
-
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="modalOp.ok()">OK</button>
-            <button class="btn btn-warning" type="button" ng-click="modalOp.cancel()">Cancel</button>
-        </div>
-    </script>
 </div>
