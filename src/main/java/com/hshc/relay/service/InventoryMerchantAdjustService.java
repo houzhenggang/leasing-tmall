@@ -15,7 +15,7 @@ import com.taobao.api.response.InventoryMerchantAdjustResponse;
  *
  */
 @Service
-public class InventoryMerchantAdjustService extends BaseService<InventoryMerchantAdjustRequest>{
+public class InventoryMerchantAdjustService extends BaseService<InventoryMerchantAdjustRequest, InventoryMerchantAdjustRequest>{
 
 	@Autowired
     private AuthorizedSessionService authorizedSessionService;

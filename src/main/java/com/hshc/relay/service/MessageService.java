@@ -1,6 +1,7 @@
 package com.hshc.relay.service;
 
 import com.alibaba.fastjson.JSON;
+import com.hshc.relay.dto.qo.MessageQo;
 import com.hshc.relay.exception.BaseException;
 import com.hshc.relay.service.messagehandler.HshcMessageHandler;
 import com.taobao.api.ApiException;
@@ -25,7 +26,7 @@ import util.SpringUtil;
  * @version V1.0 2017-05-09 13:49
  */
 @Service
-public class MessageService extends BaseService<Message> implements InitializingBean{
+public class MessageService extends BaseService<Message, MessageQo> implements InitializingBean{
 
     @Autowired
     private AuthorizedSessionService authorizedSessionService;

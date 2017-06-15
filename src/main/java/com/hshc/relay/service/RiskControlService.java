@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.hshc.relay.dao.CustomerDao;
+import com.hshc.relay.dto.qo.CustomerQo;
 import com.hshc.relay.entity.riskcontrol.Customer;
 import com.qimencloud.api.DefaultQimenCloudClient;
 import com.qimencloud.api.QimenCloudClient;
@@ -31,7 +32,7 @@ import java.util.concurrent.TimeUnit;
  * @version V1.0 2017-05-07 16:54
  */
 @Service
-public class RiskControlService extends BaseService<Customer> {
+public class RiskControlService extends BaseService<Customer, CustomerQo> {
 
     @Autowired
     private AuthorizedSessionService authorizedSessionService;

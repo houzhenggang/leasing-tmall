@@ -29,7 +29,7 @@ import java.util.Map;
  * @version V1.0 2017-05-09 14:54
  */
 @Service
-public class TradeMessageHandler extends BaseService<TradeFullinfoGetResponse> implements HshcMessageHandler {
+public class TradeMessageHandler extends BaseService<TradeFullinfoGetResponse, TradeFullinfoGetResponse> implements HshcMessageHandler {
 
     @Autowired
     private AuthorizedSessionService authorizedSessionService;

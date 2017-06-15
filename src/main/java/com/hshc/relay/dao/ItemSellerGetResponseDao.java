@@ -4,8 +4,9 @@ import com.taobao.api.response.ItemSellerGetResponse;
 import org.springframework.stereotype.Repository;
 
 /**
- * Created by wanghuaying on 2017/5/9.
+ * @author 王华英
+ * @version V1.0 2017-05-09 16:57
  */
 @Repository
-public interface ItemSellerGetResponseDao extends BaseDao<ItemSellerGetResponse>{
+public interface ItemSellerGetResponseDao extends BaseDao<ItemSellerGetResponse, ItemSellerGetResponse>{
 }

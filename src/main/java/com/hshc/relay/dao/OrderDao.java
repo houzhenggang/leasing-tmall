@@ -9,6 +9,6 @@ import com.taobao.api.domain.Order;
  * 2017年5月11日下午3:01:22
  */
 @Repository
-public interface OrderDao extends BaseDao<Order>{
+public interface OrderDao extends BaseDao<Order, Order>{
 
 }

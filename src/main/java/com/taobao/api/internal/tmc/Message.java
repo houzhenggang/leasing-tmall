@@ -1,5 +1,7 @@
 package com.taobao.api.internal.tmc;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
@@ -14,10 +16,13 @@ public class Message implements Serializable {
 
 	private static final long serialVersionUID = 3770198526461322514L;
 
+	@JSONField()
 	private Long id;
 	private String topic;
 	private String pubAppKey;
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	private Date pubTime;
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	private Date outgoingTime;
 	private Long userId;
 	private String userNick;

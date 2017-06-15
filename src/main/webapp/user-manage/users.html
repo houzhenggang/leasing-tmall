@@ -4,12 +4,12 @@
         <div class="form-group">
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                 <label for="queryName">姓名</label>
-                <input id="queryName" class="form-control" type="text" ng-model="queryUser.name"/>
+                <input id="queryName" class="form-control" type="text" ng-model="queryObj.name"/>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                 <p class="input-group">
                     <label for="queryCreateTime">创建时间</label>
-                    <input id="queryCreateTime" type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="queryUser.createTime"
+                    <input id="queryCreateTime" type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="queryObj.createTime"
                            is-open="createTime.opened" datepicker-options="dateOptions" ng-required="true" clear-text="清除" current-text="今天"
                            close-text="关闭" alt-input-formats="altInputFormats"/>
                     <span class="input-group-btn">

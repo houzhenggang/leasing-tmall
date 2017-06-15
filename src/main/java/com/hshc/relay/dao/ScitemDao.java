@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
  * @author  王华英
  */
 @Repository
-public interface ScitemDao extends BaseDao<ScItem>{
+public interface ScitemDao extends BaseDao<ScItem, ScItem>{
 }

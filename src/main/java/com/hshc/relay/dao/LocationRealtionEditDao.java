@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.taobao.api.request.LocationRelationEditRequest;
 
 @Repository
-public interface LocationRealtionEditDao extends BaseDao<LocationRelationEditRequest.LocationRelationDto>{
+public interface LocationRealtionEditDao extends BaseDao<LocationRelationEditRequest.LocationRelationDto, LocationRelationEditRequest.LocationRelationDto>{
 
 }

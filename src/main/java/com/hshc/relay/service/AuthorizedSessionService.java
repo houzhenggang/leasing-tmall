@@ -12,7 +12,7 @@ import java.util.Date;
  * @version V1.0 2017-05-06 16:33
  */
 @Service
-public class AuthorizedSessionService extends BaseService<AuthorizedSession> {
+public class AuthorizedSessionService extends BaseService<AuthorizedSession, AuthorizedSession> {
 
     /**
      * 根据用户名获取相应的授权

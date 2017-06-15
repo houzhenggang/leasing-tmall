@@ -2,7 +2,7 @@ define(['app'], function(app){
     return function($scope, $http, i18nService){
         i18nService.setCurrentLang("zh-cn");
 
-        $scope.queryUser = {};
+        $scope.queryObj = {};
 
         $scope.createTime = {
             opened: false
@@ -13,7 +13,7 @@ define(['app'], function(app){
         };
 
         var paginationOptions = {
-            queryObject: $scope.queryUser,
+            queryObj: $scope.queryObj,
             pageNum: 1,
             pageSize: 20
         };
@@ -27,7 +27,7 @@ define(['app'], function(app){
             paginationPageSize: 20,
             useExternalPagination: true,
             //useExternalSorting: true,
-            //enableGridMenu: true,
+            enableGridMenu: true,
             //enableSorting: true,
             columnDefs:[
                 {field:'id', visible:false},
@@ -48,11 +48,11 @@ define(['app'], function(app){
                 //    }
                 //    getPage();
                 //});
-                //gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
-                //    paginationOptions.pageNumber = newPage;
-                //    paginationOptions.pageSize = pageSize;
-                //    $scope.getPage();
-                //});
+                gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
+                    paginationOptions.pageNum = newPage;
+                    paginationOptions.pageSize = pageSize;
+                    $scope.getPage();
+                });
             }
         };
 

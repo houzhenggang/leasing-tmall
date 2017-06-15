@@ -16,7 +16,7 @@ import com.taobao.api.response.InventoryStoreQueryResponse;
  * 2017年5月10日下午5:21:52
  */
 @Service
-public class StoreQueryService extends BaseService<InventoryStoreQueryResponse> {
+public class StoreQueryService extends BaseService<InventoryStoreQueryResponse, InventoryStoreQueryResponse> {
 
 	@Autowired
 	private AuthorizedSessionService asService;

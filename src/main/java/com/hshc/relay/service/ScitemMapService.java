@@ -28,7 +28,7 @@ import java.util.Map;
  * @version v1.0 2017年5月17日15:52:08
  */
 @Service
-public class ScitemMapService extends BaseService<ScitemMapAddRequest> {
+public class ScitemMapService extends BaseService<ScitemMapAddRequest, ScitemMapAddRequest> {
 
     @Autowired
     private AuthorizedSessionService authorizedSessionService;

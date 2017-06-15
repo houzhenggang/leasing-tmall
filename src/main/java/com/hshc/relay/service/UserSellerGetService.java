@@ -10,10 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by wanghuaying on 2017/5/12.
+ * @version  2017年5月12日09:43:14
+ * @author  王华英
  */
 @Service
-public class UserSellerGetService extends BaseService<UserSellerGetResponse>{
+public class UserSellerGetService extends BaseService<UserSellerGetResponse, UserSellerGetResponse>{
 
     @Autowired
     private AuthorizedSessionService authorizedSessionService;

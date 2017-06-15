@@ -3,6 +3,10 @@
 
 <mapper namespace="com.hshc.relay.dao.CustomerDao">
 
+    <sql id="columns">
+        rc.name, rc.identity_no, rc.mobile, rc.uuid, rc.consignee_address, rc.create_time
+    </sql>
+
     <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.hshc.relay.entity.riskcontrol.Customer">
         insert into rc_customer(id, name, identity_no, mobile, uuid, consignee_address, item_id, create_time)
         values(#{id}, #{name}, #{identityNo}, #{mobile}, #{uuid}, #{addr}, #{itemId}, now())
@@ -30,10 +34,33 @@
         where rc.uuid = #{uuid}
     </select>
 
-    <!--<select id="selectCustomers" parameterType="com.hshc.relay.qo.riskcontrol.CustomerQo" resultType="">-->
-        <!--select-->
-        <!--from rc_customer rc-->
-        <!--left outer join-->
-    <!--</select>-->
+    <select id="selectList" parameterType="com.hshc.relay.dto.qo.CustomerQo" resultType="com.hshc.relay.entity.riskcontrol.Customer">
+        select <include refid="columns"/>, fps.item_name
+        from rc_customer rc
+        left outer join fenxiao_product_map fpm
+        on rc.item_id = fpm.ic_item_id
+        left outer join fenxiao_product_sc fps
+        on fpm.outer_code = fps.outer_code
+        <where>
+            <if test="name != null">
+                rc.name = #{name}
+            </if>
+            <if test="identityNo != null">
+                and rc.identity_no = #{identity_no}
+            </if>
+            <if test="mobile != null">
+                and rc.mobile = #{mobile}
+            </if>
+            <if test="createTimeFrom != null">
+                and rc.create_time >= #{createTimeFrom}
+            </if>
+            <if test="createTimeTo != null">
+                and rc.create_time &lt;= #{createTimeTo}
+            </if>
+            <if test="itemName != null">
+                and fps.item_name = #{itemName}
+            </if>
+        </where>
+    </select>
 
 </mapper>

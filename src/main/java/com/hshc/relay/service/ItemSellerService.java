@@ -23,7 +23,7 @@ import java.util.Map;
  * @version  v1.0 2017年5月17日16:12:04
  */
 @Service
-public class ItemSellerService extends BaseService<ItemSellerGetRequest> {
+public class ItemSellerService extends BaseService<ItemSellerGetRequest, ItemSellerGetRequest> {
 
     @Autowired
     private AuthorizedSessionService authorizedSessionService;

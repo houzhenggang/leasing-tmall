@@ -6,9 +6,10 @@ import com.taobao.api.response.TradeFullinfoGetResponse;
 import java.util.List;
 
 /**
- * Created by wanghuaying on 2017/5/16.
+ * @version  2017年5月16日09:43:14
+ * @author  王华英
  */
-public class TradeFullinfoGetResponseService extends BaseService<TradeFullinfoGetResponse> {
+public class TradeFullinfoGetResponseService extends BaseService<TradeFullinfoGetResponse, TradeFullinfoGetResponse> {
 
     @Override
     public int modify(TradeFullinfoGetResponse tradeFullinfoGetResponse) {

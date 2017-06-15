@@ -16,7 +16,7 @@ import com.taobao.api.response.TmallCarLeaseReserveResponse;
  *
  */
 @Service
-public class CarLeaseReserveService extends BaseService<TmallCarLeaseReserveResponse.Result>{
+public class CarLeaseReserveService extends BaseService<TmallCarLeaseReserveResponse.Result, TmallCarLeaseReserveResponse.Result>{
 
 	@Autowired
 	private AuthorizedSessionService asService;

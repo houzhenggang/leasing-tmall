@@ -3,9 +3,35 @@
 
 <mapper namespace="com.hshc.relay.dao.MessageDao">
 
+    <sql id="columns">
+        tm.id, tm.topic, tm.pub_app_key, tm.pub_time, tm.outgoing_time, tm.user_id, tm.user_nick, tm.content
+    </sql>
+
     <insert id="insert" parameterType="com.taobao.api.internal.tmc.Message">
         INSERT INTO taobao_message(id, topic, pub_app_key, pub_time, outgoing_time, user_id, user_nick, content, raw)
         VALUES (#{id}, #{topic}, #{pubAppKey}, #{pubTime}, #{outgoingTime}, #{userId}, #{userNick}, #{content}, #{raw, typeHandler=com.hshc.relay.dao.typehandler.MapHandler})
     </insert>
+
+    <select id="selectList" parameterType="com.hshc.relay.dto.qo.MessageQo" resultType="com.taobao.api.internal.tmc.Message">
+        select <include refid="columns"/>
+        from taobao_message tm
+        <where>
+            <if test="topic != null">
+                tm.topic = #{topic}
+            </if>
+            <if test="pubTimeFrom != null">
+                and tm.pub_time >= #{pubTimeFrom}
+            </if>
+            <if test="pubTimeTo != null">
+                and tm.pub_time &lt;= #{pubTimeTo}
+            </if>
+            <if test="outgoingTimeFrom != null">
+                and tm.outgoing_time >= #{outgoingTimeFrom}
+            </if>
+            <if test="outgoingTimeTo != null">
+                and tm.outgoing_time &lt;= #{outgoingTimeTo}
+            </if>
+        </where>
+    </select>
 
 </mapper>

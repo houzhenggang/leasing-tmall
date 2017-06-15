@@ -17,7 +17,7 @@ import com.taobao.api.response.TmallCarLeaseTailpaymentbackResponse.Result;
  * 2017年5月10日下午3:13:03
  */
 @Service
-public class CarLeaseTailpaymentbackService extends BaseService<TmallCarLeaseTailpaymentbackResponse.Result> {
+public class CarLeaseTailpaymentbackService extends BaseService<TmallCarLeaseTailpaymentbackResponse.Result, TmallCarLeaseTailpaymentbackResponse.Result> {
 
 	@Autowired
 	private AuthorizedSessionService asService;

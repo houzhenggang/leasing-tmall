@@ -11,7 +11,7 @@ import java.util.List;
  * @version V1.0 2017-05-01 15:35
  */
 @Service
-public class UserService extends BaseService<User> {
+public class UserService extends BaseService<User, User> {
 
     @Transactional(rollbackFor = Exception.class)
     public int batchAdd1(List<User> userList) throws Exception {

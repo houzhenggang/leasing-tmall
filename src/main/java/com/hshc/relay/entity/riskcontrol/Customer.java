@@ -23,6 +23,8 @@ public class Customer extends BaseEntity {
 
     private long itemId;
 
+    private String itemName;
+
     private Boolean pass;
 
     @JSONField(name = "reject_msg")
@@ -103,5 +105,13 @@ public class Customer extends BaseEntity {
 
     public void setItemId(long itemId) {
         this.itemId = itemId;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 }

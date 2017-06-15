@@ -26,7 +26,7 @@ import java.util.Map;
  * @author  王华英
  */
 @Service
-public class SynPlansService extends BaseService<TmallCarLeaseSynchronizeplansRequest>{
+public class SynPlansService extends BaseService<TmallCarLeaseSynchronizeplansRequest, TmallCarLeaseSynchronizeplansRequest>{
 
     @Autowired
     private AuthorizedSessionService authorizedSessionService;

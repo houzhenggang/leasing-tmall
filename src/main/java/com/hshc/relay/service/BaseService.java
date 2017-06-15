@@ -14,12 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Transactional(readOnly = true)
-public class BaseService<T>{
+public class BaseService<T, E>{
 
     protected static final Logger logger = LoggerFactory.getLogger(BaseService.class);
 
     @Autowired
-    protected BaseDao<T> baseDao;
+    protected BaseDao<T, E> baseDao;
 
     @Value("${top.appKey}")
     private String appKey;
@@ -58,13 +58,13 @@ public class BaseService<T>{
     private boolean initMessageService;
 
     @Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
-    public T getOne(T t){
-        return baseDao.selectOne(t);
+    public T getOne(E e){
+        return baseDao.selectOne(e);
     }
 
     @Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
-    public List<T> getList(T t){
-        return baseDao.selectList(t);
+    public List<T> getList(E e){
+        return baseDao.selectList(e);
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -89,7 +89,7 @@ public class BaseService<T>{
 
     @SuppressWarnings("unchecked")
     @Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
-    public Page<T> getPage(PageRequest<T> pageRequest){
+    public Page<E> getPage(PageRequest<E> pageRequest){
         PageInterceptor.init(pageRequest.getPageNum(), pageRequest.getPageSize());
         baseDao.selectList(pageRequest.getQueryObj());
         return PageInterceptor.getPage();

@@ -11,7 +11,7 @@ import java.util.Map;
  * @version  v 1.0 2017年5月16日16:01:14
  */
 @Repository
-public interface TmallCarLeaseSynchronizeplansRequestDao extends BaseDao<TmallCarLeaseSynchronizeplansRequest>{
+public interface TmallCarLeaseSynchronizeplansRequestDao extends BaseDao<TmallCarLeaseSynchronizeplansRequest, TmallCarLeaseSynchronizeplansRequest>{
 
     int updateSendStatu (Map<String,String> param);
 

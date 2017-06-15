@@ -5,17 +5,17 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface BaseDao<T>
+public interface BaseDao<T, E>
 {
-    T selectOne(T t);
+    T selectOne(E e);
 
-    List<T> selectList(T t);
+    List<T> selectList(E e);
 
-    List<T> selectList(int rnFrom, int size, T t);
+    List<T> selectList(int rnFrom, int size, E e);
 
-    int count(T t);
+    int count(E e);
 
-    int insert(T t);
+    int insert(T e);
 
     int batchInsert(List<T> tList);
 

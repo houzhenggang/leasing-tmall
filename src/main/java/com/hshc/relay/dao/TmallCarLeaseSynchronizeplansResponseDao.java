@@ -4,9 +4,10 @@ import com.taobao.api.response.TmallCarLeaseSynchronizeplansResponse;
 import org.springframework.stereotype.Repository;
 
 /**
- * Created by wanghuaying on 2017/5/10.
+ * @author 王华英
+ * @version V1.0 2017-05-10 16:57
  */
 @Repository
-public interface TmallCarLeaseSynchronizeplansResponseDao extends BaseDao<TmallCarLeaseSynchronizeplansResponse> {
+public interface TmallCarLeaseSynchronizeplansResponseDao extends BaseDao<TmallCarLeaseSynchronizeplansResponse, TmallCarLeaseSynchronizeplansResponse> {
 
 }

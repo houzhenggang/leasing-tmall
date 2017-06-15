@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
  * @version V1.0 2017-05-06 16:34
  */
 @Repository
-public interface AuthorizedSessionDao extends BaseDao<AuthorizedSession> {
+public interface AuthorizedSessionDao extends BaseDao<AuthorizedSession, AuthorizedSession> {
 
 
 }

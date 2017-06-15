@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
  * @version V1.0 2017-05-01 15:41
  */
 @Repository
-public interface UserDao extends BaseDao<User>{
+public interface UserDao extends BaseDao<User, User>{
 }

@@ -42,10 +42,4 @@ define(['app', 'require'], function(app, require){
 
         //$routeProvider.otherwise({redirectTo: 'index.html'})
     }])
-    .controller("navController" , ['$scope', 'menuProvider', function($scope, menuProvider){
-        $scope.navCollapsed = true;
-        $scope.menuCollapsed = false;
-        $scope.menus = menuProvider.getMenus();
-
-    }])
 });

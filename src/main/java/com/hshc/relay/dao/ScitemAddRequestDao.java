@@ -11,7 +11,7 @@ import java.util.Map;
  * @author  王华英
  */
 @Repository
-public interface ScitemAddRequestDao extends BaseDao<ScitemAddRequest> {
+public interface ScitemAddRequestDao extends BaseDao<ScitemAddRequest, ScitemAddRequest> {
     int updateSendStatu(Map<String,String> param);
 
 }

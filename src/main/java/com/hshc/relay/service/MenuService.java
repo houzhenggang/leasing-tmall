@@ -8,5 +8,5 @@ import org.springframework.stereotype.Service;
  * @version V1.0 2017-06-08 15:49
  */
 @Service
-public class MenuService extends BaseService<Menu> {
+public class MenuService extends BaseService<Menu, Menu> {
 }

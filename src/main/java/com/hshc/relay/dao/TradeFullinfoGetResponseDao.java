@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
  * @version V1.0 2017-05-09 15:53
  */
 @Repository
-public interface TradeFullinfoGetResponseDao extends BaseDao<TradeFullinfoGetResponse> {
+public interface TradeFullinfoGetResponseDao extends BaseDao<TradeFullinfoGetResponse, TradeFullinfoGetResponse> {
 
 }

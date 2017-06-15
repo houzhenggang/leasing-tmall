@@ -31,7 +31,7 @@ import com.taobao.api.response.TradeFullinfoGetResponse;
  * 2017年5月11日上午10:55:52
  */
 @Service
-public class TradeFullinfoGetService extends BaseService<TradeFullinfoGetResponse>{
+public class TradeFullinfoGetService extends BaseService<TradeFullinfoGetResponse, TradeFullinfoGetResponse>{
 
 	@Autowired
 	private AuthorizedSessionService asService;

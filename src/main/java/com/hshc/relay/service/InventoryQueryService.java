@@ -15,7 +15,7 @@ import com.taobao.api.response.InventoryQueryResponse;
  *
  */
 @Service
-public class InventoryQueryService extends BaseService<InventoryQueryRequest> {
+public class InventoryQueryService extends BaseService<InventoryQueryRequest, InventoryQueryRequest> {
 
 	@Autowired
 	private AuthorizedSessionService authorizedSessionService;

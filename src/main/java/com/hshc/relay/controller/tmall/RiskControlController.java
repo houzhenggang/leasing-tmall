@@ -3,6 +3,7 @@ package com.hshc.relay.controller.tmall;
 import com.hshc.relay.annotation.QimenSignAuthentication;
 import com.hshc.relay.controller.BaseController;
 import com.hshc.relay.dto.PageRequest;
+import com.hshc.relay.dto.qo.CustomerQo;
 import com.hshc.relay.entity.riskcontrol.Customer;
 import com.hshc.relay.service.RiskControlService;
 import com.hshc.relay.vo.BaseResponseVo;
@@ -41,7 +42,7 @@ public class RiskControlController extends BaseController {
     }
 
     @RequestMapping(value = "/customers")
-    public PageVo getCustomers(@RequestBody PageRequest<Customer> pageRequest){
+    public PageVo getCustomers(@RequestBody PageRequest<CustomerQo> pageRequest){
         return PageVo.success(riskControlService.getPage(pageRequest));
     }
 

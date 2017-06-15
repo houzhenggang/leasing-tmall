@@ -19,7 +19,7 @@ import com.taobao.api.response.LocationRelationEditResponse;
 import com.taobao.api.response.LocationRelationQueryResponse;
 
 @Service
-public class LocationRelationEditService extends BaseService<LocationRelationEditRequest>{
+public class LocationRelationEditService extends BaseService<LocationRelationEditRequest, LocationRelationEditRequest>{
 
 	@Autowired
     private AuthorizedSessionService asService;

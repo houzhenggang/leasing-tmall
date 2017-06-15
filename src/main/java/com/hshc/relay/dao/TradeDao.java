@@ -12,7 +12,7 @@ import java.util.Map;
  * 2017年5月11日下午2:18:45
  */
 @Repository
-public interface TradeDao extends BaseDao<Trade>{
+public interface TradeDao extends BaseDao<Trade, Trade>{
 
 	int selectInt(Long tid);
 

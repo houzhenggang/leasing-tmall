@@ -18,7 +18,7 @@ import com.taobao.api.response.InventoryStoreManageResponse;
  *
  */
 @Service
-public class StoreManageService extends BaseService<Store>{
+public class StoreManageService extends BaseService<Store, Store>{
 
 	@Autowired
 	private AuthorizedSessionService asService;

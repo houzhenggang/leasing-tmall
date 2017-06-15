@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 2017年5月10日上午10:14:03
  */
 @Service
-public class CarLeaseConsumeService extends BaseService<TmallCarLeaseConsumeResponse.Result> {
+public class CarLeaseConsumeService extends BaseService<TmallCarLeaseConsumeResponse.Result, TmallCarLeaseConsumeResponse.Result> {
 
 	@Autowired
 	private AuthorizedSessionService asService;

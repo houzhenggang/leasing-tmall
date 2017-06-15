@@ -1,40 +1,45 @@
-<div class="container-fluid" ng-controller="customerController">
+<div class="container-fluid" ng-controller="messageController">
     <div class="row">
         <h4>查询条件</h4>
         <div class="form-group">
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                 <!--<label for="queryName">姓名</label>-->
-                <input id="queryName" class="form-control" type="text" ng-model="queryObj.name" placeholder="客户姓名"/>
+                <input id="queryName" class="form-control" type="text" ng-model="queryObj.topic" placeholder="主题"/>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                 <p class="input-group">
                     <!--<label for="queryCreateTime">创建时间</label>-->
-                    <input id="queryCreateTimeFrom" type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="queryObj.createTimeFrom"
-                           is-open="createTimeFrom.opened" datepicker-options="dateOptions" ng-required="true" clear-text="清除" current-text="今天"
-                           close-text="关闭" alt-input-formats="altInputFormats" placeholder="创建时间始于"/>
+                    <input id="queryOutgoingTimeFrom" type="text" class="form-control" ng-model="queryObj.outgoingTimeFrom" uib-datepicker-popup="yyyy-MM-dd HH:mm:ss"
+                           is-open="dateTimePicker.outgoingTimeFrom.opened" datepicker-options="dateOptions" ng-required="true" clear-text="清除" current-text="今天"
+                           close-text="关闭" placeholder="创建时间始于" alt-input-formats="['yyyy-MM-dd HH:mm:ss']"/>
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="openCreateTime()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="dateTimePicker.outgoingTimeFrom.open()"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </p>
                 -
                 <p class="input-group">
                     <!--<label for="queryCreateTime">创建时间</label>-->
-                    <input id="queryCreateTimeTo" type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="queryObj.createTimeTo"
-                           is-open="createTimeTo.opened" datepicker-options="dateOptions" ng-required="true" clear-text="清除" current-text="今天"
-                           close-text="关闭" alt-input-formats="altInputFormats" placeholder="创建时间止于"/>
+                    <input id="queryOutgoingTimeTo" type="text" class="form-control" ng-model="queryObj.outgoingTimeTo" uib-datepicker-popup="yyyy-MM-dd HH:mm:ss"
+                           is-open="dateTimePicker.outgoingTimeFrom.opened" datepicker-options="dateOptions" ng-required="true" clear-text="清除" current-text="今天"
+                           close-text="关闭" placeholder="创建时间始于" alt-input-formats="['yyyy-MM-dd HH:mm:ss']"/>
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="openCreateTime()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="dateTimePicker.outgoingTimeTo.open()"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </p>
             </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <!--<select></select>-->
+            </div>
         </div>
         <div class="form-group">
-            <div class="col-xs-6 cl-sm-4 col-md-2 col-lg-2 col-xs-offset-6 col-sm-offset-8 col-md-offset-10 col-lg-offset-10">
-                <button class="btn btn-primary btn-large" ng-click="getPage()">查询</button>
+            <div class="col-xs-6 cl-sm-4 col-md-1 col-lg-1 col-xs-offset-6 col-sm-offset-8 col-md-offset-11 col-lg-offset-11">
+                <button class="btn btn-primary" ng-click="getPage()">查询</button>
             </div>
         </div>
     </div>
-    <div class="row grid" ui-grid="gridOptions" ui-grid-pagination ui-grid-selection ui-grid-exporter></div>
+    <div class="row">
+    </div>
+    <div class="row grid" ui-grid="gridOptions" ui-grid-pagination ui-grid-selection ui-grid-exporter ui-grid-resize-columns ui-grid-auto-resize></div>
     <script type="text/ng-template" id="myModalContent.html">
         <div class="modal-header">
             <h3 class="modal-title" id="modal-title">{{modalOp.title}}</h3>

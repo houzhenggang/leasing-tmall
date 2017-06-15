@@ -2,9 +2,12 @@ define(['app'], function(app){
     return function($scope, $http, i18nService){
         i18nService.setCurrentLang("zh-cn");
 
-        $scope.queryCustomer = {};
+        $scope.queryObj = {};
 
-        $scope.createTime = {
+        $scope.createTimeFrom = {
+            opened: false
+        };
+        $scope.createTimeTo = {
             opened: false
         };
 
@@ -13,13 +16,17 @@ define(['app'], function(app){
         };
 
         var paginationOptions = {
-            queryObject: $scope.queryCustomer,
+            queryObj: $scope.queryObj,
             pageNum: 1,
             pageSize: 20
         };
 
-        $scope.openCreateTime = function(){
-            $scope.createTime.opened = true;
+        $scope.openCreateTimeFrom = function(){
+            $scope.createTimeFrom.opened = true;
+        };
+
+        $scope.openCreateTimeTo = function(){
+            $scope.createTimeTo.opened = true;
         };
 
         $scope.gridOptions = {
@@ -28,6 +35,7 @@ define(['app'], function(app){
             useExternalPagination: true,
             //useExternalSorting: true,
             enableGridMenu: true,
+            //enableFiltering: true,
             //enableSorting: true,
             columnDefs:[
                 {field:'uuid', visible:false},
@@ -35,7 +43,7 @@ define(['app'], function(app){
                 {name:'身份证号', field:'identityNo'},
                 {name:'手机号', field:'mobile'},
                 {name:'创建时间', field:'createTime'},
-                {name:'商品名称', field:'itemId'}
+                {name:'商品名称', field:'itemName'}
             ],
             onRegisterApi: function(gridApi) {
                 $scope.gridApi = gridApi;
@@ -47,16 +55,16 @@ define(['app'], function(app){
                 //    }
                 //    getPage();
                 //});
-                //gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
-                //    paginationOptions.pageNumber = newPage;
-                //    paginationOptions.pageSize = pageSize;
-                //    $scope.getPage();
-                //});
+                gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
+                    paginationOptions.pageNum = newPage;
+                    paginationOptions.pageSize = pageSize;
+                    $scope.getPage();
+                });
             }
         };
 
         $scope.getPage = function(){
-            $http.post("/customers", paginationOptions)
+            $http.post("/risk-control/customers", paginationOptions)
                 .success(function(resp){
                     if(resp.success){
                         $scope.gridOptions.totalItems = resp.page.totalRecords;
