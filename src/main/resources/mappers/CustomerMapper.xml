@@ -43,13 +43,13 @@
         on fpm.outer_code = fps.outer_code
         <where>
             <if test="name != null">
-                rc.name = #{name}
+                rc.name like "%"#{name}"%"
             </if>
             <if test="identityNo != null">
-                and rc.identity_no = #{identity_no}
+                and rc.identity_no like "%"#{identityNo}"%"
             </if>
             <if test="mobile != null">
-                and rc.mobile = #{mobile}
+                and rc.mobile like "%"#{mobile}"%"
             </if>
             <if test="createTimeFrom != null">
                 and rc.create_time >= #{createTimeFrom}
@@ -58,7 +58,7 @@
                 and rc.create_time &lt;= #{createTimeTo}
             </if>
             <if test="itemName != null">
-                and fps.item_name = #{itemName}
+                and fps.item_name like "%"#{itemName}"%"
             </if>
         </where>
     </select>

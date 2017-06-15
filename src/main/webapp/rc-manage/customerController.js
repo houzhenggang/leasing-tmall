@@ -43,8 +43,31 @@ define(['app'], function(app){
                 {name:'身份证号', field:'identityNo'},
                 {name:'手机号', field:'mobile'},
                 {name:'创建时间', field:'createTime'},
-                {name:'商品名称', field:'itemName'}
+                {name:'车型', field:'itemName'}
             ],
+            exporterFieldCallback: function(grid, row, col, input) {
+                if( col.name == '身份证号' ){
+                    return '\'' + input;
+                } else {
+                    return input;
+                }
+            },
+            exporterAllDataFn: function() {
+                paginationOptions.pageNum = 1;
+                if(!$scope.gridOptions.totalItems){
+                    alert("请先查询！");
+                    throw "";
+                }
+
+                paginationOptions.pageSize = $scope.gridOptions.totalItems;
+
+                return $scope.getPage();
+                //.then(function() {
+                //    $scope.gridOptions.useExternalPagination = false;
+                //    $scope.gridOptions.useExternalSorting = false;
+                //    getPage = null;
+                //});
+            },
             onRegisterApi: function(gridApi) {
                 $scope.gridApi = gridApi;
                 //$scope.gridApi.core.on.sortChanged($scope, function(grid, sortColumns) {

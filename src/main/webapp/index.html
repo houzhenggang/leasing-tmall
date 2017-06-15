@@ -19,14 +19,14 @@
     <div class="{{login ? 'animated slideOutUp' : ''}} top">
         <div id="mainWrap">
             <div id="loggit">
-                <h2><i class="fa fa-lock"></i>花生好车天猫后台</h2>
+                <h2><i class="fa fa-taxi"></i>花生好车天猫后台</h2>
                 <h3>&nbsp;</h3>
 
                 <form action="/" id="logForm" method="post" class="form-horizontal">
                     <div class="form-group">
                         <div class="col-xs-12">
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></span>
+                                <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
                                 <input type="text" id='username' class="form-control input-lg" ng-model="user.name" placeholder="用户名" autocomplete="off">
                             </div>
                         </div>
@@ -112,6 +112,15 @@
             </div>
         </div>
     </div>
-
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">{{modal.title}}</h3>
+        </div>
+        <div class="modal-body" id="modal-body">{{modal.content}}</div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="modal.ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="modal.cancel()">Cancel</button>
+        </div>
+    </script>
 </body>
 </html>

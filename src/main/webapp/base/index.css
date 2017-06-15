@@ -16,10 +16,14 @@ html, body{
 	position:absolute;
 	z-index: 2000;
 }
-
-.ui-grid {
+.query {
+	height:30%;
+}
+.grid {
 	margin-top:10px;
-	height:100%;
+	height:70%;
+	position:fixed;
+	width:80%;
 }
 
 #mainWrap {
@@ -166,6 +170,7 @@ footer p {
 /* Move down content because we have a fixed navbar that is 50px tall */
 .login {
 	padding-top: 50px;
+	/*height:100%;*/
 }
 
 
@@ -193,7 +198,7 @@ footer p {
 /* Hide for mobile, show later */
 .sidebar {
 	display: none;
-	height:100%;
+	height:90%;
 }
 
 @media (min-width: 768px) {
@@ -237,6 +242,7 @@ footer p {
 
 .main {
 	padding: 20px;
+	height:100%;
 }
 @media (min-width: 768px) {
 	.main {
